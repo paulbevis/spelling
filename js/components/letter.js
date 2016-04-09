@@ -15,7 +15,13 @@
  */
 import React, { Component, PropTypes } from 'react'
 
-class Spelling extends Component{
+class Letter extends Component{
 
-
+     render(){
+       return (
+         <div>{this.props.name}</div>
+       )
+     }
 }
+export default Letter;
+

@@ -13,9 +13,26 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
-import React, { Component, PropTypes } from 'react'
+import React, {Component, PropTypes} from 'react'
+import Letter from '../components/letter'
 
-class Spelling extends Component{
+export default class Letters extends Component {
 
+  lettersInRange(start) {
+    return this.props.letters.slice(start, start+13).map( (letter, index)=> <Letter key={index} {...letter}/>);
+  }
 
+  // 2 rows of 12 letter components
+  render() {
+    return (
+      <div>
+        <div className="top-letter-row">
+          {this.lettersInRange(0)}
+        </div>
+        <div className="bottom-letter-row">
+          {this.lettersInRange(13)}
+        </div>
+      </div>
+    )
+  }
 }
