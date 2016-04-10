@@ -14,27 +14,24 @@
  limitations under the License.
  */
 import React, {Component, PropTypes} from 'react'
-import Letter from '../components/letter'
 
-export default class Letters extends Component {
+export default class FoundWord extends Component {
 
-  lettersInRange(start) {
-    return this.props.letters.slice(start, start + 13).map((letter, index)=> <Letter key={index} {...letter}/>);
-  }
-
-  // 2 rows of 12 letter components
   render() {
-    const myStyle = {display: 'flex', flexDirection: 'row', flexWrap: 'wrap'};
-
+    const myStyle = {
+      padding: '4px 20px',
+      margin: '5px',
+      fontSize: '26px',
+      lineHeight: '26px',
+      border: '1px dashed #0cc3ff',
+      borderRadius: '3px',
+      cursor:'pointer',
+      color:'#0cc3ff'
+    };
     return (
-      <div>
-        <div style={myStyle} className="top-letter-row">
-          {this.lettersInRange(0)}
-        </div>
-        <div style={myStyle} className="bottom-letter-row">
-          {this.lettersInRange(13)}
-        </div>
-      </div>
+
+      <div style={myStyle}>{this.props.word.name}</div>
     )
   }
 }
+

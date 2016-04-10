@@ -14,17 +14,19 @@
  limitations under the License.
  */
 import React, {Component, PropTypes} from 'react'
-import Letters from './letters'
+import Letters from '../components/letters'
+import PlayingArea from '../components/playing-area'
 import {connect} from 'react-redux'
 
 class Spelling extends Component {
 
   render() {
-    const {dispatch, letters} = this.props;
+    const {dispatch, letters, foundWords} = this.props;
+    const myStyle = {display: 'flex', flexDirection: 'column', height: '100%'};
 
     return (
-      <div>
-
+      <div style={myStyle} className="spelling">
+        <PlayingArea foundWords={foundWords}/>
         <Letters key="letters" letters={letters}/>
 
       </div>
@@ -35,7 +37,9 @@ class Spelling extends Component {
 
 function select(state) {
   return {
-    letters: state.letters
+    letters: state.letters,
+    foundWords: state.foundWords
+
   };
 }
 

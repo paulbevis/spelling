@@ -14,25 +14,32 @@
  limitations under the License.
  */
 import React, {Component, PropTypes} from 'react'
+import FoundWord from './found-word'
 
-class Letter extends Component {
+export default class FoundWords extends Component {
 
   render() {
-    const myStyle = {
+    const myStyle = {display: 'flex', flexDirection: 'column', flexWrap: 'nowrap', alignContent: 'space-around'};
+
+    const startButtonStyle = {
+      display: 'inline-block',
       padding: '4px 20px',
       margin: '5px',
       fontSize: '26px',
       lineHeight: '26px',
       background: '#0cc3ff',
       borderRadius: '3px',
-      cursor:'pointer',
-      color:'#333'
+      cursor: 'pointer',
+      color: '#333'
     };
     return (
-
-      <div style={myStyle}>{this.props.name}</div>
+      <div className="found-words" style={myStyle}>
+        {
+          this.props.foundWords.map((word, index)=> {
+            return <FoundWord key={'word'+index} word={word}/>
+          })
+        }
+      </div>
     )
   }
 }
-export default Letter;
-

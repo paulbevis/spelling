@@ -22,8 +22,15 @@ function buildLetters() {
     }
   )
 }
+function buildFoundWords() {
+  var words = [];
+  for (var i = 0; i < 10; i++) {
+    words.push({name: '---'});
+  }
+  return words;
+}
 
-export function letters(state = '', action) {
+function letters(state = {}, action) {
   switch (action.type) {
     // case GAME_SELECT:
     //   return {'description': '(List ' + action.listNumber + ')', 'number': action.listNumber};
@@ -32,8 +39,18 @@ export function letters(state = '', action) {
   }
 }
 
+function foundWords(state = {}, action) {
+  switch (action.type) {
+    // case GAME_SELECT:
+    //   return {'description': '(List ' + action.listNumber + ')', 'number': action.listNumber};
+    default:
+      return buildFoundWords();
+  }
+}
+
 const spellingAppReducers = combineReducers({
-  letters
+  letters,
+  foundWords
 });
 
 export default spellingAppReducers

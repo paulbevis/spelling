@@ -1,0 +1,13 @@
+body{
+    background: #E0F8F1;
+    font-family: monospace;
+}
+#framework {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
