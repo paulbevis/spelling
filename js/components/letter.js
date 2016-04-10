@@ -19,7 +19,7 @@ class Letter extends Component{
 
      render(){
        return (
-         <div>{this.props.name}</div>
+         <button>{this.props.name}</button>
        )
      }
 }
