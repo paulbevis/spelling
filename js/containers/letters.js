@@ -19,17 +19,19 @@ import Letter from '../components/letter'
 export default class Letters extends Component {
 
   lettersInRange(start) {
-    return this.props.letters.slice(start, start+13).map( (letter, index)=> <Letter key={index} {...letter}/>);
+    return this.props.letters.slice(start, start + 13).map((letter, index)=> <Letter key={index} {...letter}/>);
   }
 
   // 2 rows of 12 letter components
   render() {
+    const myStyle = {display: 'flex', flexDirection: 'row', flexWrap: 'wrap'};
+
     return (
       <div>
-        <div className="top-letter-row">
+        <div style={myStyle} className="top-letter-row">
           {this.lettersInRange(0)}
         </div>
-        <div className="bottom-letter-row">
+        <div style={myStyle} className="bottom-letter-row">
           {this.lettersInRange(13)}
         </div>
       </div>
