@@ -14,9 +14,12 @@
  limitations under the License.
  */
 import {combineReducers} from 'redux'
+import {GAME_LETTERS, START_LETTERS, START_FOUND_LETTERS} from '../constants/data'
+import {GAME_START} from '../constants/action-types'
+import {GAMES} from '../constants/data'
 
-function buildLetters() {
-  var alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
+function buildLetters(letters) {
+  var alphabet = letters.split("");
   return alphabet.map((letter) => {
       return {name: letter}
     }
@@ -32,25 +35,36 @@ function buildFoundWords() {
 
 function letters(state = {}, action) {
   switch (action.type) {
-    // case GAME_SELECT:
-    //   return {'description': '(List ' + action.listNumber + ')', 'number': action.listNumber};
+    case GAME_START:
+      return buildLetters(GAME_LETTERS);
     default:
-      return buildLetters();
+      return buildLetters(START_LETTERS);
+  }
+}
+function defaultData() {
+  return {
+    foundLetters: START_FOUND_LETTERS,
+    foundWords: buildFoundWords(),
+    words: [],
+    wordMessages: []
   }
 }
 
-function foundWords(state = {}, action) {
+function game(state = defaultData(), action) {
   switch (action.type) {
-    // case GAME_SELECT:
-    //   return {'description': '(List ' + action.listNumber + ')', 'number': action.listNumber};
+    case GAME_START:
+      let game = GAMES[1];
+      game.foundLetters = START_FOUND_LETTERS;
+      game.foundWords = buildFoundWords();
+      return game;
     default:
-      return buildFoundWords();
+      return state;
   }
 }
 
 const spellingAppReducers = combineReducers({
   letters,
-  foundWords
+  game
 });
 
 export default spellingAppReducers

@@ -17,18 +17,18 @@ import React, {Component, PropTypes} from 'react'
 import Letters from '../components/letters'
 import PlayingArea from '../components/playing-area'
 import {connect} from 'react-redux'
+import {startGameAction} from '../actions/spelling'
 
 class Spelling extends Component {
 
   render() {
-    const {dispatch, letters, foundWords} = this.props;
+    const {dispatch, letters, game} = this.props;
     const myStyle = {display: 'flex', flexDirection: 'column', height: '100%'};
 
     return (
       <div style={myStyle} className="spelling">
-        <PlayingArea foundWords={foundWords}/>
+        <PlayingArea game={game} onStartGame={()=>dispatch(startGameAction())}/>
         <Letters key="letters" letters={letters}/>
-
       </div>
     )
   }
@@ -38,7 +38,7 @@ class Spelling extends Component {
 function select(state) {
   return {
     letters: state.letters,
-    foundWords: state.foundWords
+    game: state.game
 
   };
 }
