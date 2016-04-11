@@ -4,8 +4,8 @@ Spelling game aimed primarily at year one students.
 The children will be asked to spell different words, and they will click on different letters to make the words, 
 and the application will indicate whether they have been successful or not.  The game will end after 10 attempts to spell random words.
 
-### Technolohgy
-This is a javascript app, created using react and redux.
+### Technology
+This is a javascript app, created using react and redux. Using Flex as the layout framework of choice.
 
 ###License Apache
 
