@@ -25,7 +25,7 @@ export default class FoundWords extends Component {
       display: 'inline-block',
       padding: '4px 20px',
       margin: '5px',
-      fontSize: '26px',
+      fontSize: '24px',
       lineHeight: '26px',
       background: '#0cc3ff',
       borderRadius: '3px',

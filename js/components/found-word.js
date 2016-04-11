@@ -21,7 +21,7 @@ export default class FoundWord extends Component {
     const myStyle = {
       padding: '4px 20px',
       margin: '5px',
-      fontSize: '26px',
+      fontSize: '24px',
       lineHeight: '26px',
       border: '1px dashed #0cc3ff',
       borderRadius: '3px',

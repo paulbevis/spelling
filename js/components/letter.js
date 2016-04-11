@@ -15,13 +15,13 @@
  */
 import React, {Component, PropTypes} from 'react'
 
-class Letter extends Component {
+export default class Letter extends Component {
 
   render() {
     const myStyle = {
       padding: '4px 20px',
       margin: '5px',
-      fontSize: '26px',
+      fontSize: '24px',
       lineHeight: '26px',
       background: '#0cc3ff',
       borderRadius: '3px',
@@ -34,5 +34,3 @@ class Letter extends Component {
     )
   }
 }
-export default Letter;
-
