@@ -38,7 +38,6 @@ export default class PlayArea extends Component {
       <div style={{display:'flex',flexDirection:'column', height:'100%'}}>
         <div className='button-controls' style={{marginTop:'10px'}}>
           <RaisedButton label="Start" secondary={true} onClick={this.props.onStartGame}/>
-
         </div>
         <div style={{display:'flex', flexGrow:'1'}}>
           <SubmittedWord foundLetters={this.props.game.foundLetters}/>

@@ -13,11 +13,17 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
-import {GAME_START} from '../constants/action-types'
+import {GAME_START,FINISHED_PLAYING_SOUND} from '../constants/action-types'
 
 export function startGameAction() {
   return {
     type: GAME_START
+  }
+}
+export function finishedPlayingSoundAction(value) {
+  return {
+    type: FINISHED_PLAYING_SOUND,
+    value
   }
 }
 

@@ -15,7 +15,7 @@
  */
 import {combineReducers} from 'redux'
 import {GAME_LETTERS, START_LETTERS, START_FOUND_LETTERS} from '../constants/data'
-import {GAME_START} from '../constants/action-types'
+import {GAME_START, FINISHED_PLAYING_SOUND} from '../constants/action-types'
 import {GAMES} from '../constants/data'
 
 function buildLetters(letters) {
@@ -36,7 +36,9 @@ function buildFoundWords() {
 function letters(state = {}, action) {
   switch (action.type) {
     case GAME_START:
+    case FINISHED_PLAYING_SOUND:
       return buildLetters(GAME_LETTERS);
+
     default:
       return buildLetters(START_LETTERS);
   }
@@ -46,17 +48,34 @@ function defaultData() {
     foundLetters: START_FOUND_LETTERS,
     foundWords: buildFoundWords(),
     words: [],
-    wordMessages: []
+    wordMessages: [],
+    sound: {}
   }
 }
 
 function game(state = defaultData(), action) {
+  let game = GAMES[0];
+  game.foundLetters = START_FOUND_LETTERS;
+  game.foundWords = buildFoundWords();
+
   switch (action.type) {
     case GAME_START:
-      let game = GAMES[1];
-      game.foundLetters = START_FOUND_LETTERS;
-      game.foundWords = buildFoundWords();
+      game.sound = {audio: 'audio/start.mp3', task: 'start'};
+      game.status = 'Intro';
       return game;
+
+    case FINISHED_PLAYING_SOUND:
+      game.currentWord = 0;
+      if (game.status === 'Intro') {
+        game.sound = {audio: GAMES[0].audio[0], task: 'word'};
+        game.status = 'Playing';
+        return game;
+      } else {
+        game.sound = {audio: GAMES[0].audio[0], task: 'word'};
+        game.status = 'Waiting';
+        return game;
+      }
+
     default:
       return state;
   }
