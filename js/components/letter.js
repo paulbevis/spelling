@@ -30,7 +30,7 @@ export default class Letter extends Component {
     };
     return (
 
-      <div style={myStyle}>{this.props.name}</div>
+      <div style={myStyle} onClick={(e)=>this.props.onLetterClicked(this.props.name)}>{this.props.name}</div>
     )
   }
 }

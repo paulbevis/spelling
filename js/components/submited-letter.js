@@ -19,7 +19,7 @@ export default class SubmittedLetter extends Component {
 
   render() {
     return (
-      <div style={{flexBasis:'auto',padding:'22px 35px', borderRadius:'10px', border:'1px dashed #333', margin: '0 5px'}}>{this.props.letter}</div>
+      <div style={{color: '#0cc3ff', flexBasis:'auto',padding:'22px 35px', borderRadius:'10px', border:'1px dashed #0cc3ff', margin: '0 5px'}}>{this.props.letter}</div>
     )
   }
 }

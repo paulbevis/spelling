@@ -13,7 +13,7 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
-import {GAME_START,FINISHED_PLAYING_SOUND} from '../constants/action-types'
+import {GAME_START,FINISHED_PLAYING_SOUND, LETTER_CLICKED} from '../constants/action-types'
 
 export function startGameAction() {
   return {
@@ -23,6 +23,12 @@ export function startGameAction() {
 export function finishedPlayingSoundAction(value) {
   return {
     type: FINISHED_PLAYING_SOUND,
+    value
+  }
+}
+export function letterClickedAction(value) {
+  return {
+    type: LETTER_CLICKED,
     value
   }
 }

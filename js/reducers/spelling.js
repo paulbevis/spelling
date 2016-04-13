@@ -15,7 +15,7 @@
  */
 import {combineReducers} from 'redux'
 import {GAME_LETTERS, START_LETTERS, START_FOUND_LETTERS} from '../constants/data'
-import {GAME_START, FINISHED_PLAYING_SOUND} from '../constants/action-types'
+import {GAME_START, FINISHED_PLAYING_SOUND, LETTER_CLICKED} from '../constants/action-types'
 import {GAMES} from '../constants/data'
 
 function buildLetters(letters) {
@@ -37,6 +37,7 @@ function letters(state = {}, action) {
   switch (action.type) {
     case GAME_START:
     case FINISHED_PLAYING_SOUND:
+    case LETTER_CLICKED:
       return buildLetters(GAME_LETTERS);
 
     default:
@@ -55,18 +56,19 @@ function defaultData() {
 
 function game(state = defaultData(), action) {
   let game = GAMES[0];
-  game.foundLetters = START_FOUND_LETTERS;
   game.foundWords = buildFoundWords();
 
   switch (action.type) {
     case GAME_START:
+      game.foundLetters = START_FOUND_LETTERS;
       game.sound = {audio: 'audio/start.mp3', task: 'start'};
       game.status = 'Intro';
       return game;
 
     case FINISHED_PLAYING_SOUND:
+      game.foundLetters = START_FOUND_LETTERS;
       game.currentWord = 0;
-      if (game.status === 'Intro') {
+      if (state.status === 'Intro') {
         game.sound = {audio: GAMES[0].audio[0], task: 'word'};
         game.status = 'Playing';
         return game;
@@ -75,6 +77,22 @@ function game(state = defaultData(), action) {
         game.status = 'Waiting';
         return game;
       }
+
+    case LETTER_CLICKED:
+      game.foundLetters = Object.assign([], state.foundLetters);
+      if (state.foundLetters[0] === '-') {
+        game.foundLetters[0] = action.value;
+      } else {
+        if (state.foundLetters[1] === '-') {
+          game.foundLetters[1] = action.value;
+        } else {
+          if (state.foundLetters[2] === '-') {
+            game.foundLetters[2] = action.value;
+          }
+        }
+      }
+      return game;
+
 
     default:
       return state;
