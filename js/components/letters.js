@@ -33,6 +33,7 @@ export default class Letters extends Component {
           <div style={myStyle} className="top-letter-row">
             {this.lettersInRange(0)}
           </div>
+
           <div style={myStyle} className="bottom-letter-row">
             {this.lettersInRange(13)}
           </div>
