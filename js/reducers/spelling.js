@@ -50,22 +50,24 @@ function defaultData() {
     foundWords: buildFoundWords(),
     words: [],
     wordMessages: [],
-    sound: {}
+    sound: {},
+    wordMatched: ''
   }
 }
 
 function game(state = defaultData(), action) {
   let game = GAMES[0];
-  game.foundWords = buildFoundWords();
 
   switch (action.type) {
     case GAME_START:
+      game.foundWords = buildFoundWords();
       game.foundLetters = START_FOUND_LETTERS;
       game.sound = {audio: 'audio/start.mp3', task: 'start'};
       game.status = 'Intro';
       return game;
 
     case FINISHED_PLAYING_SOUND:
+      game.foundWords=state.foundWords;
       game.foundLetters = START_FOUND_LETTERS;
       game.currentWord = 0;
       if (state.status === 'Intro') {
@@ -79,6 +81,7 @@ function game(state = defaultData(), action) {
       }
 
     case LETTER_CLICKED:
+      game.wordMatched = '';
       game.foundLetters = Object.assign([], state.foundLetters);
       if (state.foundLetters[0] === '-') {
         game.foundLetters[0] = action.value;
@@ -88,6 +91,18 @@ function game(state = defaultData(), action) {
         } else {
           if (state.foundLetters[2] === '-') {
             game.foundLetters[2] = action.value;
+            var submittedWord = game.foundLetters.join('');
+            game.foundWords[0]={'name':submittedWord,icon:'check_cirle'};
+            if (submittedWord === GAMES[0].words[0]) {
+              game.wordMatched = 'Yes';
+              game.sound = {audio: 'audio/success.mp3', task: 'matching'};
+              game.status = 'Playing';
+            } else {
+              game.sound = {audio: 'audio/warning.mp3', task: 'matching'};
+              game.wordMatched = 'No';
+              game.status = 'Playing';
+
+            }
           }
         }
       }
