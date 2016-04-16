@@ -14,7 +14,7 @@
  limitations under the License.
  */
 import React, {Component, PropTypes} from 'react'
-import SubmittedLetter from './submited-letter'
+import SubmittedLetter from './submitted-letter'
 
 export default class SubmittedWord extends Component {
 
@@ -24,7 +24,7 @@ export default class SubmittedWord extends Component {
         <div className="word-display" style={{display:'flex',  flexDirection:'row', justifyContent:'center', fontSize:'50px'}}>
           {
             this.props.foundLetters.map((letter, index) =>
-              <SubmittedLetter key={'letter'+index} letter={letter}/>)
+              <SubmittedLetter key={'letter'+index} letter={letter} status={this.props.status}/>)
           }
         </div>
       </div>
