@@ -15,7 +15,7 @@
  */
 import React, {Component, PropTypes} from 'react'
 import FoundWords from './found-words'
-import SubmittedWord from './submited-word'
+import SubmittedWord from './submitted-word'
 import RaisedButton from 'material-ui/lib/raised-button';
 
 export default class PlayArea extends Component {
@@ -40,7 +40,7 @@ export default class PlayArea extends Component {
           <RaisedButton label="Start" secondary={true} onClick={this.props.onStartGame}/>
         </div>
         <div style={{display:'flex', flexGrow:'1'}}>
-          <SubmittedWord foundLetters={this.props.game.foundLetters}/>
+          <SubmittedWord foundLetters={this.props.game.foundLetters} status={this.props.game.wordMatched}/>
           <FoundWords foundWords={this.props.game.foundWords}/>
         </div>
       </div>
