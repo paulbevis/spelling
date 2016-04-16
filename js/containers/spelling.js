@@ -26,12 +26,25 @@ class Spelling extends Component {
   render() {
     const {dispatch, letters, game} = this.props;
     const myStyle = {display: 'flex', flexDirection: 'column', height: '100%'};
+    const titleBarStyle = {
+      background: '#333',
+      height: '50px',
+      fontSize: '30px',
+      color: 'white',
+      lineHeight: '44px',
+      padding: '5px 5px 5px 15px'
+    };
 
     return (
-      <div style={myStyle} className="spelling">
-        <PlayingArea game={game} onStartGame={()=>dispatch(startGameAction())}/>
-        <Letters key="letters" letters={letters} onLetterClicked={(value) => dispatch(letterClickedAction(value))}/>
-        <PlaySound sound={game.sound} status={game.status} onFinishedPlaying={(value) => dispatch(finishedPlayingSoundAction(value))}/>
+      <div>
+        <div style={titleBarStyle}>Spelling Game</div>
+        <div style={{display: 'flex', justifyContent: 'center'}}>
+          <div style={myStyle} className="spelling">
+            <PlayingArea game={game} onStartGame={()=>dispatch(startGameAction())}/>
+            <Letters key="letters" letters={letters} onLetterClicked={(value) => dispatch(letterClickedAction(value))}/>
+            <PlaySound sound={game.sound} status={game.status} onFinishedPlaying={(value) => dispatch(finishedPlayingSoundAction(value))}/>
+          </div>
+        </div>
       </div>
     )
   }
