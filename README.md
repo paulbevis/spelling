@@ -7,6 +7,15 @@ and the application will indicate whether they have been successful or not.  The
 ### Technology
 This is a javascript app, created using react and redux. Using Flex as the layout framework of choice.
 
+### Game State Flow
+| First Header  | Second Header |
+| ------------- | ------------- |
+| Content Cell  | Content Cell  |
+| Content Cell  | Content Cell  |
+ 
+|User Interaction         |Action            |Status|
+|---|---------|----------|
+ 
 ###License Apache
 
 Copyright 2016 Paul Bevis
@@ -24,7 +33,4 @@ Copyright 2016 Paul Bevis
  limitations under the License.
  
  
- ### Game State Flow
- 
- |User Interaction         |Action            |Status|
- |-------------------------|------------------|----------|
+
