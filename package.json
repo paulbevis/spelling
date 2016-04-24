@@ -12,7 +12,7 @@
     "type": "git",
     "url": "git+https://github.com/paulbevis/spelling.git"
   },
-  "author": "",
+  "author": "Paul Bevis",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/paulbevis/spelling/issues"
