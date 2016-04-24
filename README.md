@@ -8,13 +8,20 @@ and the application will indicate whether they have been successful or not.  The
 This is a javascript app, created using react and redux. Using Flex as the layout framework of choice.
 
 ### Game State Flow
-| First Header  | Second Header |
-| ------------- | ------------- |
-| Content Cell  | Content Cell  |
-| Content Cell  | Content Cell  |
  
-|User Interaction         |Action            |Status|
-|---|---------|----------|
+|User Interaction       |Action                     |Old Status         |New Status         |
+|---                    |---------                  |----------         |---                |
+|Press START            |GAME_START                 |                   |Intro              |
+|Sound starts           |                           |                   |                   |
+|Sound finishes         |FINISHED_PLAYING_SOUND     |Intro              |Playing            |
+|Sound Starts           |                           |                   |                   |
+|Sound finishes         |FINISHED_PLAYING_SOUND     |Playing            |Waiting For Input  |
+|Word Matched                                                                               |
+|Letter submitted       |LETTER_CLICKED             |Waiting For Input  |Waiting For Input  |
+|Letter submitted       |LETTER_CLICKED             |Waiting For Input  |Waiting For Input  |
+|Letter submitted       |LETTER_CLICKED             |Waiting For Input  |Word Matched       |
+|Sound starts           |                           |                   |                   |
+|Sound finishes         |FINISHED_PLAYING_SOUND     |Word Matched       |Waiting For Input  |      
  
 ###License Apache
 
