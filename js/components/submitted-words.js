@@ -14,30 +14,32 @@
  limitations under the License.
  */
 import React, {Component, PropTypes} from 'react'
+import SubmittedWord from './submitted-word'
 
-export default class FoundWord extends Component {
+export default class SubmittedWords extends Component {
 
   render() {
-    const myStyle = {
-      padding: '2px 20px 2px 20px',
-      margin: '2px',
-      fontSize: '22px',
+    const myStyle = {display: 'flex', flexDirection: 'column', flexWrap: 'nowrap', alignContent: 'space-around'};
+
+    const startButtonStyle = {
+      display: 'inline-block',
+      padding: '4px 20px',
+      margin: '5px',
+      fontSize: '24px',
       lineHeight: '26px',
+      background: '#0cc3ff',
+      borderRadius: '3px',
       cursor: 'pointer',
-      color: 'white',
-      background: '#7DA6A3'
+      color: '#333'
     };
     return (
-
-      <div style={myStyle}>
-        <div style={{display:'flex', flexDirection: 'row', justifyContent:'center'}}>
-          <span>{this.props.word.name}</span>
-        </div>
+      <div className="found-words" style={myStyle}>
+        {
+          this.props.foundWords.map((word, index)=> {
+            return <SubmittedWord key={'word'+index} word={word} onPlayWord={this.props.onPlayWord}/>
+          })
+        }
       </div>
     )
   }
 }
-
-// <i class="material-icons" style={{padding:'3px'}}>sentiment_dissatisfied</i>
-// <i class="material-icons">sentiment_satisfied</i>
-

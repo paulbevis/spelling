@@ -17,10 +17,6 @@ import React, {Component, PropTypes} from 'react'
 
 export default class SubmittedLetter extends Component {
 
-  constructor() {
-    super();
-    this.state = {animateClass: ''};
-  }
 
 
   render() {
@@ -28,28 +24,16 @@ export default class SubmittedLetter extends Component {
       color: 'white',
       flexBasis: 'auto', padding: '22px 35px',
       borderRadius: '3px',
-      // border:this.props.letter==='-'?'1px dashed #0cc3ff':'1px solid #0cc3ff',
       margin: '0 5px',
       background: '#7DA6A3'
     };
 
     return (
-      <div ref="letter" className={this.state.animateClass} style={letterStyle}>{this.props.letter}</div>
+      <div style={letterStyle}>{this.props.letter}</div>
     )
   }
 
-  componentWillReceiveProps(nextProps) {
-    switch (nextProps.status) {
-      case 'Yes':
-        this.setState({animateClass: 'animated bounce'});
-        this.refs.letter.addEventListener('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', ()=>this.setState({}));
-        break;
-      case 'No':
-        this.setState({animateClass: 'animated hinge'});
-        this.refs.letter.addEventListener('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', ()=>this.setState({}));
-        break;
-    }
-  }
+  
 
 }
 

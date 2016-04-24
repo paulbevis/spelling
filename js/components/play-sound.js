@@ -26,7 +26,7 @@ export default class PlaySound extends Component {
   }
 
   componentDidUpdate() {
-    if (this.props.status === 'Playing') {
+    if (this.props.sound.audio) {
       this.refs.sound.play();
     }
   }
@@ -35,7 +35,7 @@ export default class PlaySound extends Component {
     this.refs.sound.addEventListener("ended", (e)=> {
       this.props.onFinishedPlaying(this.props.sound.task)
     });
-    this.refs.sound.play();
+    // this.refs.sound.play();
 
   }
 

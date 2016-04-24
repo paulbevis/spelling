@@ -14,8 +14,8 @@
  limitations under the License.
  */
 import React, {Component, PropTypes} from 'react'
-import FoundWords from './found-words'
-import SubmittedWord from './submitted-word'
+import SubmittedWords from './submitted-words'
+import SubmittedLetters from './submitted-letters'
 import RaisedButton from 'material-ui/lib/raised-button';
 
 export default class PlayArea extends Component {
@@ -40,8 +40,8 @@ export default class PlayArea extends Component {
           <RaisedButton label="Start" secondary={true} onClick={this.props.onStartGame}/>
         </div>
         <div style={{display:'flex', flexGrow:'1'}}>
-          <SubmittedWord foundLetters={this.props.game.foundLetters} status={this.props.game.wordMatched}/>
-          <FoundWords foundWords={this.props.game.foundWords}/>
+          <SubmittedLetters foundLetters={this.props.game.foundLetters} status={this.props.game.status}/>
+          <SubmittedWords foundWords={this.props.game.foundWords} onPlayWord={this.props.onPlayWord}/>
         </div>
       </div>
     )

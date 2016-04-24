@@ -14,21 +14,33 @@
  limitations under the License.
  */
 import React, {Component, PropTypes} from 'react'
-import SubmittedLetter from './submitted-letter'
 
 export default class SubmittedWord extends Component {
-
   render() {
+    const correct = {colour: 'green', icon: 'sentiment_satisfied', selectable: 'default'};
+    const wrong = {colour: 'red', icon: 'sentiment_dissatisfied', selectable: 'default'};
+    const unknown = {colour: 'white', icon: 'mic', selectable: 'pointer'};
+    let results = this.props.word.match === true ? correct : this.props.word.match === false ? wrong : unknown;
+    const myStyle = {
+      padding: '2px 10px 2px 10px',
+      margin: '2px',
+      fontSize: '22px',
+      lineHeight: '34px',
+      color: results.colour,
+      background: '#7DA6A3',
+      borderRadius: '2px'
+    };
     return (
-      <div style={{display:'flex',flexGrow:'5',flexDirection:'column', justifyContent:'center'}}>
-        <div className="word-display" style={{display:'flex',  flexDirection:'row', justifyContent:'center', fontSize:'50px'}}>
-          {
-            this.props.foundLetters.map((letter, index) =>
-              <SubmittedLetter key={'letter'+index} letter={letter} status={this.props.status}/>)
-          }
+      <div style={myStyle}>
+        <div style={{display:'flex', flexDirection: 'row', justifyContent:'center'}}>
+          <span>{this.props.word.name}</span>
+          <i className="material-icons" 
+             style={{padding:'5px',cursor: results.selectable}} 
+             onClick={(e) => this.props.onPlayWord(this.props.word.name)}>{results.icon}</i>
         </div>
       </div>
     )
   }
+
 }
 

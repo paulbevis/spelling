@@ -15,7 +15,7 @@
  */
 import {combineReducers} from 'redux'
 import {GAME_LETTERS, START_LETTERS, START_FOUND_LETTERS} from '../constants/data'
-import {GAME_START, FINISHED_PLAYING_SOUND, LETTER_CLICKED} from '../constants/action-types'
+import {GAME_START, FINISHED_PLAYING_SOUND, LETTER_CLICKED, PLAY_WORD} from '../constants/action-types'
 import {GAMES} from '../constants/data'
 
 function buildLetters(letters) {
@@ -67,21 +67,30 @@ function game(state = defaultData(), action) {
       return game;
 
     case FINISHED_PLAYING_SOUND:
-      game.foundWords=state.foundWords;
+      game.foundWords = state.foundWords;
       game.foundLetters = START_FOUND_LETTERS;
       game.currentWord = 0;
-      if (state.status === 'Intro') {
-        game.sound = {audio: GAMES[0].audio[0], task: 'word'};
-        game.status = 'Playing';
-        return game;
-      } else {
-        game.sound = {audio: GAMES[0].audio[0], task: 'word'};
-        game.status = 'Waiting';
-        return game;
+      switch (game.status) {
+        case 'Playing':
+          game.sound = {};
+          game.status = 'Waiting For Input';
+          break;
+        case'Waiting For Input':
+          break;
+        case 'Word Matched':
+          game.sound = {};
+          game.status = 'Waiting For Input';
+          break;
+        case 'Word Not Matched':
+          game.sound = {};
+          game.status = 'Waiting For Input';
+          break;
+        default:
+          game.sound={};
       }
+      return game;
 
     case LETTER_CLICKED:
-      game.wordMatched = '';
       game.foundLetters = Object.assign([], state.foundLetters);
       if (state.foundLetters[0] === '-') {
         game.foundLetters[0] = action.value;
@@ -92,22 +101,25 @@ function game(state = defaultData(), action) {
           if (state.foundLetters[2] === '-') {
             game.foundLetters[2] = action.value;
             var submittedWord = game.foundLetters.join('');
-            game.foundWords[0]={'name':submittedWord,icon:'check_cirle'};
+            game.foundWords[0] = {'name': submittedWord};
             if (submittedWord === GAMES[0].words[0]) {
-              game.wordMatched = 'Yes';
               game.sound = {audio: 'audio/success.mp3', task: 'matching'};
-              game.status = 'Playing';
+              game.status = 'Word Matched';
+              game.foundWords[0].match = true
             } else {
               game.sound = {audio: 'audio/warning.mp3', task: 'matching'};
-              game.wordMatched = 'No';
-              game.status = 'Playing';
-
+              game.status = 'Word Not Matched';
+              game.foundWords[0].match = false;
             }
           }
         }
       }
       return game;
 
+    case PLAY_WORD:
+      game.sound = {audio: GAMES[0].audio[0], task: 'word'};
+      game.status = 'Playing';
+      return game;
 
     default:
       return state;

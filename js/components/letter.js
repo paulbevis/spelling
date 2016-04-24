@@ -14,23 +14,17 @@
  limitations under the License.
  */
 import React, {Component, PropTypes} from 'react'
+import RaisedButton from 'material-ui/lib/raised-button';
 
 export default class Letter extends Component {
 
   render() {
-    const myStyle = {
-      padding: '4px 20px',
-      margin: '2px',
-      fontSize: '24px',
-      lineHeight: '26px',
-      background: '#3A938C',
-      borderRadius: '3px',
-      cursor:'pointer',
-      color:'white'
-    };
+    let myStyle = {minWidth: '45px', margin: '5px 2px 5px 5px'};
     return (
-
-      <div style={myStyle} onClick={(e)=>this.props.onLetterClicked(this.props.name)}>{this.props.name}</div>
+      <RaisedButton label={this.props.name}
+                    backgroundColor="#3A938C"
+                    style={myStyle}
+                    onClick={(e) => this.props.onLetterClicked(this.props.name)}/>
     )
   }
 }

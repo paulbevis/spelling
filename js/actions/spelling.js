@@ -13,7 +13,7 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
-import {GAME_START,FINISHED_PLAYING_SOUND, LETTER_CLICKED} from '../constants/action-types'
+import {GAME_START,FINISHED_PLAYING_SOUND, LETTER_CLICKED, PLAY_WORD} from '../constants/action-types'
 
 export function startGameAction() {
   return {
@@ -32,32 +32,9 @@ export function letterClickedAction(value) {
     value
   }
 }
-
-// export function selectGameAction(listNumber) {
-//   return {
-//     type: GAME_SELECT,
-//     listNumber
-//   }
-// }
-//
-// export function cellClickAction(rowPos, columnPos) {
-//   return {
-//     type: CELL_CLICK,
-//     rowPos,
-//     columnPos
-//   }
-// }
-//
-// export function cellExplosionFragmentAction(rowPos, columnPos) {
-//   return {
-//     type: CELL_EXPLOSION_FRAGMENT,
-//     rowPos,
-//     columnPos
-//   }
-// }
-//
-// export function lastLetterFoundAction() {
-//   return {
-//     type: LAST_LETTER_FOUND
-//   }
-// }
+export function playWordAction(word) {
+  return {
+    type: PLAY_WORD,
+    word
+  }
+}
