@@ -23,3 +23,8 @@ Copyright 2016 Paul Bevis
  See the License for the specific language governing permissions and
  limitations under the License.
  
+ 
+ ### Game State Flow
+ 
+ |User Interaction         |Action            |Status|
+ |-------------------------|------------------|----------|
