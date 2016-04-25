@@ -22,7 +22,6 @@ export default class PlayArea extends Component {
 
   render() {
     const myStyle = {display: 'flex', flexDirection: 'row', flexWrap: 'wrap', alignContent: 'space-around'};
-
     const startButtonStyle = {
       display: 'inline-block',
       padding: '4px 20px',
@@ -34,6 +33,7 @@ export default class PlayArea extends Component {
       cursor: 'pointer',
       color: '#333'
     };
+    
     return (
       <div style={{display:'flex',flexDirection:'column', height:'100%'}}>
         <div className='button-controls' style={{marginTop:'10px'}}>
@@ -41,7 +41,7 @@ export default class PlayArea extends Component {
         </div>
         <div style={{display:'flex', flexGrow:'1'}}>
           <SubmittedLetters foundLetters={this.props.game.foundLetters} status={this.props.game.status}/>
-          <SubmittedWords foundWords={this.props.game.foundWords} onPlayWord={this.props.onPlayWord}/>
+          <FoundWords foundWords={this.props.game.foundWords} status={this.props.game.status} onPlayWord={this.props.onPlayWord}/>
         </div>
       </div>
     )

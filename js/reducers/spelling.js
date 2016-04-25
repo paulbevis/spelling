@@ -44,54 +44,78 @@ function letters(state = {}, action) {
       return buildLetters(START_LETTERS);
   }
 }
+
+function shuffleArray(array) {
+  for (var i = array.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
+  }
+  return array;
+}
+
+function getAvailableWords() {
+  let wordArray = Object.assign([], GAMES[0].words);
+  shuffleArray(wordArray);
+  return wordArray;
+}
+
 function defaultData() {
   return {
     foundLetters: START_FOUND_LETTERS,
     foundWords: buildFoundWords(),
-    words: [],
+    availableWords: getAvailableWords(),
     wordMessages: [],
     sound: {},
-    wordMatched: ''
+    wordMatched: '',
+    status: 'disabled'
   }
 }
 
 function game(state = defaultData(), action) {
-  let game = GAMES[0];
+  let game = {};
+  game.availableWords = state.availableWords;
+  game.foundWords = state.foundWords;
+  game.foundLetters = START_FOUND_LETTERS;
+  game.currentWordPos = state.currentWordPos
+  game.currentWord = state.currentWord;
+  game.sound = {};
 
   switch (action.type) {
     case GAME_START:
       game.foundWords = buildFoundWords();
-      game.foundLetters = START_FOUND_LETTERS;
       game.sound = {audio: 'audio/start.mp3', task: 'start'};
       game.status = 'Intro';
       return game;
 
     case FINISHED_PLAYING_SOUND:
-      game.foundWords = state.foundWords;
-      game.foundLetters = START_FOUND_LETTERS;
-      game.currentWord = 0;
-      switch (game.status) {
+      switch (state.status) {
         case 'Playing':
-          game.sound = {};
           game.status = 'Waiting For Input';
           break;
         case'Waiting For Input':
+          game.status = 'Waiting For Input';
           break;
         case 'Word Matched':
-          game.sound = {};
-          game.status = 'Waiting For Input';
+          game.status = 'Waiting to play a word audio';
           break;
         case 'Word Not Matched':
-          game.sound = {};
-          game.status = 'Waiting For Input';
+          game.status = 'Waiting to play a word audio';
           break;
+        case 'Intro':
+          game.status = 'Waiting to play a word audio';
+          break;
+
         default:
-          game.sound={};
+          game.sound = {};
       }
       return game;
 
     case LETTER_CLICKED:
       game.foundLetters = Object.assign([], state.foundLetters);
+      game.foundWords = Object.assign([], state.foundWords);
+      game.status=state.status;
       if (state.foundLetters[0] === '-') {
         game.foundLetters[0] = action.value;
       } else {
@@ -101,15 +125,15 @@ function game(state = defaultData(), action) {
           if (state.foundLetters[2] === '-') {
             game.foundLetters[2] = action.value;
             var submittedWord = game.foundLetters.join('');
-            game.foundWords[0] = {'name': submittedWord};
-            if (submittedWord === GAMES[0].words[0]) {
+            game.foundWords[state.currentWordPos] = {'name': submittedWord};
+            if (submittedWord === state.currentWord) {
               game.sound = {audio: 'audio/success.mp3', task: 'matching'};
               game.status = 'Word Matched';
-              game.foundWords[0].match = true
+              game.foundWords[game.currentWordPos].match = true
             } else {
               game.sound = {audio: 'audio/warning.mp3', task: 'matching'};
               game.status = 'Word Not Matched';
-              game.foundWords[0].match = false;
+              game.foundWords[game.currentWordPos].match = false;
             }
           }
         }
@@ -117,8 +141,10 @@ function game(state = defaultData(), action) {
       return game;
 
     case PLAY_WORD:
-      game.sound = {audio: GAMES[0].audio[0], task: 'word'};
+      game.currentWord = game.availableWords[action.key];
+      game.sound = {audio: 'audio/words/' + game.currentWord + '.m4a', task: 'word'};
       game.status = 'Playing';
+      game.currentWordPos = action.key;
       return game;
 
     default:

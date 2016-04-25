@@ -40,11 +40,16 @@ class Spelling extends Component {
         <div style={titleBarStyle}>Spelling Game</div>
         <div style={{display: 'flex', justifyContent: 'center'}}>
           <div style={myStyle} className="spelling">
-            <PlayingArea game={game} 
+            <PlayingArea game={game}
                          onStartGame={()=>dispatch(startGameAction())}
-                         onPlayWord={(word) => dispatch(playWordAction(word))}/>
-            <Letters key="letters" letters={letters} onLetterClicked={(value) => dispatch(letterClickedAction(value))}/>
-            <PlaySound sound={game.sound} status={game.status} onFinishedPlaying={(value) => dispatch(finishedPlayingSoundAction(value))}/>
+                         onPlayWord={(key) => dispatch(playWordAction(key))}/>
+            <Letters key="letters" 
+                     letters={letters} 
+                     status={game.status} 
+                     onLetterClicked={(value) => dispatch(letterClickedAction(value))}/>
+            <PlaySound sound={game.sound} 
+                       status={game.status} 
+                       onFinishedPlaying={(value) => dispatch(finishedPlayingSoundAction(value))}/>
           </div>
         </div>
       </div>
