@@ -14,14 +14,12 @@
  limitations under the License.
  */
 import React, {Component, PropTypes} from 'react'
-import FoundWords from './found-words'
-import SubmittedLetters from './submitted-letters'
-import RaisedButton from 'material-ui/lib/raised-button';
+import FoundWord from './found-word'
 
-export default class PlayArea extends Component {
+export default class FoundWords extends Component {
 
   render() {
-    const myStyle = {display: 'flex', flexDirection: 'row', flexWrap: 'wrap', alignContent: 'space-around'};
+    const myStyle = {display: 'flex', flexDirection: 'column', flexWrap: 'nowrap', alignContent: 'space-around'};
 
     const startButtonStyle = {
       display: 'inline-block',
@@ -35,14 +33,12 @@ export default class PlayArea extends Component {
       color: '#333'
     };
     return (
-      <div style={{display:'flex',flexDirection:'column', height:'100%'}}>
-        <div className='button-controls' style={{marginTop:'10px'}}>
-          <RaisedButton label="Start" secondary={true} onClick={this.props.onStartGame}/>
-        </div>
-        <div style={{display:'flex', flexGrow:'1'}}>
-          <SubmittedLetters foundLetters={this.props.game.foundLetters} status={this.props.game.status}/>
-          <SubmittedWords foundWords={this.props.game.foundWords} onPlayWord={this.props.onPlayWord}/>
-        </div>
+      <div className="found-words" style={myStyle}>
+        {
+          this.props.foundWords.map((word, index)=> {
+            return <FoundWord key={'word'+index} word={word} id={index} status={this.props.status} onPlayWord={this.props.onPlayWord}/>
+          })
+        }
       </div>
     )
   }
