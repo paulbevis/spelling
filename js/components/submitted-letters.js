@@ -28,7 +28,7 @@ export default class SubmittedLetters extends Component {
     return (
       <div style={{display:'flex',flexGrow:'5',flexDirection:'column', justifyContent:'center'}}>
         <div className="word-display" style={{display:'flex',  flexDirection:'row', justifyContent:'center', fontSize:'50px'}}>
-          <div ref="letters" className={animating} style={{display:'flex',  flexDirection:'row', justifyContent:'center'}}>
+          <div className={animating} style={{display:'flex',  flexDirection:'row', justifyContent:'center'}}>
             {
               this.props.foundLetters.map((letter, index) =>
                 <SubmittedLetter key={'letter'+index} letter={letter} status={this.props.status}/>)
@@ -39,18 +39,5 @@ export default class SubmittedLetters extends Component {
     )
   }
 
-  componentWillReceiveProps(nextProps) {
-    // switch (nextProps.status) {
-    //   case 'Yes':
-    //     this.setState({animateClass: 'animated bounce'});
-    //     this.refs.letters.addEventListener('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', ()=>this.setState({animateClass: ''}));
-    //     break;
-    //   case 'No':
-    //     this.setState({animateClass: 'animated hinge'});
-    //     this.refs.letters.addEventListener('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', ()=>this.setState({animateClass: ''}));
-    //     break;
-    // }
-
-  }
 }
 
