@@ -32,9 +32,9 @@ export function letterClickedAction(value) {
     value
   }
 }
-export function playWordAction(word) {
+export function playWordAction(key) {
   return {
     type: PLAY_WORD,
-    word
+    key
   }
 }

@@ -14,9 +14,9 @@
  limitations under the License.
  */
 import React, {Component, PropTypes} from 'react'
-import SubmittedWord from './submitted-word'
+import FoundWord from './found-word'
 
-export default class SubmittedWords extends Component {
+export default class FoundWords extends Component {
 
   render() {
     const myStyle = {display: 'flex', flexDirection: 'column', flexWrap: 'nowrap', alignContent: 'space-around'};
@@ -36,7 +36,7 @@ export default class SubmittedWords extends Component {
       <div className="found-words" style={myStyle}>
         {
           this.props.foundWords.map((word, index)=> {
-            return <SubmittedWord key={'word'+index} word={word} onPlayWord={this.props.onPlayWord}/>
+            return <FoundWord key={'word'+index} word={word} id={index} status={this.props.status} onPlayWord={this.props.onPlayWord}/>
           })
         }
       </div>

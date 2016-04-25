@@ -35,8 +35,6 @@ export default class PlaySound extends Component {
     this.refs.sound.addEventListener("ended", (e)=> {
       this.props.onFinishedPlaying(this.props.sound.task)
     });
-    // this.refs.sound.play();
-
   }
 
   componentWillUnmount() {

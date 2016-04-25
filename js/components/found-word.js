@@ -15,31 +15,40 @@
  */
 import React, {Component, PropTypes} from 'react'
 
-export default class SubmittedWord extends Component {
+export default class FoundWord extends Component {
   render() {
-    const correct = {colour: 'green', icon: 'sentiment_satisfied', selectable: 'default'};
+    console.log('FoundWord:, status: ', this.props.status)
+    const correct = {colour: 'yellow', icon: 'sentiment_satisfied', selectable: 'default'};
     const wrong = {colour: 'red', icon: 'sentiment_dissatisfied', selectable: 'default'};
     const unknown = {colour: 'white', icon: 'mic', selectable: 'pointer'};
-    let results = this.props.word.match === true ? correct : this.props.word.match === false ? wrong : unknown;
+    const disabled = {colour: 'white', icon: 'mic_off', selectable: 'default'};
+    let results = this.props.word.match === true ? correct :
+      this.props.word.match === false ? wrong :
+        this.props.status === 'disabled' || this.props.status === 'Intro' ? disabled : unknown;
     const myStyle = {
       padding: '2px 10px 2px 10px',
       margin: '2px',
       fontSize: '22px',
       lineHeight: '34px',
-      color: results.colour,
       background: '#7DA6A3',
       borderRadius: '2px'
     };
     return (
       <div style={myStyle}>
         <div style={{display:'flex', flexDirection: 'row', justifyContent:'center'}}>
-          <span>{this.props.word.name}</span>
-          <i className="material-icons" 
-             style={{padding:'5px',cursor: results.selectable}} 
-             onClick={(e) => this.props.onPlayWord(this.props.word.name)}>{results.icon}</i>
+          <span style={{color:results.colour}}>{this.props.word.name}</span>
+          <i className="material-icons"
+             style={{padding:'5px',cursor: results.selectable, color:results.colour}}
+             onClick={(e) => this.processClick(e)}>{results.icon}</i>
         </div>
       </div>
     )
+  }
+
+  processClick(e) {
+    if (this.props.status === 'Waiting to play a word audio') {
+      this.props.onPlayWord(this.props.id)
+    }
   }
 
 }
