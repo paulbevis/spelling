@@ -13,6 +13,8 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
+'use strict';
+
 import React, {Component, PropTypes} from 'react'
 import Letters from '../components/letters'
 import PlayingArea from '../components/playing-area'

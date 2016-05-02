@@ -13,12 +13,12 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
+'use strict';
+
 import React, {Component, PropTypes} from 'react'
 
 export default class SubmittedLetter extends Component {
-
-
-
+  
   render() {
     const letterStyle = {
       color: 'white',
@@ -32,8 +32,6 @@ export default class SubmittedLetter extends Component {
       <div style={letterStyle}>{this.props.letter}</div>
     )
   }
-
   
-
 }
 
