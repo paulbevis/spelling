@@ -22,11 +22,12 @@ export default class Letter extends Component {
 
   render() {
     let myStyle = {minWidth: '45px', margin: '5px 2px 5px 5px'};
+    const disabledColour="#3A938C";
     return (
       <RaisedButton label={this.props.name}
                     disabled={!(this.props.status === 'Waiting For Input')}
-                    disabledBackgroundColor="#3A938C"
-                    backgroundColor="#3A938C"
+                    disabledBackgroundColor={disabledColour}
+                    backgroundColor={disabledColour}
                     style={myStyle}
                     onClick={(e) => this.props.onLetterClicked(this.props.name)}
                     labelStyle={{textTransform: 'lowercase'}}/>

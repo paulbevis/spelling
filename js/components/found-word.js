@@ -19,9 +19,8 @@ import React, {Component, PropTypes} from 'react'
 
 export default class FoundWord extends Component {
   render() {
-    console.log('FoundWord:, status: ', this.props.status)
     const correct = {colour: 'yellow', icon: 'sentiment_satisfied', selectable: 'default'};
-    const wrong = {colour: 'red', icon: 'sentiment_dissatisfied', selectable: 'default'};
+    const wrong = {colour: 'red', icon: 'sentiment_dissatisfied', selectable: 'pointer'};
     const unknown = {colour: 'white', icon: 'mic', selectable: 'pointer'};
     const disabled = {colour: 'white', icon: 'mic_off', selectable: 'default'};
     let results = this.props.word.match === true ? correct :
@@ -48,7 +47,7 @@ export default class FoundWord extends Component {
   }
 
   processClick(e) {
-    if (this.props.status === 'Waiting to play a word audio') {
+    if (this.props.word.match !== true && this.props.status === 'Waiting to play a word audio') {
       this.props.onPlayWord(this.props.id)
     }
   }

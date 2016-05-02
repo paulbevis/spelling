@@ -22,20 +22,7 @@ import RaisedButton from 'material-ui/lib/raised-button';
 
 export default class PlayArea extends Component {
 
-  render() {
-    const myStyle = {display: 'flex', flexDirection: 'row', flexWrap: 'wrap', alignContent: 'space-around'};
-    const startButtonStyle = {
-      display: 'inline-block',
-      padding: '4px 20px',
-      margin: '5px',
-      fontSize: '24px',
-      lineHeight: '26px',
-      background: '#0cc3ff',
-      borderRadius: '3px',
-      cursor: 'pointer',
-      color: '#333'
-    };
-    
+  render() {    
     return (
       <div style={{display:'flex',flexDirection:'column', height:'100%'}}>
         <div className='button-controls' style={{marginTop:'10px'}}>
