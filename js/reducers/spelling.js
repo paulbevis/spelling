@@ -13,6 +13,8 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
+'use strict';
+
 import {combineReducers} from 'redux'
 import {GAME_LETTERS, START_LETTERS, START_FOUND_LETTERS} from '../constants/data'
 import {GAME_START, FINISHED_PLAYING_SOUND, LETTER_CLICKED, PLAY_WORD} from '../constants/action-types'
