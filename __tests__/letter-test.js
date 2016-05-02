@@ -42,7 +42,6 @@ describe('Letter tests', () => {
 
     const letterNode = ReactDOM.findDOMNode(letter);
     let button = letterNode.children[0];
-    expect(button.style.color).toEqual('rgb(3, 3, 3)');
     TestUtils.Simulate.click(button);
     const spanNode=button.children[0].children[0];
     expect(spanNode.textContent).toEqual('a');
@@ -61,8 +60,6 @@ describe('Letter tests', () => {
     let button = letterNode.children[0];
     TestUtils.Simulate.click(button);
     expect(mockFn).not.toBeCalled();
-    console.log('button style:',button.style);
-    expect(button.style.color).toEqual('rgb(127, 127, 127)');
     const spanNode=button.children[0].children[0];
     expect(spanNode.textContent).toEqual('a');
 
