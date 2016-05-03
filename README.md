@@ -14,6 +14,9 @@ To run Jest tests in Intellij, in debug mode, set the following configuration:
 *   Javascript file:        `node_modules/jest-cli/bin/jest.js`
 *   Application Parameters: `--runInBand`
 
+To run Mocha tests in Intellij
+*   Extra Mocha Options:    `--compilers js:babel-core/register`
+
 ### Game State Flow
  
 |User Interaction       |Action                     |Old Status         |New Status                     |
