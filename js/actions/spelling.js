@@ -29,10 +29,10 @@ export function finishedPlayingSoundAction(value) {
     value
   }
 }
-export function letterClickedAction(value) {
+export function letterClickedAction(letter) {
   return {
     type: LETTER_CLICKED,
-    value
+    letter
   }
 }
 export function playWordAction(key) {
