@@ -58,7 +58,7 @@ function shuffleArray(array) {
 }
 
 function getAvailableWords() {
-  let wordArray = Object.assign([], GAMES[0].words);
+  let wordArray = GAMES[0].slice(0);
   shuffleArray(wordArray);
   return wordArray;
 }
@@ -68,9 +68,7 @@ function defaultData() {
     foundLetters: START_FOUND_LETTERS,
     foundWords: buildFoundWords(),
     availableWords: getAvailableWords(),
-    wordMessages: [],
     sound: {},
-    wordMatched: '',
     status: 'disabled'
   }
 }
@@ -79,8 +77,8 @@ function startGame(state) {
   let game = {};
   game.availableWords = state.availableWords;
   game.foundLetters = START_FOUND_LETTERS;
-  game.currentWordPos = state.currentWordPos;
-  game.currentWord = state.currentWord;
+  // game.currentWordPos = state.currentWordPos;
+  // game.currentWord = state.currentWord;
   game.foundWords = buildFoundWords();
   game.sound = {audio: 'audio/start.mp3', task: 'start'};
   game.status = 'Intro';

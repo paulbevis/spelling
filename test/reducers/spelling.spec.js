@@ -15,7 +15,7 @@
  */
 import expect from 'expect'
 import {letters, game} from '../../js/reducers/spelling'
-import {CELL_CLICK, GAME_START, GAME_SELECT, LAST_LETTER_FOUND} from '../../js/constants/action-types'
+import {CELL_CLICK, GAME_START, GAME_SELECT, LAST_LETTER_FOUND, FINISHED_PLAYING_SOUND, PLAY_WORD} from '../../js/constants/action-types'
 import {START_FOUND_LETTERS, GAMES} from '../../js/constants/data'
 import deepFreeze from 'deep-freeze'
 import {difference} from 'ramda'
@@ -96,13 +96,107 @@ describe('Spelling game', () => {
       const result = game(undefined, {});
       expect(result.foundLetters).toEqual(START_FOUND_LETTERS);
       expect(result.foundWords).toEqual(foundWords);
-      expect(difference(result.availableWords, GAMES[0].words)).toEqual([]);
+      expect(difference(result.availableWords, GAMES[0])).toEqual([]);
+      expect(result.sound).toEqual({});
+      expect(result.status).toEqual('disabled');
     });
 
     it('on initialisation with supplied action type GAME_START', () => {
-      const result = game(undefined, {type: GAME_START});
-      expect(result).toEqual(undefined);
+      const initialState = game(undefined, {});
+      deepFreeze(initialState);
+
+      const expectState = {
+        availableWords: initialState.availableWords.slice(0),
+        foundLetters: START_FOUND_LETTERS,
+        foundWords: foundWords,
+        sound: {audio: 'audio/start.mp3', task: 'start'},
+        status: 'Intro'
+      };
+
+      const state = game(initialState, {type: GAME_START});
+      expect(state).toEqual(expectState);
     });
 
+    it('the game has started, and intro audio finished', () => {
+
+      const initialState = {
+        availableWords: GAMES[0],
+        foundLetters: START_FOUND_LETTERS,
+        foundWords: foundWords,
+        sound: {audio: 'audio/start.mp3', task: 'start'},
+        status: 'Intro'
+      };
+
+      const expectedState = {
+        availableWords: GAMES[0],
+        foundLetters: START_FOUND_LETTERS,
+        foundWords: foundWords,
+        currentWordPos: undefined,
+        currentWord: undefined,
+        sound: {},
+        status: 'Waiting to play a word audio'
+      };
+      deepFreeze(initialState);
+
+      const state = game(initialState, {type: FINISHED_PLAYING_SOUND});
+
+      expect(state).toEqual(expectedState);
+    });
+
+    it('play a word audio', () => {
+
+      const initialState = {
+        availableWords: GAMES[0],
+        foundLetters: START_FOUND_LETTERS,
+        foundWords: foundWords,
+        currentWordPos: undefined,
+        currentWord: undefined,
+        sound: {},
+        status: 'Waiting to play a word audio'
+      };
+
+      const expectedState = {
+        availableWords: GAMES[0],
+        foundLetters: START_FOUND_LETTERS,
+        foundWords: foundWords,
+        currentWordPos: 3,
+        currentWord: 'hut',
+        sound: {audio: 'audio/words/hut.m4a', task: 'word'},
+        status: 'Playing'
+      };
+      deepFreeze(initialState);
+
+      const state = game(initialState, {type: PLAY_WORD, key: 3});
+
+      expect(state).toEqual(expectedState);
+    });
+
+    it('word audio has finished', () => {
+
+      const initialState = {
+        availableWords: GAMES[0],
+        foundLetters: START_FOUND_LETTERS,
+        foundWords: foundWords,
+        currentWordPos: 3,
+        currentWord: 'hut',
+        sound: {audio: 'audio/words/hut.m4a', task: 'word'},
+        status: 'Playing'
+      };
+
+      const expectedState = {
+        availableWords: GAMES[0],
+        foundLetters: START_FOUND_LETTERS,
+        foundWords: foundWords,
+        currentWordPos: 3,
+        currentWord: 'hut',
+        sound: {},
+        status: 'Waiting For Input'
+      };
+      deepFreeze(initialState);
+
+      const state = game(initialState, {type: FINISHED_PLAYING_SOUND});
+
+      expect(state).toEqual(expectedState);
+    });
   });
 });
