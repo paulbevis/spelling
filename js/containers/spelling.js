@@ -51,7 +51,7 @@ class Spelling extends Component {
                      onLetterClicked={(value) => dispatch(letterClickedAction(value))}/>
             <PlaySound sound={game.sound} 
                        status={game.status} 
-                       onFinishedPlaying={(value) => dispatch(finishedPlayingSoundAction(value))}/>
+                       onFinishedPlaying={() => dispatch(finishedPlayingSoundAction())}/>
           </div>
         </div>
       </div>

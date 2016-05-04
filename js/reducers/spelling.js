@@ -68,7 +68,7 @@ function defaultData() {
     foundLetters: START_FOUND_LETTERS,
     foundWords: buildFoundWords(),
     availableWords: getAvailableWords(),
-    sound: {},
+    sound: '',
     status: 'disabled'
   }
 }
@@ -77,10 +77,8 @@ function startGame(state) {
   let game = {};
   game.availableWords = state.availableWords;
   game.foundLetters = START_FOUND_LETTERS;
-  // game.currentWordPos = state.currentWordPos;
-  // game.currentWord = state.currentWord;
   game.foundWords = buildFoundWords();
-  game.sound = {audio: 'audio/start.mp3', task: 'start'};
+  game.sound = 'audio/start.mp3';
   game.status = 'Intro';
   return game;
 }
@@ -92,7 +90,7 @@ function finishedPlayingSound(state) {
   game.foundLetters = START_FOUND_LETTERS;
   game.currentWordPos = state.currentWordPos;
   game.currentWord = state.currentWord;
-  game.sound = {};
+  game.sound = '';
   switch (state.status) {
     case 'Playing':
       game.status = 'Waiting For Input';
@@ -111,7 +109,7 @@ function finishedPlayingSound(state) {
       break;
 
     default:
-      game.sound = {};
+      game.sound = '';
   }
   return game;
 }
@@ -124,7 +122,7 @@ function letterClicked(state, letter) {
   game.status = state.status;
   game.currentWordPos = state.currentWordPos;
   game.currentWord = state.currentWord;
-  game.sound = {};
+  game.sound = '';
   if (state.foundLetters[0] === '-') {
     game.foundLetters[0] = letter;
   } else {
@@ -136,11 +134,11 @@ function letterClicked(state, letter) {
         var submittedWord = game.foundLetters.join('');
         game.foundWords[state.currentWordPos] = {'name': submittedWord};
         if (submittedWord === state.currentWord) {
-          game.sound = {audio: 'audio/success.mp3', task: 'matching'};
+          game.sound = 'audio/success.mp3';
           game.status = 'Word Matched';
           game.foundWords[game.currentWordPos].match = true
         } else {
-          game.sound = {audio: 'audio/warning.mp3', task: 'matching'};
+          game.sound = 'audio/warning.mp3';
           game.status = 'Word Not Matched';
           game.foundWords[game.currentWordPos].match = false;
         }
@@ -156,7 +154,7 @@ function playWord(state, availableWordPos) {
   game.foundWords = state.foundWords;
   game.foundLetters = START_FOUND_LETTERS;
   game.currentWord = game.availableWords[availableWordPos];
-  game.sound = {audio: 'audio/words/' + game.currentWord + '.m4a', task: 'word'};
+  game.sound = 'audio/words/' + game.currentWord + '.m4a';
   game.status = 'Playing';
   game.currentWordPos = availableWordPos;
   return game;

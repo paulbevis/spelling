@@ -15,64 +15,40 @@
  */
 import expect from 'expect'
 import {letters, game} from '../../js/reducers/spelling'
-import {CELL_CLICK, GAME_START, GAME_SELECT, LAST_LETTER_FOUND, FINISHED_PLAYING_SOUND, PLAY_WORD} from '../../js/constants/action-types'
+import {CELL_CLICK, GAME_START, GAME_SELECT, LAST_LETTER_FOUND, FINISHED_PLAYING_SOUND, PLAY_WORD, LETTER_CLICKED} from '../../js/constants/action-types'
 import {START_FOUND_LETTERS, GAMES} from '../../js/constants/data'
 import deepFreeze from 'deep-freeze'
 import {difference} from 'ramda'
 
 describe('Spelling game', () => {
   const letterButtonHyphens = [{name: '-'},
-    {name: '-'},
-    {name: '-'},
-    {name: '-'},
-    {name: '-'},
-    {name: '-'},
-    {name: '-'},
-    {name: '-'},
-    {name: '-'},
-    {name: '-'},
-    {name: '-'},
-    {name: '-'},
-    {name: '-'},
-    {name: '-'},
-    {name: '-'},
-    {name: '-'},
-    {name: '-'},
-    {name: '-'},
-    {name: '-'},
-    {name: '-'},
-    {name: '-'},
-    {name: '-'},
-    {name: '-'},
-    {name: '-'},
-    {name: '-'},
+    {name: '-'}, {name: '-'},
+    {name: '-'}, {name: '-'},
+    {name: '-'}, {name: '-'},
+    {name: '-'}, {name: '-'},
+    {name: '-'}, {name: '-'},
+    {name: '-'}, {name: '-'},
+    {name: '-'}, {name: '-'},
+    {name: '-'}, {name: '-'},
+    {name: '-'}, {name: '-'},
+    {name: '-'}, {name: '-'},
+    {name: '-'}, {name: '-'},
+    {name: '-'}, {name: '-'},
     {name: '-'}];
 
   const letterButtonLetters = [{name: 'a'},
-    {name: 'b'},
-    {name: 'c'},
-    {name: 'd'},
-    {name: 'e'},
-    {name: 'f'},
-    {name: 'g'},
-    {name: 'h'},
-    {name: 'i'},
-    {name: 'j'},
-    {name: 'k'},
-    {name: 'l'},
-    {name: 'm'},
-    {name: 'n'},
-    {name: 'o'},
-    {name: 'p'},
-    {name: 'q'},
-    {name: 'r'},
-    {name: 's'},
-    {name: 't'},
-    {name: 'u'},
-    {name: 'v'},
-    {name: 'w'},
-    {name: 'x'},
-    {name: 'y'},
+    {name: 'b'}, {name: 'c'},
+    {name: 'd'}, {name: 'e'},
+    {name: 'f'}, {name: 'g'},
+    {name: 'h'}, {name: 'i'},
+    {name: 'j'}, {name: 'k'},
+    {name: 'l'}, {name: 'm'},
+    {name: 'n'}, {name: 'o'},
+    {name: 'p'}, {name: 'q'},
+    {name: 'r'}, {name: 's'},
+    {name: 't'}, {name: 'u'},
+    {name: 'v'}, {name: 'w'},
+    {name: 'x'}, {name: 'y'},
     {name: 'z'}];
 
   const foundWords = [{name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}];
@@ -97,7 +73,7 @@ describe('Spelling game', () => {
       expect(result.foundLetters).toEqual(START_FOUND_LETTERS);
       expect(result.foundWords).toEqual(foundWords);
       expect(difference(result.availableWords, GAMES[0])).toEqual([]);
-      expect(result.sound).toEqual({});
+      expect(result.sound).toEqual('');
       expect(result.status).toEqual('disabled');
     });
 
@@ -109,7 +85,7 @@ describe('Spelling game', () => {
         availableWords: initialState.availableWords.slice(0),
         foundLetters: START_FOUND_LETTERS,
         foundWords: foundWords,
-        sound: {audio: 'audio/start.mp3', task: 'start'},
+        sound: 'audio/start.mp3',
         status: 'Intro'
       };
 
@@ -123,7 +99,7 @@ describe('Spelling game', () => {
         availableWords: GAMES[0],
         foundLetters: START_FOUND_LETTERS,
         foundWords: foundWords,
-        sound: {audio: 'audio/start.mp3', task: 'start'},
+        sound: 'audio/start.mp3',
         status: 'Intro'
       };
 
@@ -133,7 +109,7 @@ describe('Spelling game', () => {
         foundWords: foundWords,
         currentWordPos: undefined,
         currentWord: undefined,
-        sound: {},
+        sound: '',
         status: 'Waiting to play a word audio'
       };
       deepFreeze(initialState);
@@ -151,7 +127,6 @@ describe('Spelling game', () => {
         foundWords: foundWords,
         currentWordPos: undefined,
         currentWord: undefined,
-        sound: {},
         status: 'Waiting to play a word audio'
       };
 
@@ -161,7 +136,7 @@ describe('Spelling game', () => {
         foundWords: foundWords,
         currentWordPos: 3,
         currentWord: 'hut',
-        sound: {audio: 'audio/words/hut.m4a', task: 'word'},
+        sound: 'audio/words/hut.m4a',
         status: 'Playing'
       };
       deepFreeze(initialState);
@@ -179,7 +154,7 @@ describe('Spelling game', () => {
         foundWords: foundWords,
         currentWordPos: 3,
         currentWord: 'hut',
-        sound: {audio: 'audio/words/hut.m4a', task: 'word'},
+        sound: 'audio/words/hut.m4a',
         status: 'Playing'
       };
 
@@ -189,8 +164,174 @@ describe('Spelling game', () => {
         foundWords: foundWords,
         currentWordPos: 3,
         currentWord: 'hut',
-        sound: {},
+        sound: '',
         status: 'Waiting For Input'
+      };
+      deepFreeze(initialState);
+
+      const state = game(initialState, {type: FINISHED_PLAYING_SOUND});
+
+      expect(state).toEqual(expectedState);
+    });
+
+    it('first letter is clicked', () => {
+      const initialState = {
+        availableWords: GAMES[0],
+        foundLetters: START_FOUND_LETTERS,
+        foundWords: foundWords,
+        currentWordPos: 3,
+        currentWord: 'hut',
+        sound: '',
+        status: 'Waiting For Input'
+      };
+
+      const expectedState = {
+        availableWords: GAMES[0],
+        foundLetters: ['h', '-', '-'],
+        foundWords: foundWords,
+        currentWordPos: 3,
+        currentWord: 'hut',
+        sound: '',
+        status: 'Waiting For Input'
+      };
+      deepFreeze(initialState);
+
+      const state = game(initialState, {type: LETTER_CLICKED, letter: 'h'});
+      expect(state).toEqual(expectedState);
+    });
+
+    it('second letter is clicked', () => {
+      const initialState = {
+        availableWords: GAMES[0],
+        foundLetters: ['h', '-', '-'],
+        foundWords: foundWords,
+        currentWordPos: 3,
+        currentWord: 'hut',
+        sound: '',
+        status: 'Waiting For Input'
+      };
+
+      const expectedState = {
+        availableWords: GAMES[0],
+        foundLetters: ['h', 'u', '-'],
+        foundWords: foundWords,
+        currentWordPos: 3,
+        currentWord: 'hut',
+        sound: '',
+        status: 'Waiting For Input'
+      };
+      deepFreeze(initialState);
+
+      const state = game(initialState, {type: LETTER_CLICKED, letter: 'u'});
+      expect(state).toEqual(expectedState);
+    });
+
+    it('third letter is clicked, successfully matching word', () => {
+      const foundWordsChanged = [{name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}];
+      const initialState = {
+        availableWords: GAMES[0],
+        foundLetters: ['h', 'u', '-'],
+        foundWords: foundWords,
+        currentWordPos: 3,
+        currentWord: 'hut',
+        sound: '',
+        status: 'Waiting For Input'
+      };
+
+      let expectedState = {
+        availableWords: GAMES[0],
+        foundLetters: ['h', 'u', 't'],
+        foundWords: foundWordsChanged,
+        currentWordPos: 3,
+        currentWord: 'hut',
+        sound: 'audio/success.mp3',
+        status: 'Word Matched'
+      };
+      expectedState.foundWords[3] = {'name': 'hut', 'match': true};
+      deepFreeze(initialState);
+
+      const state = game(initialState, {type: LETTER_CLICKED, letter: 't'});
+      expect(state).toEqual(expectedState);
+    });
+
+    it('play audio on successful word match', () => {
+
+      const foundWordsChanged = [{name: '---'}, {name: '---'}, {name: '---'}, {name: 'hut', 'match':true}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}];
+      const initialState = {
+        availableWords: GAMES[0],
+        foundLetters: START_FOUND_LETTERS,
+        foundWords: foundWordsChanged,
+        currentWordPos: 3,
+        currentWord: 'hut',
+        sound: 'audio/success.mp3',
+        status: 'Word Matched'
+      };
+
+      const expectedState = {
+        availableWords: GAMES[0],
+        foundLetters: START_FOUND_LETTERS,
+        foundWords: foundWordsChanged,
+        currentWordPos: 3,
+        currentWord: 'hut',
+        sound: '',
+        status: 'Waiting to play a word audio'
+      };
+      deepFreeze(initialState);
+
+      const state = game(initialState, {type: FINISHED_PLAYING_SOUND});
+
+      expect(state).toEqual(expectedState);
+    });
+
+    it('third letter is clicked, unsuccessfully matching word', () => {
+      const foundWordsChanged = [{name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}];
+      const initialState = {
+        availableWords: GAMES[0],
+        foundLetters: ['h', 'u', '-'],
+        foundWords: foundWords,
+        currentWordPos: 3,
+        currentWord: 'hut',
+        sound: '',
+        status: 'Waiting For Input'
+      };
+
+      let expectedState = {
+        availableWords: GAMES[0],
+        foundLetters: ['h', 'u', 'p'],
+        foundWords: foundWordsChanged,
+        currentWordPos: 3,
+        currentWord: 'hut',
+        sound: 'audio/warning.mp3',
+        status: 'Word Not Matched'
+      };
+      expectedState.foundWords[3] = {'name': 'hup', 'match': false};
+      deepFreeze(initialState);
+
+      const state = game(initialState, {type: LETTER_CLICKED, letter: 'p'});
+      expect(state).toEqual(expectedState);
+    });
+
+    it('play audio on unsuccessful word match', () => {
+
+      const foundWordsChanged = [{name: '---'}, {name: '---'}, {name: '---'}, {name: 'hut', 'match':true}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}];
+      const initialState = {
+        availableWords: GAMES[0],
+        foundLetters: START_FOUND_LETTERS,
+        foundWords: foundWordsChanged,
+        currentWordPos: 3,
+        currentWord: 'hut',
+        sound: 'audio/warning.mp3',
+        status: 'Word Not Matched'
+      };
+
+      const expectedState = {
+        availableWords: GAMES[0],
+        foundLetters: START_FOUND_LETTERS,
+        foundWords: foundWordsChanged,
+        currentWordPos: 3,
+        currentWord: 'hut',
+        sound: '',
+        status: 'Waiting to play a word audio'
       };
       deepFreeze(initialState);
 

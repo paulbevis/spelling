@@ -22,20 +22,20 @@ export default class PlaySound extends Component {
   render() {
     return (
       <div>
-        <audio src={this.props.sound.audio} preload="auto" ref="sound"/>
+        <audio src={this.props.sound} preload="auto" ref="sound"/>
       </div>
     )
   }
 
   componentDidUpdate() {
-    if (this.props.sound.audio) {
+    if (this.props.sound) {
       this.refs.sound.play();
     }
   }
 
   componentDidMount() {
     this.refs.sound.addEventListener("ended", (e)=> {
-      this.props.onFinishedPlaying(this.props.sound.task)
+      this.props.onFinishedPlaying()
     });
   }
 
