@@ -23,10 +23,9 @@ export function startGameAction() {
     type: GAME_START
   }
 }
-export function finishedPlayingSoundAction(value) {
+export function finishedPlayingSoundAction() {
   return {
-    type: FINISHED_PLAYING_SOUND,
-    value
+    type: FINISHED_PLAYING_SOUND
   }
 }
 export function letterClickedAction(letter) {
