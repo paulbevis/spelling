@@ -171,7 +171,7 @@ export function game(state = defaultData(), action) {
       return finishedPlayingSound(state);
 
     case LETTER_CLICKED:
-      return letterClicked(state, action.value);
+      return letterClicked(state, action.letter);
 
     case PLAY_WORD:
       return playWord(state, action.key);
