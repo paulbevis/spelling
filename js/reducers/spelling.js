@@ -21,11 +21,8 @@ import {GAME_START, FINISHED_PLAYING_SOUND, LETTER_CLICKED, PLAY_WORD} from '../
 import {GAMES} from '../constants/data'
 
 function buildLetters(letters) {
-  var alphabet = letters.split("");
-  return alphabet.map((letter) => {
-      return {name: letter}
-    }
-  )
+  var addToProperty = (letter)=>({'name': letter});
+  return map(addToProperty, letters.split(''));
 }
 function buildFoundWords() {
   var words = [];
