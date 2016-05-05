@@ -15,7 +15,7 @@
  */
 'use strict';
 
-import React, {Component, PropTypes} from 'react'
+import React, {Component, PropTypes} from 'react';
 
 export default class FoundWord extends Component {
   render() {
@@ -40,17 +40,22 @@ export default class FoundWord extends Component {
           <span style={{color:results.colour}}>{this.props.word.name}</span>
           <i className="material-icons"
              style={{padding:'5px',cursor: results.selectable, color:results.colour}}
-             onClick={(e) => this.processClick(e)}>{results.icon}</i>
+             onClick={() => this.processClick()}>{results.icon}</i>
         </div>
       </div>
-    )
+    );
   }
 
-  processClick(e) {
+  processClick() {
     if (this.props.word.match !== true && this.props.status === 'Waiting to play a word audio') {
-      this.props.onPlayWord(this.props.id)
+      this.props.onPlayWord(this.props.id);
     }
   }
 
 }
+
+FoundWord.propTypes = {
+  word: PropTypes.object.isRequired,
+  onPlayWord:PropTypes.func.isRequired
+};
 

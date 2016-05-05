@@ -15,22 +15,27 @@
  */
 'use strict';
 
-import React, {Component, PropTypes} from 'react'
+import React, {Component, PropTypes} from 'react';
 import RaisedButton from 'material-ui/lib/raised-button';
 
 export default class Letter extends Component {
 
   render() {
     let myStyle = {minWidth: '45px', margin: '5px 2px 5px 5px'};
-    const disabledColour="#3A938C";
+    const disabledColour = '#3A938C';
     return (
       <RaisedButton label={this.props.name}
                     disabled={!(this.props.status === 'Waiting For Input')}
                     disabledBackgroundColor={disabledColour}
                     backgroundColor={disabledColour}
                     style={myStyle}
-                    onClick={(e) => this.props.onLetterClicked(this.props.name)}
+                    onClick={() => this.props.onLetterClicked(this.props.name)}
                     labelStyle={{textTransform: 'lowercase'}}/>
-    )
+    );
   }
 }
+
+Letter.propTypes = {
+  status: PropTypes.string.isRequired,
+  onLetterClicked:PropTypes.func.isRequired
+};

@@ -15,12 +15,12 @@
  */
 'use strict';
 
-import React, {Component, PropTypes} from 'react'
-import Letters from '../components/letters'
-import PlayingArea from '../components/playing-area'
-import {connect} from 'react-redux'
-import {startGameAction, finishedPlayingSoundAction, letterClickedAction, playWordAction} from '../actions/spelling'
-import PlaySound from '../components/play-sound'
+import React, {Component, PropTypes} from 'react';
+import Letters from '../components/letters';
+import PlayingArea from '../components/playing-area';
+import {connect} from 'react-redux';
+import {startGameAction, finishedPlayingSoundAction, letterClickedAction, playWordAction} from '../actions/spelling';
+import PlaySound from '../components/play-sound';
 
 
 class Spelling extends Component {
@@ -45,20 +45,27 @@ class Spelling extends Component {
             <PlayingArea game={game}
                          onStartGame={()=>dispatch(startGameAction())}
                          onPlayWord={(key) => dispatch(playWordAction(key))}/>
-            <Letters key="letters" 
-                     letters={letters} 
-                     status={game.status} 
+            <Letters key="letters"
+                     letters={letters}
+                     status={game.status}
                      onLetterClicked={(value) => dispatch(letterClickedAction(value))}/>
-            <PlaySound sound={game.sound} 
-                       status={game.status} 
+            <PlaySound sound={game.sound}
+                       status={game.status}
                        onFinishedPlaying={() => dispatch(finishedPlayingSoundAction())}/>
           </div>
         </div>
       </div>
-    )
+    );
   }
 
 }
+
+Spelling.propTypes = {
+  game: PropTypes.shape({
+    status: PropTypes.string.isRequired,
+    sound: PropTypes.string.isRequired
+  }).isRequired
+};
 
 function select(state) {
   return {
@@ -69,4 +76,4 @@ function select(state) {
 }
 
 // Wrap the component to inject dispatch and state into it
-export default connect(select)(Spelling)
+export default connect(select)(Spelling);

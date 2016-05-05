@@ -15,17 +15,16 @@
  */
 'use strict';
 
-import React, {Component, PropTypes} from 'react'
-import Letter from './letter'
+import React, {Component, PropTypes} from 'react';
+import Letter from './letter';
 
 export default class Letters extends Component {
 
   lettersInRange(start) {
-    return this.props.letters.slice(start, start + 13).map((letter, index)=> 
+    return this.props.letters.slice(start, start + 13).map((letter, index)=>
       <Letter key={index} {...letter} status={this.props.status} onLetterClicked={this.props.onLetterClicked}/>);
   }
 
-  // 2 rows of 12 letter components
   render() {
     const myStyle = {display: 'flex', flexDirection: 'row', flexWrap: 'wrap', alignContent: 'space-around'};
 
@@ -42,6 +41,11 @@ export default class Letters extends Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
+
+Letters.propTypes = {
+  status: PropTypes.string.isRequired,
+  onLetterClicked:PropTypes.func.isRequired
+};
