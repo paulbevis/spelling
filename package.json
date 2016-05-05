@@ -8,7 +8,8 @@
     "test": "jest",
     "test:coverage": "jest --no-cache --coverage",
     "test:watch": "npm test -- --watch",
-    "testMocha": "NODE_ENV=test mocha --recursive --compilers js:babel-core/register --require ./test/setup.js"
+    "testMocha": "NODE_ENV=test mocha --recursive --compilers js:babel-core/register --require ./test/setup.js",
+    "lint":"eslint js"
   },
   "jest": {
     "unmockedModulePathPatterns": [
