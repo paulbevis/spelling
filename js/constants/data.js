@@ -18,9 +18,4 @@
 export const GAME_LETTERS = "abcdefghijklmnopqrstuvwxyz";
 export const START_LETTERS = "--------------------------";
 export const START_FOUND_LETTERS = ['-', '-', '-'];
-export const GAMES = {
-  '0': {
-    words: ['bin', 'cat', 'fan', 'hut', 'jog', 'leg', 'nod', 'pen', 'run', 'wig'],
-    audio: ['audio/words/bad.mp3', 'audio/words/bag.mp3', 'audio/words/box.mp3', 'audio/words/cat.mp3', 'audio/words/mat.mp3']
-  }
-};
+export const GAMES = [['bin', 'cat', 'fan', 'hut', 'jog', 'leg', 'nod', 'pen', 'run', 'wig']];

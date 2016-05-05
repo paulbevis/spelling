@@ -26,7 +26,7 @@ export default class PlayArea extends Component {
     return (
       <div style={{display:'flex',flexDirection:'column', height:'100%'}}>
         <div className='button-controls' style={{marginTop:'10px'}}>
-          <RaisedButton label="Start" secondary={true} onClick={this.props.onStartGame}/>
+          <RaisedButton label="Start" primary={true} onClick={this.props.onStartGame}/>
         </div>
         <div style={{display:'flex', flexGrow:'1'}}>
           <SubmittedLetters foundLetters={this.props.game.foundLetters} status={this.props.game.status}/>

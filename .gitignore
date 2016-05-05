@@ -64,5 +64,6 @@ build
 
 node_modules
 coverage
+public
 
 

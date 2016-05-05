@@ -7,7 +7,8 @@
     "start": "node server.js",
     "test": "jest",
     "test:coverage": "jest --no-cache --coverage",
-    "test:watch": "npm test -- --watch"
+    "test:watch": "npm test -- --watch",
+    "testMocha": "NODE_ENV=test mocha --recursive --compilers js:babel-core/register --require ./test/setup.js"
   },
   "jest": {
     "unmockedModulePathPatterns": [
@@ -28,6 +29,7 @@
   "homepage": "https://github.com/paulbevis/spelling#readme",
   "dependencies": {
     "material-ui": "^0.14.4",
+    "ramda": "^0.21.0",
     "react": "^0.14.8",
     "react-dom": "^0.14.8",
     "react-redux": "^4.4.1",

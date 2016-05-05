@@ -14,13 +14,17 @@ To run Jest tests in Intellij, in debug mode, set the following configuration:
 *   Javascript file:        `node_modules/jest-cli/bin/jest.js`
 *   Application Parameters: `--runInBand`
 
+To run Mocha tests in Intellij
+*   Extra Mocha Options:    `--compilers js:babel-core/register`
+
 ### Game State Flow
  
 |User Interaction       |Action                     |Old Status         |New Status                     |
 |---                    |---------                  |----------         |---                            |
 |Press START            |GAME_START                 |                   |Intro                          |
-|Sound starts           |                           |                   |                               |
-|Sound finishes         |FINISHED_PLAYING_SOUND     |Intro              |Playing                        |
+|Intro Sound starts     |                           |                   |                               |
+|Intro Sound finishes   |FINISHED_PLAYING_SOUND     |Intro              |Playing                        |
+|Mic symbol clicked     |PLAY_WORD                  |Waiting to play a word audio|Playing               |
 |Sound Starts           |                           |                   |                               |
 |Sound finishes         |FINISHED_PLAYING_SOUND     |Playing            |Waiting For Input              |
 |Word Matched                                                                                           |

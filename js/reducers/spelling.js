@@ -35,7 +35,7 @@ function buildFoundWords() {
   return words;
 }
 
-function letters(state = {}, action) {
+export function letters(state = {}, action) {
   switch (action.type) {
     case GAME_START:
     case FINISHED_PLAYING_SOUND:
@@ -58,7 +58,7 @@ function shuffleArray(array) {
 }
 
 function getAvailableWords() {
-  let wordArray = Object.assign([], GAMES[0].words);
+  let wordArray = GAMES[0].slice(0);
   shuffleArray(wordArray);
   return wordArray;
 }
@@ -68,86 +68,111 @@ function defaultData() {
     foundLetters: START_FOUND_LETTERS,
     foundWords: buildFoundWords(),
     availableWords: getAvailableWords(),
-    wordMessages: [],
-    sound: {},
-    wordMatched: '',
+    sound: '',
     status: 'disabled'
   }
 }
 
-function game(state = defaultData(), action) {
+function startGame(state) {
+  let game = {};
+  game.availableWords = state.availableWords;
+  game.foundLetters = START_FOUND_LETTERS;
+  game.foundWords = buildFoundWords();
+  game.sound = 'audio/start.mp3';
+  game.status = 'Intro';
+  return game;
+}
+
+function finishedPlayingSound(state) {
   let game = {};
   game.availableWords = state.availableWords;
   game.foundWords = state.foundWords;
   game.foundLetters = START_FOUND_LETTERS;
-  game.currentWordPos = state.currentWordPos
+  game.currentWordPos = state.currentWordPos;
   game.currentWord = state.currentWord;
-  game.sound = {};
+  game.sound = '';
+  switch (state.status) {
+    case 'Playing':
+      game.status = 'Waiting For Input';
+      break;
+    case'Waiting For Input':
+      game.status = 'Waiting For Input';
+      break;
+    case 'Word Matched':
+      game.status = 'Waiting to play a word audio';
+      break;
+    case 'Word Not Matched':
+      game.status = 'Waiting to play a word audio';
+      break;
+    case 'Intro':
+      game.status = 'Waiting to play a word audio';
+      break;
 
-  switch (action.type) {
-    case GAME_START:
-      game.foundWords = buildFoundWords();
-      game.sound = {audio: 'audio/start.mp3', task: 'start'};
-      game.status = 'Intro';
-      return game;
+    default:
+      game.sound = '';
+  }
+  return game;
+}
 
-    case FINISHED_PLAYING_SOUND:
-      switch (state.status) {
-        case 'Playing':
-          game.status = 'Waiting For Input';
-          break;
-        case'Waiting For Input':
-          game.status = 'Waiting For Input';
-          break;
-        case 'Word Matched':
-          game.status = 'Waiting to play a word audio';
-          break;
-        case 'Word Not Matched':
-          game.status = 'Waiting to play a word audio';
-          break;
-        case 'Intro':
-          game.status = 'Waiting to play a word audio';
-          break;
-
-        default:
-          game.sound = {};
-      }
-      return game;
-
-    case LETTER_CLICKED:
-      game.foundLetters = Object.assign([], state.foundLetters);
-      game.foundWords = Object.assign([], state.foundWords);
-      game.status=state.status;
-      if (state.foundLetters[0] === '-') {
-        game.foundLetters[0] = action.value;
-      } else {
-        if (state.foundLetters[1] === '-') {
-          game.foundLetters[1] = action.value;
+function letterClicked(state, letter) {
+  let game = {};
+  game.availableWords = state.availableWords;
+  game.foundLetters = Object.assign([], state.foundLetters);
+  game.foundWords = Object.assign([], state.foundWords);
+  game.status = state.status;
+  game.currentWordPos = state.currentWordPos;
+  game.currentWord = state.currentWord;
+  game.sound = '';
+  if (state.foundLetters[0] === '-') {
+    game.foundLetters[0] = letter;
+  } else {
+    if (state.foundLetters[1] === '-') {
+      game.foundLetters[1] = letter;
+    } else {
+      if (state.foundLetters[2] === '-') {
+        game.foundLetters[2] = letter;
+        var submittedWord = game.foundLetters.join('');
+        game.foundWords[state.currentWordPos] = {'name': submittedWord};
+        if (submittedWord === state.currentWord) {
+          game.sound = 'audio/success.mp3';
+          game.status = 'Word Matched';
+          game.foundWords[game.currentWordPos].match = true
         } else {
-          if (state.foundLetters[2] === '-') {
-            game.foundLetters[2] = action.value;
-            var submittedWord = game.foundLetters.join('');
-            game.foundWords[state.currentWordPos] = {'name': submittedWord};
-            if (submittedWord === state.currentWord) {
-              game.sound = {audio: 'audio/success.mp3', task: 'matching'};
-              game.status = 'Word Matched';
-              game.foundWords[game.currentWordPos].match = true
-            } else {
-              game.sound = {audio: 'audio/warning.mp3', task: 'matching'};
-              game.status = 'Word Not Matched';
-              game.foundWords[game.currentWordPos].match = false;
-            }
-          }
+          game.sound = 'audio/warning.mp3';
+          game.status = 'Word Not Matched';
+          game.foundWords[game.currentWordPos].match = false;
         }
       }
-      return game;
+    }
+  }
+  return game;
+}
+
+function playWord(state, availableWordPos) {
+  let game = {};
+  game.availableWords = state.availableWords;
+  game.foundWords = state.foundWords;
+  game.foundLetters = START_FOUND_LETTERS;
+  game.currentWord = game.availableWords[availableWordPos];
+  game.sound = 'audio/words/' + game.currentWord + '.m4a';
+  game.status = 'Playing';
+  game.currentWordPos = availableWordPos;
+  return game;
+}
+
+export function game(state = defaultData(), action) {
+  switch (action.type) {
+    case GAME_START:
+      return startGame(state);
+
+    case FINISHED_PLAYING_SOUND:
+      return finishedPlayingSound(state);
+
+    case LETTER_CLICKED:
+      return letterClicked(state, action.letter);
 
     case PLAY_WORD:
-      game.currentWord = game.availableWords[action.key];
-      game.sound = {audio: 'audio/words/' + game.currentWord + '.m4a', task: 'word'};
-      game.status = 'Playing';
-      game.currentWordPos = action.key;
-      return game;
+      return playWord(state, action.key);
 
     default:
       return state;
