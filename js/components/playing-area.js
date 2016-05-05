@@ -15,9 +15,9 @@
  */
 'use strict';
 
-import React, {Component, PropTypes} from 'react'
-import FoundWords from './found-words'
-import SubmittedLetters from './submitted-letters'
+import React, {Component, PropTypes} from 'react';
+import FoundWords from './found-words';
+import SubmittedLetters from './submitted-letters';
 import RaisedButton from 'material-ui/lib/raised-button';
 
 export default class PlayArea extends Component {
@@ -33,6 +33,11 @@ export default class PlayArea extends Component {
           <FoundWords foundWords={this.props.game.foundWords} status={this.props.game.status} onPlayWord={this.props.onPlayWord}/>
         </div>
       </div>
-    )
+    );
   }
 }
+
+PlayArea.propTypes={
+  game:PropTypes.object.isRequired,
+  onPlayWord:PropTypes.func.isRequired
+};

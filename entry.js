@@ -31,7 +31,7 @@ render(
     <Spelling />
   </Provider>,
   document.getElementById('framework')
-)
+);
 
 if (typeof Object.assign != 'function') {
     (function () {

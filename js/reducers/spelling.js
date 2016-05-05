@@ -15,15 +15,17 @@
  */
 'use strict';
 
-import {combineReducers} from 'redux'
-import {GAME_LETTERS, START_LETTERS, START_FOUND_LETTERS} from '../constants/data'
-import {GAME_START, FINISHED_PLAYING_SOUND, LETTER_CLICKED, PLAY_WORD} from '../constants/action-types'
-import {GAMES} from '../constants/data'
+import {combineReducers} from 'redux';
+import {GAME_LETTERS, START_LETTERS, START_FOUND_LETTERS} from '../constants/data';
+import {GAME_START, FINISHED_PLAYING_SOUND, LETTER_CLICKED, PLAY_WORD} from '../constants/action-types';
+import {GAMES} from '../constants/data';
+import {map} from 'ramda';
 
 function buildLetters(letters) {
   var addToProperty = (letter)=>({'name': letter});
   return map(addToProperty, letters.split(''));
 }
+
 function buildFoundWords() {
   var words = [];
   for (var i = 0; i < 10; i++) {
@@ -67,7 +69,7 @@ function defaultData() {
     availableWords: getAvailableWords(),
     sound: '',
     status: 'disabled'
-  }
+  };
 }
 
 function startGame(state) {
@@ -133,7 +135,7 @@ function letterClicked(state, letter) {
         if (submittedWord === state.currentWord) {
           game.sound = 'audio/success.mp3';
           game.status = 'Word Matched';
-          game.foundWords[game.currentWordPos].match = true
+          game.foundWords[game.currentWordPos].match = true;
         } else {
           game.sound = 'audio/warning.mp3';
           game.status = 'Word Not Matched';
@@ -181,4 +183,4 @@ const spellingAppReducers = combineReducers({
   game
 });
 
-export default spellingAppReducers
+export default spellingAppReducers;

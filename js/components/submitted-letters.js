@@ -15,15 +15,10 @@
  */
 'use strict';
 
-import React, {Component, PropTypes} from 'react'
-import SubmittedLetter from './submitted-letter'
+import React, {Component, PropTypes} from 'react';
+import SubmittedLetter from './submitted-letter';
 
 export default class SubmittedLetters extends Component {
-
-  constructor() {
-    super();
-    this.state = {animateClass: ''};
-  }
 
   render() {
     let animating = this.props.status === 'Word Matched' ? 'animated bounce' : this.props.status === 'Word Not Matched' ? 'animated hinge' : '';
@@ -38,8 +33,12 @@ export default class SubmittedLetters extends Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
 
 }
+SubmittedLetters.propTypes = {
+  status: PropTypes.string.isRequired,
+  foundLetters: PropTypes.array.isRequired
+};
 

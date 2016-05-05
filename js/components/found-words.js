@@ -15,33 +15,27 @@
  */
 'use strict';
 
-import React, {Component, PropTypes} from 'react'
-import FoundWord from './found-word'
+import React, {Component, PropTypes} from 'react';
+import FoundWord from './found-word';
 
 export default class FoundWords extends Component {
 
   render() {
     const myStyle = {display: 'flex', flexDirection: 'column', flexWrap: 'nowrap', alignContent: 'space-around'};
 
-    const startButtonStyle = {
-      display: 'inline-block',
-      padding: '4px 20px',
-      margin: '5px',
-      fontSize: '24px',
-      lineHeight: '26px',
-      background: '#0cc3ff',
-      borderRadius: '3px',
-      cursor: 'pointer',
-      color: '#333'
-    };
     return (
       <div className="found-words" style={myStyle}>
         {
           this.props.foundWords.map((word, index)=> {
-            return <FoundWord key={'word'+index} word={word} id={index} status={this.props.status} onPlayWord={this.props.onPlayWord}/>
+            return <FoundWord key={'word'+index} word={word} id={index} status={this.props.status} onPlayWord={this.props.onPlayWord}/>;
           })
         }
       </div>
-    )
+    );
   }
 }
+
+FoundWords.propTypes = {
+  status: PropTypes.string.isRequired,
+  onPlayWord:PropTypes.func.isRequired
+};

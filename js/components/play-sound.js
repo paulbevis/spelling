@@ -15,7 +15,7 @@
  */
 'use strict';
 
-import React, {Component, PropTypes} from 'react'
+import React, {Component, PropTypes} from 'react';
 
 export default class PlaySound extends Component {
 
@@ -24,7 +24,7 @@ export default class PlaySound extends Component {
       <div>
         <audio src={this.props.sound} preload="auto" ref="sound"/>
       </div>
-    )
+    );
   }
 
   componentDidUpdate() {
@@ -34,14 +34,17 @@ export default class PlaySound extends Component {
   }
 
   componentDidMount() {
-    this.refs.sound.addEventListener("ended", (e)=> {
-      this.props.onFinishedPlaying()
+    this.refs.sound.addEventListener('ended', ()=> {
+      this.props.onFinishedPlaying();
     });
   }
 
   componentWillUnmount() {
-    this.refs.sound.removeEventListener("ended", (e)=> {
+    this.refs.sound.removeEventListener('ended', ()=> {
     }, false);
   }
 }
 
+PlaySound.propTypes = {
+  sound: PropTypes.string.isRequired
+};
