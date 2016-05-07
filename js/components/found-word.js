@@ -26,16 +26,19 @@ export default class FoundWord extends Component {
     let results = this.props.word.match === true ? correct :
       this.props.word.match === false ? wrong :
         this.props.status === 'disabled' || this.props.status === 'Intro' ? disabled : unknown;
+
     const myStyle = {
       padding: '2px 10px 2px 10px',
       margin: '2px',
       fontSize: '22px',
       lineHeight: '34px',
-      background: '#7DA6A3',
+      background: this.props.word.nextAvailable ? '#ff4081' : '#7DA6A3',
       borderRadius: '2px'
     };
+    const pulsingClasses = this.props.word.nextAvailable ? 'pulse animated infinite' : '';
+
     return (
-      <div style={myStyle}>
+      <div style={myStyle} className={pulsingClasses}>
         <div style={{display:'flex', flexDirection: 'row', justifyContent:'center'}}>
           <span style={{color:results.colour}}>{this.props.word.name}</span>
           <i className="material-icons"
@@ -56,6 +59,6 @@ export default class FoundWord extends Component {
 
 FoundWord.propTypes = {
   word: PropTypes.object.isRequired,
-  onPlayWord:PropTypes.func.isRequired
+  onPlayWord: PropTypes.func.isRequired
 };
 

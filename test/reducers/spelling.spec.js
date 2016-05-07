@@ -102,17 +102,19 @@ describe('Spelling game', () => {
         sound: 'audio/start.mp3',
         status: 'Intro'
       };
+      deepFreeze(initialState);
+      const foundWordsChanged = [{name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}];
 
       const expectedState = {
         availableWords: GAMES[0],
         foundLetters: START_FOUND_LETTERS,
-        foundWords: foundWords,
+        foundWords: foundWordsChanged,
         currentWordPos: undefined,
         currentWord: undefined,
         sound: '',
         status: 'Waiting to play a word audio'
       };
-      deepFreeze(initialState);
+      expectedState.foundWords[0].nextAvailable = true;
 
       const state = game(initialState, {type: FINISHED_PLAYING_SOUND});
 
@@ -129,6 +131,7 @@ describe('Spelling game', () => {
         currentWord: undefined,
         status: 'Waiting to play a word audio'
       };
+      deepFreeze(initialState);
 
       const expectedState = {
         availableWords: GAMES[0],
@@ -139,7 +142,6 @@ describe('Spelling game', () => {
         sound: 'audio/words/hut.m4a',
         status: 'Playing'
       };
-      deepFreeze(initialState);
 
       const state = game(initialState, {type: PLAY_WORD, key: 3});
 
@@ -157,6 +159,7 @@ describe('Spelling game', () => {
         sound: 'audio/words/hut.m4a',
         status: 'Playing'
       };
+      deepFreeze(initialState);
 
       const expectedState = {
         availableWords: GAMES[0],
@@ -167,7 +170,6 @@ describe('Spelling game', () => {
         sound: '',
         status: 'Waiting For Input'
       };
-      deepFreeze(initialState);
 
       const state = game(initialState, {type: FINISHED_PLAYING_SOUND});
 
@@ -184,6 +186,7 @@ describe('Spelling game', () => {
         sound: '',
         status: 'Waiting For Input'
       };
+      deepFreeze(initialState);
 
       const expectedState = {
         availableWords: GAMES[0],
@@ -194,7 +197,6 @@ describe('Spelling game', () => {
         sound: '',
         status: 'Waiting For Input'
       };
-      deepFreeze(initialState);
 
       const state = game(initialState, {type: LETTER_CLICKED, letter: 'h'});
       expect(state).toEqual(expectedState);
@@ -210,6 +212,7 @@ describe('Spelling game', () => {
         sound: '',
         status: 'Waiting For Input'
       };
+      deepFreeze(initialState);
 
       const expectedState = {
         availableWords: GAMES[0],
@@ -220,7 +223,6 @@ describe('Spelling game', () => {
         sound: '',
         status: 'Waiting For Input'
       };
-      deepFreeze(initialState);
 
       const state = game(initialState, {type: LETTER_CLICKED, letter: 'u'});
       expect(state).toEqual(expectedState);
@@ -237,6 +239,7 @@ describe('Spelling game', () => {
         sound: '',
         status: 'Waiting For Input'
       };
+      deepFreeze(initialState);
 
       let expectedState = {
         availableWords: GAMES[0],
@@ -248,7 +251,6 @@ describe('Spelling game', () => {
         status: 'Word Matched'
       };
       expectedState.foundWords[3] = {'name': 'hut', 'match': true};
-      deepFreeze(initialState);
 
       const state = game(initialState, {type: LETTER_CLICKED, letter: 't'});
       expect(state).toEqual(expectedState);
@@ -256,7 +258,7 @@ describe('Spelling game', () => {
 
     it('play audio on successful word match', () => {
 
-      const foundWordsChanged = [{name: '---'}, {name: '---'}, {name: '---'}, {name: 'hut', 'match':true}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}];
+      const foundWordsChanged = [{name: '---'}, {name: '---'}, {name: '---'}, {name: 'hut', 'match': true}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}];
       const initialState = {
         availableWords: GAMES[0],
         foundLetters: START_FOUND_LETTERS,
@@ -266,6 +268,7 @@ describe('Spelling game', () => {
         sound: 'audio/success.mp3',
         status: 'Word Matched'
       };
+      deepFreeze(initialState);
 
       const expectedState = {
         availableWords: GAMES[0],
@@ -276,7 +279,6 @@ describe('Spelling game', () => {
         sound: '',
         status: 'Waiting to play a word audio'
       };
-      deepFreeze(initialState);
 
       const state = game(initialState, {type: FINISHED_PLAYING_SOUND});
 
@@ -294,6 +296,7 @@ describe('Spelling game', () => {
         sound: '',
         status: 'Waiting For Input'
       };
+      deepFreeze(initialState);
 
       let expectedState = {
         availableWords: GAMES[0],
@@ -305,7 +308,6 @@ describe('Spelling game', () => {
         status: 'Word Not Matched'
       };
       expectedState.foundWords[3] = {'name': 'hup', 'match': false};
-      deepFreeze(initialState);
 
       const state = game(initialState, {type: LETTER_CLICKED, letter: 'p'});
       expect(state).toEqual(expectedState);
@@ -313,7 +315,7 @@ describe('Spelling game', () => {
 
     it('play audio on unsuccessful word match', () => {
 
-      const foundWordsChanged = [{name: '---'}, {name: '---'}, {name: '---'}, {name: 'hut', 'match':true}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}];
+      const foundWordsChanged = [{name: '---'}, {name: '---'}, {name: '---'}, {name: 'hut', 'match': true}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}];
       const initialState = {
         availableWords: GAMES[0],
         foundLetters: START_FOUND_LETTERS,
@@ -323,6 +325,7 @@ describe('Spelling game', () => {
         sound: 'audio/warning.mp3',
         status: 'Word Not Matched'
       };
+      deepFreeze(initialState);
 
       const expectedState = {
         availableWords: GAMES[0],
@@ -333,7 +336,124 @@ describe('Spelling game', () => {
         sound: '',
         status: 'Waiting to play a word audio'
       };
+
+      const state = game(initialState, {type: FINISHED_PLAYING_SOUND});
+
+      expect(state).toEqual(expectedState);
+    });
+
+    it('third letter is clicked, unsuccessfully matching word', () => {
+      const foundWordsChanged = [{name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}];
+      const initialState = {
+        availableWords: GAMES[0],
+        foundLetters: ['h', 'u', '-'],
+        foundWords: foundWords,
+        currentWordPos: 3,
+        currentWord: 'hut',
+        sound: '',
+        status: 'Waiting For Input'
+      };
       deepFreeze(initialState);
+
+      let expectedState = {
+        availableWords: GAMES[0],
+        foundLetters: ['h', 'u', 'p'],
+        foundWords: foundWordsChanged,
+        currentWordPos: 3,
+        currentWord: 'hut',
+        sound: 'audio/warning.mp3',
+        status: 'Word Not Matched'
+      };
+      expectedState.foundWords[3] = {'name': 'hup', 'match': false};
+
+      const state = game(initialState, {type: LETTER_CLICKED, letter: 'p'});
+      expect(state).toEqual(expectedState);
+    });
+
+    it('after successful audio has been played, the next available word pulses', () => {
+
+      const foundWordsChanged = [{name: 'hut', matched:true}, {name: 'dad'}, {name: 'bog', matched:false}, {name: 'hut', 'match': true}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}];
+      const foundWordsChanged2 = [{name: 'hut', matched:true}, {name: 'dad', nextAvailable:true}, {name: 'bog', matched:false}, {name: 'hut', 'match': true}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}];
+      const initialState = {
+        availableWords: GAMES[0],
+        foundLetters: START_FOUND_LETTERS,
+        foundWords: foundWordsChanged,
+        currentWordPos: 3,
+        currentWord: 'hut',
+        sound: 'audio/words/hut.m4a',
+        status: 'Word Matched'
+      };
+      deepFreeze(initialState);
+
+      const expectedState = {
+        availableWords: GAMES[0],
+        foundLetters: START_FOUND_LETTERS,
+        foundWords: foundWordsChanged2,
+        currentWordPos: 3,
+        currentWord: 'hut',
+        sound: '',
+        status: 'Waiting to play a word audio'
+      };
+
+      const state = game(initialState, {type: FINISHED_PLAYING_SOUND});
+
+      expect(state).toEqual(expectedState);
+    });
+
+    it('after successful audio has been played, the next available word pulses, and the previous one stops', () => {
+
+      const foundWordsChanged = [{name: 'hut', match:true}, {name: 'dad'}, {name: 'bog', match:false}, {name: 'hut', 'match': true}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}];
+      const foundWordsChanged2 = [{name: 'hut', match:true}, {name: 'dad', nextAvailable:true}, {name: 'bog', match:false}, {name: 'hut', 'match': true}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}];
+      const initialState = {
+        availableWords: GAMES[0],
+        foundLetters: START_FOUND_LETTERS,
+        foundWords: foundWordsChanged,
+        currentWordPos: 0,
+        currentWord: 'hut',
+        sound: 'audio/words/hut.m4a',
+        status: 'Word Matched'
+      };
+      deepFreeze(initialState);
+
+      const expectedState = {
+        availableWords: GAMES[0],
+        foundLetters: START_FOUND_LETTERS,
+        foundWords: foundWordsChanged2,
+        currentWordPos: 0,
+        currentWord: 'hut',
+        sound: '',
+        status: 'Waiting to play a word audio'
+      };
+
+      const state = game(initialState, {type: FINISHED_PLAYING_SOUND});
+
+      expect(state).toEqual(expectedState);
+    });
+
+    it('after successful audio has been played, of word that was not pulsing, the different word carries on pulsing', () => {
+
+      const foundWordsChanged = [{name: 'hut', match:true}, {name: 'dad'}, {name: 'bog', match:false}, {name: 'hut', 'match': true}, {name: '---', nextAvailable:true}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}];
+      const foundWordsChanged2 = [{name: 'hut', match:true}, {name: 'dad'}, {name: 'bog', match:false}, {name: 'hut', 'match': true}, {name: '---', nextAvailable:true}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}];
+      const initialState = {
+        availableWords: GAMES[0],
+        foundLetters: START_FOUND_LETTERS,
+        foundWords: foundWordsChanged,
+        currentWordPos: 0,
+        currentWord: 'hut',
+        sound: 'audio/words/hut.m4a',
+        status: 'Word Matched'
+      };
+      deepFreeze(initialState);
+
+      const expectedState = {
+        availableWords: GAMES[0],
+        foundLetters: START_FOUND_LETTERS,
+        foundWords: foundWordsChanged2,
+        currentWordPos: 0,
+        currentWord: 'hut',
+        sound: '',
+        status: 'Waiting to play a word audio'
+      };
 
       const state = game(initialState, {type: FINISHED_PLAYING_SOUND});
 

@@ -19,7 +19,7 @@ import {combineReducers} from 'redux';
 import {GAME_LETTERS, START_LETTERS, START_FOUND_LETTERS} from '../constants/data';
 import {GAME_START, FINISHED_PLAYING_SOUND, LETTER_CLICKED, PLAY_WORD} from '../constants/action-types';
 import {GAMES} from '../constants/data';
-import {map} from 'ramda';
+import {map, prop, findIndex} from 'ramda';
 
 function buildLetters(letters) {
   var addToProperty = (letter)=>({'name': letter});
@@ -82,6 +82,17 @@ function startGame(state) {
   return game;
 }
 
+function setNextAvailableWord(foundWords) {
+  // let newFoundWords = Object.assign([], foundWords.slice(0));
+  const nextAvailableFunc = (x)=> prop('match', x) === undefined ? x : undefined;
+  let nextAvailableWordPos = findIndex(nextAvailableFunc, foundWords);
+  return [
+    ...foundWords.slice(0, nextAvailableWordPos),
+    Object.assign({}, {name: foundWords[nextAvailableWordPos].name}, {nextAvailable: true}),
+    ...foundWords.slice(nextAvailableWordPos + 1)
+  ];
+}
+
 function finishedPlayingSound(state) {
   let game = {};
   game.availableWords = state.availableWords;
@@ -99,12 +110,15 @@ function finishedPlayingSound(state) {
       break;
     case 'Word Matched':
       game.status = 'Waiting to play a word audio';
+      game.foundWords = setNextAvailableWord(game.foundWords);
       break;
     case 'Word Not Matched':
       game.status = 'Waiting to play a word audio';
+      game.foundWords = setNextAvailableWord(game.foundWords);
       break;
     case 'Intro':
       game.status = 'Waiting to play a word audio';
+      game.foundWords = setNextAvailableWord(game.foundWords);
       break;
 
     default:
@@ -141,6 +155,7 @@ function letterClicked(state, letter) {
           game.status = 'Word Not Matched';
           game.foundWords[game.currentWordPos].match = false;
         }
+        delete game.foundWords[game.currentWordPos].nextAvailable;
       }
     }
   }
