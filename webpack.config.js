@@ -8,7 +8,7 @@ module.exports = {
     chunkFilename: "[id].js"
   },
   eslint: {
-    configFile: '.eslintrc.json'
+    configFile: '.eslintrc.webpack.dev.json'
   },
   devtool: 'source-map',
   module: {
