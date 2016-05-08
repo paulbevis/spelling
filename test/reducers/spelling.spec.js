@@ -149,7 +149,6 @@ describe('Spelling game', () => {
     });
 
     it('word audio has finished', () => {
-
       const initialState = {
         availableWords: GAMES[0],
         foundLetters: START_FOUND_LETTERS,
@@ -528,6 +527,34 @@ describe('Spelling game', () => {
         currentWordPos: 0,
         currentWord: 'hut',
         sound: 'audio/applause.mp3',
+        status: 'Game Finished',
+        numberCorrect:1
+      };
+      const state = game(initialState, {type: FINISHED_PLAYING_SOUND});
+
+      expect(state).toEqual(expectedState);
+    });
+    it('after the game has completed keep the dialog displayed until one of th ebuttons is clicked', () => {
+      const foundWordsChanged = [{name: 'hut', match: true}, {name: 'dad', match: false}, {name: 'bog', match: false}];
+      const initialState = {
+        availableWords: GAMES[0],
+        foundLetters: START_FOUND_LETTERS,
+        foundWords: foundWordsChanged,
+        currentWordPos: 0,
+        currentWord: 'hut',
+        sound: 'audio/applause.mp3',
+        status: 'Game Finished',
+        numberCorrect:1
+      };
+      deepFreeze(initialState);
+
+      const expectedState = {
+        availableWords: GAMES[0],
+        foundLetters: START_FOUND_LETTERS,
+        foundWords: foundWordsChanged,
+        currentWordPos: 0,
+        currentWord: 'hut',
+        sound: '',
         status: 'Game Finished',
         numberCorrect:1
       };
