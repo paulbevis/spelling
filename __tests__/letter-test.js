@@ -8,6 +8,10 @@ import ReactDOM from 'react-dom';
 import TestUtils from 'react-addons-test-utils';
 import Letter from '../js/components/letter';
 
+navigator.__defineGetter__('userAgent', function() {
+  return 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2454.85 Safari/537.36'
+});
+
 describe('Letter tests', () => {
   it('if not disabled, then it allows clicks, sending the name', () => {
     let buttonName = 'a';
