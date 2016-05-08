@@ -22,13 +22,14 @@ import RaisedButton from 'material-ui/lib/raised-button';
 
 export default class PlayArea extends Component {
 
-  render() {    
+  render() {
     return (
-      <div style={{display:'flex',flexDirection:'column', height:'100%'}}>
+      <div style={{display:this.props.game.status === 'Game Finished'?'none':'flex',flexDirection:'column', height:'100%'}}>
         <div className='button-controls' style={{marginTop:'10px'}}>
           <RaisedButton label="Start" primary={true} onClick={this.props.onStartGame}/>
         </div>
         <div style={{display:'flex', flexGrow:'1'}}>
+
           <SubmittedLetters foundLetters={this.props.game.foundLetters} status={this.props.game.status}/>
           <FoundWords foundWords={this.props.game.foundWords} status={this.props.game.status} onPlayWord={this.props.onPlayWord}/>
         </div>
@@ -37,7 +38,9 @@ export default class PlayArea extends Component {
   }
 }
 
-PlayArea.propTypes={
-  game:PropTypes.object.isRequired,
-  onPlayWord:PropTypes.func.isRequired
+PlayArea.propTypes = {
+  game: PropTypes.object.isRequired,
+  onPlayWord: PropTypes.func.isRequired,
+  onStartSameGame: PropTypes.func.isRequired,
+  onStartNewGame: PropTypes.func.isRequired
 };

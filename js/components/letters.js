@@ -29,7 +29,7 @@ export default class Letters extends Component {
     const myStyle = {display: 'flex', flexDirection: 'row', flexWrap: 'wrap', alignContent: 'space-around'};
 
     return (
-      <div style={{minHeight:'100px',display:'flex', alignItems:'flex-end'}}>
+      <div style={{minHeight:'100px',display:this.props.status === 'Game Finished'?'none':'flex', alignItems:'flex-end'}}>
         <div style={{marginBottom:'10px'}}>
 
           <div style={myStyle} className="top-letter-row">
