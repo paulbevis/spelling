@@ -16,20 +16,20 @@ describe('In the game, after the user submits a word...', () => {
   it('if this is the last word available to be submitted we display the component', () => {
     // Render a gameover component in the document
     const gameOver = TestUtils.renderIntoDocument(
-      <GameOver gameOver={true} numberCorrect="5"/>
+      <GameOver status='Game Finished' numberCorrect="5"/>
     );
 
     const gameOverNode = ReactDOM.findDOMNode(gameOver);
-    expect(gameOverNode.style.display).toEqual('block');
-    const divSubNode = gameOverNode.children[0];
-    expect(divSubNode.textContent).toEqual('You got 5 correct!');
+    expect(gameOverNode.style.display).toEqual('flex');
+    const titleNode = gameOverNode.children[0].children[0];
+    expect(titleNode.textContent).toEqual('You got 5 correct!');
 
   });
 
   it('if this is not the last word available to spell, then keep the component hidden', () => {
     // Render a gameover component in the document
     const gameOver = TestUtils.renderIntoDocument(
-      <GameOver/>
+      <GameOver status='Playing'/>
     );
 
     const gameOverNode = ReactDOM.findDOMNode(gameOver);

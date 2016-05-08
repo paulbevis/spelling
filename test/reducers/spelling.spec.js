@@ -258,7 +258,7 @@ describe('Spelling game', () => {
 
     it('play audio on successful word match', () => {
 
-      const foundWordsChanged = [{name: '---', nextAvailable:true}, {name: '---'}, {name: '---'}, {name: 'hut', 'match': true}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}];
+      const foundWordsChanged = [{name: '---', nextAvailable: true}, {name: '---'}, {name: '---'}, {name: 'hut', 'match': true}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}];
       const initialState = {
         availableWords: GAMES[0],
         foundLetters: START_FOUND_LETTERS,
@@ -315,7 +315,7 @@ describe('Spelling game', () => {
 
     it('play audio on unsuccessful word match', () => {
 
-      const foundWordsChanged = [{name: '---', nextAvailable:true}, {name: '---'}, {name: '---'}, {name: 'hut', 'match': true}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}];
+      const foundWordsChanged = [{name: '---', nextAvailable: true}, {name: '---'}, {name: '---'}, {name: 'hut', 'match': true}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}];
       const initialState = {
         availableWords: GAMES[0],
         foundLetters: START_FOUND_LETTERS,
@@ -372,8 +372,14 @@ describe('Spelling game', () => {
 
     it('after successful audio has been played, the next available word pulses', () => {
 
-      const foundWordsChanged = [{name: 'hut', match:true}, {name: 'dad'}, {name: 'bog', match:false}, {name: 'bag', 'match': true}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}];
-      const foundWordsChanged2 = [{name: 'hut', match:true}, {name: 'dad', nextAvailable:true}, {name: 'bog', match:false}, {name: 'bag', 'match': true}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}];
+      const foundWordsChanged = [{name: 'hut', match: true}, {name: 'dad'}, {name: 'bog', match: false}, {
+        name: 'bag',
+        'match': true
+      }, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}];
+      const foundWordsChanged2 = [{name: 'hut', match: true}, {name: 'dad', nextAvailable: true}, {name: 'bog', match: false}, {
+        name: 'bag',
+        'match': true
+      }, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}];
       const initialState = {
         availableWords: GAMES[0],
         foundLetters: START_FOUND_LETTERS,
@@ -402,8 +408,14 @@ describe('Spelling game', () => {
 
     it('after successful audio has been played, the next available word pulses, and the previous one stops', () => {
 
-      const foundWordsChanged = [{name: 'hut', match:true}, {name: 'dad'}, {name: 'bog', match:false}, {name: 'hut', 'match': true}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}];
-      const foundWordsChanged2 = [{name: 'hut', match:true}, {name: 'dad', nextAvailable:true}, {name: 'bog', match:false}, {name: 'hut', 'match': true}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}];
+      const foundWordsChanged = [{name: 'hut', match: true}, {name: 'dad'}, {name: 'bog', match: false}, {
+        name: 'hut',
+        'match': true
+      }, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}];
+      const foundWordsChanged2 = [{name: 'hut', match: true}, {name: 'dad', nextAvailable: true}, {name: 'bog', match: false}, {
+        name: 'hut',
+        'match': true
+      }, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}];
       const initialState = {
         availableWords: GAMES[0],
         foundLetters: START_FOUND_LETTERS,
@@ -432,8 +444,14 @@ describe('Spelling game', () => {
 
     it('after successful audio has been played, of word that was not pulsing, the different word carries on pulsing', () => {
 
-      const foundWordsChanged = [{name: 'hut', match:true}, {name: 'dad'}, {name: 'bog', match:false}, {name: 'hut', 'match': true}, {name: '---', nextAvailable:true}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}];
-      const foundWordsChanged2 = [{name: 'hut', match:true}, {name: 'dad', nextAvailable:true}, {name: 'bog', match:false}, {name: 'hut', 'match': true}, {name: '---', nextAvailable:true}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}];
+      const foundWordsChanged = [{name: 'hut', match: true}, {name: 'dad'}, {name: 'bog', match: false}, {name: 'hut', 'match': true}, {
+        name: '---',
+        nextAvailable: true
+      }, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}];
+      const foundWordsChanged2 = [{name: 'hut', match: true}, {name: 'dad', nextAvailable: true}, {name: 'bog', match: false}, {name: 'hut', 'match': true}, {
+        name: '---',
+        nextAvailable: true
+      }, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}];
       const initialState = {
         availableWords: GAMES[0],
         foundLetters: START_FOUND_LETTERS,
@@ -455,6 +473,64 @@ describe('Spelling game', () => {
         status: 'Waiting to play a word audio'
       };
 
+      const state = game(initialState, {type: FINISHED_PLAYING_SOUND});
+
+      expect(state).toEqual(expectedState);
+    });
+
+    it('word not matched audio finishes playing, and the game has been completed', () => {
+      const foundWordsChanged = [{name: 'hut', match: true}, {name: 'dad', match: false}, {name: 'bog', match: false}];
+
+      const initialState = {
+        availableWords: GAMES[0],
+        foundLetters: START_FOUND_LETTERS,
+        foundWords: foundWordsChanged,
+        currentWordPos: 0,
+        currentWord: 'hut',
+        sound: 'audio/warning.mp3',
+        status: 'Word Not Matched'
+      };
+      deepFreeze(initialState);
+
+      const expectedState = {
+        availableWords: GAMES[0],
+        foundLetters: START_FOUND_LETTERS,
+        foundWords: foundWordsChanged,
+        currentWordPos: 0,
+        currentWord: 'hut',
+        sound: 'audio/applause.mp3',
+        status: 'Game Finished',
+        numberCorrect:1
+      };
+      const state = game(initialState, {type: FINISHED_PLAYING_SOUND});
+
+      expect(state).toEqual(expectedState);
+    });
+
+    it('word  matched audio finishes playing, and the game has been completed', () => {
+      const foundWordsChanged = [{name: 'hut', match: true}, {name: 'dad', match: false}, {name: 'bog', match: false}];
+
+      const initialState = {
+        availableWords: GAMES[0],
+        foundLetters: START_FOUND_LETTERS,
+        foundWords: foundWordsChanged,
+        currentWordPos: 0,
+        currentWord: 'hut',
+        sound: 'audio/success.mp3',
+        status: 'Word Matched'
+      };
+      deepFreeze(initialState);
+
+      const expectedState = {
+        availableWords: GAMES[0],
+        foundLetters: START_FOUND_LETTERS,
+        foundWords: foundWordsChanged,
+        currentWordPos: 0,
+        currentWord: 'hut',
+        sound: 'audio/applause.mp3',
+        status: 'Game Finished',
+        numberCorrect:1
+      };
       const state = game(initialState, {type: FINISHED_PLAYING_SOUND});
 
       expect(state).toEqual(expectedState);
