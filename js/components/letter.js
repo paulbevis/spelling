@@ -30,12 +30,12 @@ export default class Letter extends Component {
                     backgroundColor={disabledColour}
                     style={myStyle}
                     onClick={() => this.props.onLetterClicked(this.props.name)}
-                    labelStyle={{textTransform: 'lowercase'}}/>
+                    labelStyle={{textTransform: 'lowercase',fontSize: '18px'}}/>
     );
   }
 }
 
 Letter.propTypes = {
   status: PropTypes.string.isRequired,
-  onLetterClicked:PropTypes.func.isRequired
+  onLetterClicked: PropTypes.func.isRequired
 };
