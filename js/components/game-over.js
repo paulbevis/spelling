@@ -21,36 +21,32 @@ import RaisedButton from 'material-ui/lib/raised-button';
 export default class GameOver extends Component {
   render() {
     const gameOverStyle = {
-      display: this.props.gameOver ? 'block' : 'none',
-      position: 'absolute',
-      top: '33%',
-      left: '10%',
+      display: 'flex',
+      justifyContent: 'center',
+      flexDirection: 'column',
       background: '#b1edff',
       zIndex: '1',
       opacity: '.95',
-      fontSize: '40px',
-      width: '50%',
       borderRadius: '20px',
-      padding: '20px',
-      textAlign: 'center',
-      justifyContent: 'center',
-      alignItems: 'center'
+      padding: '20px'
     };
 
-
     return (
-      <div className="game-over" style={gameOverStyle}>
-        <div style={{marginBottom:'20px'}}>You got <span>{this.props.numberCorrect}</span> correct!</div>
-        <RaisedButton label="Start Again?" primary={true} onClick={this.props.onStartSameGame}/>
-        <RaisedButton label="Move to harder words?" primary={true} onClick={this.props.onStartNewGame}/>
+      <div style={{display:this.props.status === 'Game Finished' ? 'flex' : 'none',justifyContent: 'center', marginTop:'100px'}}>
+        <div className="game-over" style={gameOverStyle}>
+          <div style={{marginBottom:'20px', fontSize: '40px'}}>You got <span>{this.props.numberCorrect}</span> correct!</div>
+          <div style={{display:'flex', justifyContent:'space-between'}}>
+            <RaisedButton label="Start Again?" primary={true} onClick={this.props.onStartSameGame}/>
+            <RaisedButton label="Move to harder words?" primary={true} onClick={this.props.onStartNewGame}/>
+          </div>
+        </div>
       </div>
-    )
+    );
   }
-
 }
 
 GameOver.propTypes = {
-  gameOver: PropTypes.boolean,
+  status: PropTypes.string.isRequired,
   onStartSameGame: PropTypes.func.isRequired,
   onStartNewGame: PropTypes.func.isRequired
 };

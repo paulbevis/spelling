@@ -19,7 +19,7 @@ import {combineReducers} from 'redux';
 import {GAME_LETTERS, START_LETTERS, START_FOUND_LETTERS} from '../constants/data';
 import {GAME_START, FINISHED_PLAYING_SOUND, LETTER_CLICKED, PLAY_WORD} from '../constants/action-types';
 import {GAMES} from '../constants/data';
-import {map, prop, findIndex} from 'ramda';
+import {map, prop, findIndex, length, filter} from 'ramda';
 
 function buildLetters(letters) {
   var addToProperty = (letter)=>({'name': letter});
@@ -28,7 +28,7 @@ function buildLetters(letters) {
 
 function buildFoundWords() {
   var words = [];
-  for (var i = 0; i < 10; i++) {
+  for (var i = 0; i < GAMES[0].length; i++) {
     words.push({name: '---'});
   }
   return words;
@@ -93,6 +93,17 @@ function setNextAvailableWord(foundWords) {
   ];
 }
 
+function wordSubmitted(game) {
+  if (isGameFinished(game)) {
+    game.status = 'Game Finished';
+    game.sound = 'audio/applause.mp3';
+    game.numberCorrect = calculateTheNumberOfCorrectGuesses(game);
+  } else {
+    game.status = 'Waiting to play a word audio';
+    game.foundWords = setNextAvailableWord(game.foundWords);
+  }
+}
+
 function finishedPlayingSound(state) {
   let game = {};
   game.availableWords = state.availableWords;
@@ -109,12 +120,10 @@ function finishedPlayingSound(state) {
       game.status = 'Waiting For Input';
       break;
     case 'Word Matched':
-      game.status = 'Waiting to play a word audio';
-      game.foundWords = setNextAvailableWord(game.foundWords);
+      wordSubmitted(game);
       break;
     case 'Word Not Matched':
-      game.status = 'Waiting to play a word audio';
-      game.foundWords = setNextAvailableWord(game.foundWords);
+      wordSubmitted(game);
       break;
     case 'Intro':
       game.status = 'Waiting to play a word audio';
@@ -125,6 +134,18 @@ function finishedPlayingSound(state) {
       game.sound = '';
   }
   return game;
+}
+
+function isGameFinished(game) {
+  //all foundWords have a match value means that the game if over
+  const nextAvailableFunc = (x)=> prop('match', x) === undefined ? x : undefined;
+  let nextAvailableWordPos = findIndex(nextAvailableFunc, game.foundWords);
+  return nextAvailableWordPos === -1;
+}
+
+function calculateTheNumberOfCorrectGuesses(game) {
+  var isSuccessfullyMatched = word => word.match;
+  return length(filter(isSuccessfullyMatched, game.foundWords));
 }
 
 function letterClicked(state, letter) {
