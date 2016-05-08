@@ -129,9 +129,13 @@ function finishedPlayingSound(state) {
       game.status = 'Waiting to play a word audio';
       game.foundWords = setNextAvailableWord(game.foundWords);
       break;
+    case 'Game Finished':
+      game.status = state.status;
+      game.numberCorrect = state.numberCorrect;
+      break;
 
     default:
-      game.sound = '';
+      game.status = state.status;
   }
   return game;
 }
