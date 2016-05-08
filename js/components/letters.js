@@ -47,5 +47,5 @@ export default class Letters extends Component {
 
 Letters.propTypes = {
   status: PropTypes.string.isRequired,
-  onLetterClicked:PropTypes.func.isRequired
+  onLetterClicked: PropTypes.func.isRequired
 };
