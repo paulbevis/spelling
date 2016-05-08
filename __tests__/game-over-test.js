@@ -14,9 +14,11 @@ navigator.__defineGetter__('userAgent', function() {
 
 describe('In the game, after the user submits a word...', () => {
   it('if this is the last word available to be submitted we display the component', () => {
+    const onStartNewGameMockFunc = jest.fn();
+    const onStartSameGameMockFunc = jest.fn();
     // Render a gameover component in the document
     const gameOver = TestUtils.renderIntoDocument(
-      <GameOver status='Game Finished' numberCorrect="5"/>
+      <GameOver status='Game Finished' numberCorrect="5" onStartNewGame={onStartNewGameMockFunc} onStartSameGame={onStartSameGameMockFunc}/>
     );
 
     const gameOverNode = ReactDOM.findDOMNode(gameOver);
@@ -27,6 +29,16 @@ describe('In the game, after the user submits a word...', () => {
   });
 
   it('if this is not the last word available to spell, then keep the component hidden', () => {
+    const onStartNewGameMockFunc = jest.fn();
+    const onStartSameGameMockFunc = jest.fn();
+    // Render a gameover component in the document
+    const gameOver = TestUtils.renderIntoDocument(
+      <GameOver status='Playing'  onStartNewGame={onStartNewGameMockFunc} onStartSameGame={onStartSameGameMockFunc}/>
+    );
+
+    const gameOverNode = ReactDOM.findDOMNode(gameOver);
+    expect(gameOverNode.style.display).toEqual('none');
+  });
     // Render a gameover component in the document
     const gameOver = TestUtils.renderIntoDocument(
       <GameOver status='Playing'/>
