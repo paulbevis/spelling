@@ -20,7 +20,7 @@ import FoundWords from './found-words';
 import SubmittedLetters from './submitted-letters';
 import RaisedButton from 'material-ui/lib/raised-button';
 
-export default class PlayArea extends Component {
+export default class PlayingArea extends Component {
 
   render() {
     return (
@@ -38,9 +38,7 @@ export default class PlayArea extends Component {
   }
 }
 
-PlayArea.propTypes = {
+PlayingArea.propTypes = {
   game: PropTypes.object.isRequired,
-  onPlayWord: PropTypes.func.isRequired,
-  onStartSameGame: PropTypes.func.isRequired,
-  onStartNewGame: PropTypes.func.isRequired
+  onPlayWord: PropTypes.func.isRequired
 };
