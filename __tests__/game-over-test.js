@@ -39,13 +39,37 @@ describe('In the game, after the user submits a word...', () => {
     const gameOverNode = ReactDOM.findDOMNode(gameOver);
     expect(gameOverNode.style.display).toEqual('none');
   });
+
+  it('clicking same game button calls the correct function', () => {
+    const onStartNewGameMockFunc = jest.fn();
+    const onStartSameGameMockFunc = jest.fn();
     // Render a gameover component in the document
     const gameOver = TestUtils.renderIntoDocument(
-      <GameOver status='Playing'/>
+      <GameOver status='Playing'  onStartNewGame={onStartNewGameMockFunc} onStartSameGame={onStartSameGameMockFunc}/>
     );
 
     const gameOverNode = ReactDOM.findDOMNode(gameOver);
     expect(gameOverNode.style.display).toEqual('none');
+    let startSameButton = gameOverNode.children[0].children[1].children[0];
+    expect(startSameButton.textContent).toEqual('Start Again?');
+    TestUtils.Simulate.click(startSameButton);
+    expect(onStartSameGameMockFunc).not.toBeCalled();
+  });
+
+  it('clicking new game button calls the correct function', () => {
+    const onStartNewGameMockFunc = jest.fn();
+    const onStartSameGameMockFunc = jest.fn();
+    // Render a gameover component in the document
+    const gameOver = TestUtils.renderIntoDocument(
+      <GameOver status='Playing'  onStartNewGame={onStartNewGameMockFunc} onStartSameGame={onStartSameGameMockFunc}/>
+    );
+
+    const gameOverNode = ReactDOM.findDOMNode(gameOver);
+    expect(gameOverNode.style.display).toEqual('none');
+    let startNewButton = gameOverNode.children[0].children[1].children[1];
+    expect(startNewButton.textContent).toEqual('Move to harder words?');
+    TestUtils.Simulate.click(startNewButton);
+    expect(onStartNewGameMockFunc).not.toBeCalled();
   });
 
 });
