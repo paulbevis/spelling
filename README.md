@@ -17,6 +17,16 @@ To run Jest tests in Intellij, in debug mode, set the following configuration:
 To run Mocha tests in Intellij
 *   Extra Mocha Options:    `--compilers js:babel-core/register`
 
+[Demo site:](http://catamaranprojects.com/spelling)
+
+
+###To automatcially rebuild on code change:
+
+> webpack --watch
+
+###To build production version (minified)
+webpack --config webpack.production.config.js
+
 ### Game State Flow
  
 |User Interaction       |Action                     |Old Status         |New Status                     |
