@@ -15,7 +15,7 @@
  */
 'use strict';
 
-import {clone} from 'ramda'
+import {clone} from 'ramda';
 
 export const wordSet = function(wordSetNumber) {
   const availableWordSets = [
