@@ -24,7 +24,6 @@ import {difference} from 'ramda'
 describe('when requesting a set of words', () => {
 
   it('should return back an array of 10 words', () => {
-    console.log('wordset:', wordSet(0));
     expect(wordSet(0).length).toEqual(10)
   });
 
