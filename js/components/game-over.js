@@ -37,7 +37,7 @@ export default class GameOver extends Component {
           <div style={{marginBottom:'20px', fontSize: '40px'}}>You got <span>{this.props.numberCorrect}</span> correct!</div>
           <div style={{display:'flex', justifyContent:'space-between'}}>
             <RaisedButton label="Start Again?" primary={true} onClick={this.props.onStartSameGame}/>
-            <RaisedButton label="Move to harder words?" primary={true} onClick={this.props.onStartNewGame}/>
+            <RaisedButton label="Move to harder words?" primary={true} onClick={this.props.onStartNextGame}/>
           </div>
         </div>
       </div>
@@ -48,6 +48,6 @@ export default class GameOver extends Component {
 GameOver.propTypes = {
   status: PropTypes.string.isRequired,
   onStartSameGame: PropTypes.func.isRequired,
-  onStartNewGame: PropTypes.func.isRequired
+  onStartNextGame: PropTypes.func.isRequired
 };
 

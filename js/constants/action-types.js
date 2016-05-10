@@ -16,6 +16,7 @@
 'use strict';
 
 export const GAME_START = 'GAME_START';
+export const GAME_NEXT_START = 'GAME_NEXT_START';
 export const FINISHED_PLAYING_SOUND = 'FINISHED_PLAYING_SOUND';
 export const LETTER_CLICKED = 'LETTER_CLICKED';
 export const PLAY_WORD = 'PLAY_WORD';

@@ -17,8 +17,8 @@
 
 import {combineReducers} from 'redux';
 import {GAME_LETTERS, START_LETTERS, START_FOUND_LETTERS} from '../constants/data';
-import {GAME_START, FINISHED_PLAYING_SOUND, LETTER_CLICKED, PLAY_WORD} from '../constants/action-types';
-import {GAMES} from '../constants/data';
+import {GAME_START, GAME_NEXT_START, FINISHED_PLAYING_SOUND, LETTER_CLICKED, PLAY_WORD} from '../constants/action-types';
+import {wordSet} from '../domain/words';
 import {map, prop, findIndex, length, filter} from 'ramda';
 
 function buildLetters(letters) {
@@ -26,9 +26,9 @@ function buildLetters(letters) {
   return map(addToProperty, letters.split(''));
 }
 
-function buildFoundWords() {
+function buildFoundWords(gameNumber) {
   var words = [];
-  for (var i = 0; i < GAMES[0].length; i++) {
+  for (var i = 0; i < wordSet(gameNumber).length; i++) {
     words.push({name: '---'});
   }
   return words;
@@ -37,6 +37,7 @@ function buildFoundWords() {
 export function letters(state = {}, action) {
   switch (action.type) {
     case GAME_START:
+    case GAME_NEXT_START:
     case FINISHED_PLAYING_SOUND:
     case LETTER_CLICKED:
       return buildLetters(GAME_LETTERS);
@@ -46,39 +47,24 @@ export function letters(state = {}, action) {
   }
 }
 
-function shuffleArray(array) {
-  for (var i = array.length - 1; i > 0; i--) {
-    var j = Math.floor(Math.random() * (i + 1));
-    var temp = array[i];
-    array[i] = array[j];
-    array[j] = temp;
-  }
-  return array;
-}
-
-function getAvailableWords() {
-  let wordArray = GAMES[0].slice(0);
-  shuffleArray(wordArray);
-  return wordArray;
-}
-
 function defaultData() {
   return {
     foundLetters: START_FOUND_LETTERS,
-    foundWords: buildFoundWords(),
-    availableWords: getAvailableWords(),
+    foundWords: buildFoundWords(0),
     sound: '',
-    status: 'disabled'
+    status: 'disabled',
+    gameNumber: 0
   };
 }
 
 function startGame(state) {
   let game = {};
-  game.availableWords = state.availableWords;
+  game.availableWords = wordSet(state.gameNumber);
   game.foundLetters = START_FOUND_LETTERS;
-  game.foundWords = buildFoundWords();
+  game.foundWords = buildFoundWords(state.gameNumber);
   game.sound = 'audio/start.mp3';
   game.status = 'Intro';
+  game.gameNumber = state.gameNumber;
   return game;
 }
 
@@ -112,6 +98,7 @@ function finishedPlayingSound(state) {
   game.currentWordPos = state.currentWordPos;
   game.currentWord = state.currentWord;
   game.sound = '';
+  game.gameNumber = state.gameNumber;
   switch (state.status) {
     case 'Playing':
       game.status = 'Waiting For Input';
@@ -161,6 +148,7 @@ function letterClicked(state, letter) {
   game.currentWordPos = state.currentWordPos;
   game.currentWord = state.currentWord;
   game.sound = '';
+  game.gameNumber = state.gameNumber;
   if (state.foundLetters[0] === '-') {
     game.foundLetters[0] = letter;
   } else {
@@ -196,12 +184,17 @@ function playWord(state, availableWordPos) {
   game.sound = 'audio/words/' + game.currentWord + '.m4a';
   game.status = 'Playing';
   game.currentWordPos = availableWordPos;
+  game.gameNumber = state.gameNumber;
   return game;
 }
 
 export function game(state = defaultData(), action) {
   switch (action.type) {
     case GAME_START:
+      return startGame(state);
+
+    case GAME_NEXT_START:
+      state.gameNumber = state.gameNumber + 1;
       return startGame(state);
 
     case FINISHED_PLAYING_SOUND:
