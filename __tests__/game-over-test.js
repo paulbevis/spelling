@@ -14,11 +14,11 @@ navigator.__defineGetter__('userAgent', function() {
 
 describe('In the game, after the user submits a word...', () => {
   it('if this is the last word available to be submitted we display the component', () => {
-    const onStartNewGameMockFunc = jest.fn();
+    const onStartNextGameMockFunc = jest.fn();
     const onStartSameGameMockFunc = jest.fn();
     // Render a gameover component in the document
     const gameOver = TestUtils.renderIntoDocument(
-      <GameOver status='Game Finished' numberCorrect="5" onStartNewGame={onStartNewGameMockFunc} onStartSameGame={onStartSameGameMockFunc}/>
+      <GameOver status='Game Finished' numberCorrect="5" onStartNextGame={onStartNextGameMockFunc} onStartSameGame={onStartSameGameMockFunc}/>
     );
 
     const gameOverNode = ReactDOM.findDOMNode(gameOver);
@@ -29,11 +29,11 @@ describe('In the game, after the user submits a word...', () => {
   });
 
   it('if this is not the last word available to spell, then keep the component hidden', () => {
-    const onStartNewGameMockFunc = jest.fn();
+    const onStartNextGameMockFunc = jest.fn();
     const onStartSameGameMockFunc = jest.fn();
     // Render a gameover component in the document
     const gameOver = TestUtils.renderIntoDocument(
-      <GameOver status='Playing' onStartNewGame={onStartNewGameMockFunc} onStartSameGame={onStartSameGameMockFunc}/>
+      <GameOver status='Playing' onStartNextGame={onStartNextGameMockFunc} onStartSameGame={onStartSameGameMockFunc}/>
     );
 
     const gameOverNode = ReactDOM.findDOMNode(gameOver);
@@ -41,11 +41,11 @@ describe('In the game, after the user submits a word...', () => {
   });
 
   it('should call the appropriate function when clicking same game button', () => {
-    const onStartNewGameMockFunc = jest.fn();
+    const onStartNextGameMockFunc = jest.fn();
     const onStartSameGameMockFunc = jest.fn();
     // Render a gameover component in the document
     const gameOver = TestUtils.renderIntoDocument(
-      <GameOver status='Game Finished' onStartNewGame={onStartNewGameMockFunc} onStartSameGame={onStartSameGameMockFunc}/>
+      <GameOver status='Game Finished' onStartNextGame={onStartNextGameMockFunc} onStartSameGame={onStartSameGameMockFunc}/>
     );
 
     const gameOverNode = ReactDOM.findDOMNode(gameOver);
@@ -58,11 +58,11 @@ describe('In the game, after the user submits a word...', () => {
   });
 
   it('should call the appropriate function when clicking new game button', () => {
-    const onStartNewGameMockFunc = jest.fn();
+    const onStartNextGameMockFunc = jest.fn();
     const onStartSameGameMockFunc = jest.fn();
     // Render a gameover component in the document
     const gameOver = TestUtils.renderIntoDocument(
-      <GameOver status='Game Finished' onStartNewGame={onStartNewGameMockFunc} onStartSameGame={onStartSameGameMockFunc}/>
+      <GameOver status='Game Finished' onStartNextGame={onStartNextGameMockFunc} onStartSameGame={onStartSameGameMockFunc}/>
     );
 
     const gameOverNode = ReactDOM.findDOMNode(gameOver);
@@ -71,7 +71,7 @@ describe('In the game, after the user submits a word...', () => {
     expect(startNewButton.tagName).toEqual('BUTTON');
     expect(startNewButton.textContent).toEqual('Move to harder words?');
     TestUtils.Simulate.click(startNewButton);
-    expect(onStartNewGameMockFunc).toBeCalled();
+    expect(onStartNextGameMockFunc).toBeCalled();
   });
 
 });
