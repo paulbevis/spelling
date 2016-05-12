@@ -13,7 +13,7 @@ navigator.__defineGetter__('userAgent', function() {
 });
 
 describe('In the game, after the user submits a word...', () => {
-  it('if this is the last word available to be submitted we display the component', () => {
+  it('if this is the last word available to be submitted we display the game overcomponent', () => {
     const onStartNextGameMockFunc = jest.fn();
     const onStartSameGameMockFunc = jest.fn();
     // Render a gameover component in the document
@@ -72,6 +72,47 @@ describe('In the game, after the user submits a word...', () => {
     expect(startNewButton.textContent).toEqual('Move to harder words?');
     TestUtils.Simulate.click(startNewButton);
     expect(onStartNextGameMockFunc).toBeCalled();
+  });
+
+  it(' displays the special message, sound, and hides next game button because no words were guessed correctly', () => {
+    const onStartNextGameMockFunc = jest.fn();
+    const onStartSameGameMockFunc = jest.fn();
+    // Render a gameover component in the document
+    const gameOver = TestUtils.renderIntoDocument(
+      <GameOver numberCorrect='0' totalNumber='0' status='Game Finished' onStartNextGame={onStartNextGameMockFunc} onStartSameGame={onStartSameGameMockFunc}/>
+    );
+
+    const gameOverNode = ReactDOM.findDOMNode(gameOver);
+    expect(gameOverNode.style.display).toEqual('flex');
+    let buttonContainer = gameOverNode.children[0].children[1].children[1];
+    expect(buttonContainer.children.length).toEqual(1);
+
+    let startSameButton = gameOverNode.children[0].children[1].children[0].children[0];
+    expect(startSameButton.tagName).toEqual('BUTTON');
+    expect(startSameButton.textContent).toEqual('Start Again?');
+    TestUtils.Simulate.click(startSameButton);
+    expect(onStartSameGameMockFunc).toBeCalled();
+
+    expect(gameOverNode.style.display).toEqual('flex');
+    const titleNode = gameOverNode.children[0].children[0];
+    expect(titleNode.textContent).toEqual('Shall we try again?')
+  });
+
+  it(' displays the special message, because no words were guessed incorrectly', () => {
+    const onStartNextGameMockFunc = jest.fn();
+    const onStartSameGameMockFunc = jest.fn();
+    // Render a gameover component in the document
+    const gameOver = TestUtils.renderIntoDocument(
+      <GameOver numberCorrect='10' totalWords='10' status='Game Finished' onStartNextGame={onStartNextGameMockFunc} onStartSameGame={onStartSameGameMockFunc}/>
+    );
+
+    const gameOverNode = ReactDOM.findDOMNode(gameOver);
+    expect(gameOverNode.style.display).toEqual('flex');
+    let buttonContainer = gameOverNode.children[0].children[1];
+    expect(buttonContainer.children.length).toEqual(2);
+
+    const titleNode = gameOverNode.children[0].children[0];
+    expect(titleNode.textContent).toEqual('Fanatastic, you got them all correct!')
   });
 
 });

@@ -19,6 +19,28 @@ import React, {Component, PropTypes} from 'react';
 import RaisedButton from 'material-ui/lib/raised-button';
 
 export default class GameOver extends Component {
+
+  message() {
+    const messageStyle = {marginBottom: '20px', fontSize: '40px', textAlign: 'center'};
+    const correctNumber = Number(this.props.numberCorrect);
+
+    if (correctNumber !== 0) {
+      if (correctNumber === Number(this.props.totalWords)) {
+        return (<div style={messageStyle}>Fanatastic, you got them all correct!</div>);
+      } else {
+        return (<div style={messageStyle}>You got <span>{this.props.numberCorrect}</span> correct!</div>);
+      }
+    } else {
+      return (<div style={messageStyle}>Shall we try again?</div>);
+    }
+  }
+
+  includeNextGameButton() {
+    if (this.props.numberCorrect !== 0) {
+      return (<RaisedButton label="Move to harder words?" primary={true} onClick={this.props.onStartNextGame}/>);
+    }
+  }
+
   render() {
     const gameOverStyle = {
       display: 'flex',
@@ -28,16 +50,17 @@ export default class GameOver extends Component {
       zIndex: '1',
       opacity: '.95',
       borderRadius: '20px',
-      padding: '20px'
+      padding: '20px',
+      width: this.props.numberCorrect !== this.props.totalWords?'80%':'65%'
     };
 
     return (
       <div style={{display:this.props.status === 'Game Finished' ? 'flex' : 'none',justifyContent: 'center', marginTop:'100px'}}>
         <div className="game-over" style={gameOverStyle}>
-          <div style={{marginBottom:'20px', fontSize: '40px'}}>You got <span>{this.props.numberCorrect}</span> correct!</div>
-          <div style={{display:'flex', justifyContent:'space-between'}}>
+          {this.message()}
+          <div style={{display:'flex', justifyContent:this.props.numberCorrect !== 0?'space-between':'center'}}>
             <RaisedButton label="Start Again?" primary={true} onClick={this.props.onStartSameGame}/>
-            <RaisedButton label="Move to harder words?" primary={true} onClick={this.props.onStartNextGame}/>
+            {this.includeNextGameButton()}
           </div>
         </div>
       </div>

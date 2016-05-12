@@ -540,7 +540,8 @@ describe('Spelling game', () => {
         sound: 'audio/applause.mp3',
         status: 'Game Finished',
         numberCorrect: 1,
-        gameNumber: 0
+        gameNumber: 0,
+        totalWords: 3
       };
       const state = game(initialState, {type: FINISHED_PLAYING_SOUND});
 
@@ -571,7 +572,39 @@ describe('Spelling game', () => {
         sound: 'audio/applause.mp3',
         status: 'Game Finished',
         numberCorrect: 1,
+        gameNumber: 0,
+        totalWords: 3
+      };
+      const state = game(initialState, {type: FINISHED_PLAYING_SOUND});
+
+      expect(state).toEqual(expectedState);
+    });
+    it('word matched audio finishes playing, and the game has been completed, with all words matched', () => {
+      const foundWordsChanged = [{name: 'hut', match: true}, {name: 'dad', match: true}, {name: 'bog', match: true}];
+
+      const initialState = {
+        availableWords: availableWords,
+        foundLetters: START_FOUND_LETTERS,
+        foundWords: foundWordsChanged,
+        currentWordPos: 0,
+        currentWord: 'hut',
+        sound: 'audio/success.mp3',
+        status: 'Word Matched',
         gameNumber: 0
+      };
+      deepFreeze(initialState);
+
+      const expectedState = {
+        availableWords: availableWords,
+        foundLetters: START_FOUND_LETTERS,
+        foundWords: foundWordsChanged,
+        currentWordPos: 0,
+        currentWord: 'hut',
+        sound: 'audio/applause.mp3',
+        status: 'Game Finished',
+        numberCorrect: 3,
+        gameNumber: 0,
+        totalWords: 3
       };
       const state = game(initialState, {type: FINISHED_PLAYING_SOUND});
 
@@ -589,7 +622,8 @@ describe('Spelling game', () => {
         sound: 'audio/applause.mp3',
         status: 'Game Finished',
         numberCorrect: 1,
-        gameNumber: 0
+        gameNumber: 0,
+        totalWords: 3
       };
       deepFreeze(initialState);
 
@@ -602,7 +636,8 @@ describe('Spelling game', () => {
         sound: '',
         status: 'Game Finished',
         numberCorrect: 1,
-        gameNumber: 0
+        gameNumber: 0,
+        totalWords: 3
       };
       const state = game(initialState, {type: FINISHED_PLAYING_SOUND});
 
