@@ -62,7 +62,7 @@ function startGame(state) {
   game.availableWords = wordSet(state.gameNumber);
   game.foundLetters = START_FOUND_LETTERS;
   game.foundWords = buildFoundWords(state.gameNumber);
-  game.sound = 'audio/start.mp3';
+  game.sound = 'audio/intro.m4a';
   game.status = 'Intro';
   game.gameNumber = state.gameNumber;
   return game;

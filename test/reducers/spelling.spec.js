@@ -91,7 +91,7 @@ describe('Spelling game', () => {
         availableWords: availableWords,
         foundLetters: START_FOUND_LETTERS,
         foundWords: foundWords,
-        sound: 'audio/start.mp3',
+        sound: 'audio/intro.m4a',
         status: 'Intro',
         gameNumber: 0
       };
@@ -110,7 +110,7 @@ describe('Spelling game', () => {
         availableWords: availableWords,
         foundLetters: START_FOUND_LETTERS,
         foundWords: foundWords,
-        sound: 'audio/start.mp3',
+        sound: 'audio/intro.m4a',
         status: 'Intro',
         gameNumber: 0
       };
