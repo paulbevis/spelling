@@ -82,8 +82,12 @@ function setNextAvailableWord(foundWords) {
 function wordSubmitted(game) {
   if (isGameFinished(game)) {
     game.status = 'Game Finished';
-    game.sound = 'audio/applause.mp3';
     game.numberCorrect = calculateTheNumberOfCorrectGuesses(game);
+    if (game.numberCorrect === 0) {
+      game.sound = 'audio/tryAgain.m4a';
+    } else {
+      game.sound = 'audio/applause.mp3';
+    }
     game.totalWords = game.foundWords.length;
   } else {
     game.status = 'Waiting to play a word audio';
