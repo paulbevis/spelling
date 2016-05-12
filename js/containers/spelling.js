@@ -44,6 +44,7 @@ class Spelling extends Component {
           <div style={myStyle} className="spelling">
             <GameOver status={this.props.game.status}
                       numberCorrect={this.props.game.numberCorrect}
+                      totalWords={this.props.game.totalWords}
                       onStartSameGame={()=>dispatch(startGameAction())}
                       onStartNextGame={()=>dispatch(startNextGameAction())}/>
             <PlayingArea game={game}

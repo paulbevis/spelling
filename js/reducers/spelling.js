@@ -84,6 +84,7 @@ function wordSubmitted(game) {
     game.status = 'Game Finished';
     game.sound = 'audio/applause.mp3';
     game.numberCorrect = calculateTheNumberOfCorrectGuesses(game);
+    game.totalWords = game.foundWords.length;
   } else {
     game.status = 'Waiting to play a word audio';
     game.foundWords = setNextAvailableWord(game.foundWords);
@@ -119,6 +120,7 @@ function finishedPlayingSound(state) {
     case 'Game Finished':
       game.status = state.status;
       game.numberCorrect = state.numberCorrect;
+      game.totalWords = state.totalWords;
       break;
 
     default:
