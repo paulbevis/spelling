@@ -16,13 +16,13 @@
 'use strict';
 
 import React, {Component, PropTypes} from 'react';
-import Letter from './letter';
+import Letter from '../components/letter';
 
 export default class Letters extends Component {
 
   lettersInRange(start) {
     return this.props.letters.slice(start, start + 13).map((letter, index)=>
-      <Letter key={index} {...letter} status={this.props.status} onLetterClicked={this.props.onLetterClicked}/>);
+      <Letter key={index} letter={letter} status={this.props.status} onLetterClicked={this.props.onLetterClicked}/>);
   }
 
   render() {
