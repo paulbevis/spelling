@@ -19,41 +19,16 @@
 import expect from 'expect'
 import {letters, game} from '../../js/reducers/spelling'
 import {CELL_CLICK, GAME_START, GAME_SELECT, LAST_LETTER_FOUND, FINISHED_PLAYING_SOUND, PLAY_WORD, LETTER_CLICKED} from '../../js/constants/action-types'
-import {START_FOUND_LETTERS} from '../../js/constants/data'
+import {START_FOUND_LETTERS, START_LETTERS, GAME_LETTERS} from '../../js/constants/data'
 import {wordSet} from '../../js/domain/words'
 import deepFreeze from 'deep-freeze'
 import {difference} from 'ramda'
 
 describe('Spelling game', () => {
-  const letterButtonHyphens = [{name: '-'},
-    {name: '-'}, {name: '-'},
-    {name: '-'}, {name: '-'},
-    {name: '-'}, {name: '-'},
-    {name: '-'}, {name: '-'},
-    {name: '-'}, {name: '-'},
-    {name: '-'}, {name: '-'},
-    {name: '-'}, {name: '-'},
-    {name: '-'}, {name: '-'},
-    {name: '-'}, {name: '-'},
-    {name: '-'}, {name: '-'},
-    {name: '-'}, {name: '-'},
-    {name: '-'}, {name: '-'},
-    {name: '-'}];
+  const letterButtonHyphens = START_LETTERS.split('');
 
-  const letterButtonLetters = [{name: 'a'},
-    {name: 'b'}, {name: 'c'},
-    {name: 'd'}, {name: 'e'},
-    {name: 'f'}, {name: 'g'},
-    {name: 'h'}, {name: 'i'},
-    {name: 'j'}, {name: 'k'},
-    {name: 'l'}, {name: 'm'},
-    {name: 'n'}, {name: 'o'},
-    {name: 'p'}, {name: 'q'},
-    {name: 'r'}, {name: 's'},
-    {name: 't'}, {name: 'u'},
-    {name: 'v'}, {name: 'w'},
-    {name: 'x'}, {name: 'y'},
-    {name: 'z'}];
+  const letterButtonLetters = GAME_LETTERS.split('');
+
 
   const foundWords = [{name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}];
 

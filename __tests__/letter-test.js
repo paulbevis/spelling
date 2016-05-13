@@ -12,8 +12,8 @@ navigator.__defineGetter__('userAgent', function() {
   return 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2454.85 Safari/537.36'
 });
 
-describe('Letter tests', () => {
-  it('if not disabled, then it allows clicks, sending the name', () => {
+describe('Letter component', () => {
+  it('is not disabled, so it allows clicks, sending the name', () => {
     let buttonName = 'a';
 
     const myFunc = ((name) => {
@@ -22,7 +22,7 @@ describe('Letter tests', () => {
 
     // Render a letter component in the document
     const letter = TestUtils.renderIntoDocument(
-      <Letter status='Waiting For Input' name="a" onLetterClicked={myFunc}/>
+      <Letter status='Waiting For Input' letter="a" onLetterClicked={myFunc}/>
     );
 
     const letterNode = ReactDOM.findDOMNode(letter);
@@ -32,7 +32,7 @@ describe('Letter tests', () => {
     expect(spanNode.textContent).toEqual('a');
   });
 
-  it('if not disabled, then it allows clicks, fails if wrong name', () => {
+  it('is not disabled, so it allows clicks, fails if wrong name', () => {
     let buttonName = 'a';
 
     const myFunc = ((name) => {
@@ -41,7 +41,7 @@ describe('Letter tests', () => {
 
     // Render a checkbox with label in the document
     const letter = TestUtils.renderIntoDocument(
-      <Letter status='Waiting For Input' name="a" onLetterClicked={myFunc}/>
+      <Letter status='Waiting For Input' letter="a" onLetterClicked={myFunc}/>
     );
 
     const letterNode = ReactDOM.findDOMNode(letter);
@@ -51,13 +51,13 @@ describe('Letter tests', () => {
     expect(spanNode.textContent).toEqual('a');
   });
 
-  it('button disabled, so no click allowed', () => {
+  it('is disabled, so no click allowed', () => {
     let buttonName = 'a';
     const mockFn = jest.fn();
 
     // Render a checkbox with label in the document
     const letter = TestUtils.renderIntoDocument(
-      <Letter status='Will make button disabled!' name="a" onLetterClicked={mockFn}/>
+      <Letter status='Will make button disabled!' letter="a" onLetterClicked={mockFn}/>
     );
 
     const letterNode = ReactDOM.findDOMNode(letter);

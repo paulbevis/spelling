@@ -21,21 +21,22 @@ import RaisedButton from 'material-ui/lib/raised-button';
 export default class Letter extends Component {
 
   render() {
-    let myStyle = {minWidth: '45px', margin: '5px 2px 5px 5px'};
+    let myStyle = {minWidth: '47px', margin: '5px 2px 5px 5px'};
     const disabledColour = '#3A938C';
     return (
-      <RaisedButton label={this.props.name}
+      <RaisedButton label={this.props.letter}
                     disabled={!(this.props.status === 'Waiting For Input')}
                     disabledBackgroundColor={disabledColour}
                     backgroundColor={disabledColour}
                     style={myStyle}
-                    onClick={() => this.props.onLetterClicked(this.props.name)}
+                    onClick={() => this.props.onLetterClicked(this.props.letter)}
                     labelStyle={{textTransform: 'lowercase',fontSize: '18px'}}/>
     );
   }
 }
 
 Letter.propTypes = {
+  letter: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,
   onLetterClicked: PropTypes.func.isRequired
 };

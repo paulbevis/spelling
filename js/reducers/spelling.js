@@ -19,11 +19,10 @@ import {combineReducers} from 'redux';
 import {GAME_LETTERS, START_LETTERS, START_FOUND_LETTERS} from '../constants/data';
 import {GAME_START, GAME_NEXT_START, FINISHED_PLAYING_SOUND, LETTER_CLICKED, PLAY_WORD} from '../constants/action-types';
 import {wordSet} from '../domain/words';
-import {map, prop, findIndex, length, filter} from 'ramda';
+import {prop, findIndex, length, filter} from 'ramda';
 
 function buildLetters(letters) {
-  var addToProperty = (letter)=>({'name': letter});
-  return map(addToProperty, letters.split(''));
+  return letters.split('');
 }
 
 function buildFoundWords(gameNumber) {
@@ -69,7 +68,6 @@ function startGame(state) {
 }
 
 function setNextAvailableWord(foundWords) {
-  // let newFoundWords = Object.assign([], foundWords.slice(0));
   const nextAvailableFunc = (x)=> prop('match', x) === undefined ? x : undefined;
   let nextAvailableWordPos = findIndex(nextAvailableFunc, foundWords);
   return [
