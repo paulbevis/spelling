@@ -16,7 +16,7 @@
 'use strict';
 
 import React, {Component, PropTypes} from 'react';
-import Letters from '../components/letters';
+import Letters from './letters';
 import PlayingArea from '../components/playing-area';
 import {connect} from 'react-redux';
 import {startGameAction, startNextGameAction, finishedPlayingSoundAction, letterClickedAction, playWordAction} from '../actions/spelling';
