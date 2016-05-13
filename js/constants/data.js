@@ -18,4 +18,3 @@
 export const GAME_LETTERS = 'abcdefghijklmnopqrstuvwxyz';
 export const START_LETTERS = '--------------------------';
 export const START_FOUND_LETTERS = ['-', '-', '-'];
-export const GAMES = [['bin', 'cat', 'fan', 'hut', 'jog', 'leg', 'nod', 'pen', 'run', 'wig']];

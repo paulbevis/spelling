@@ -19,9 +19,9 @@ import React, {Component, PropTypes} from 'react';
 import Letters from '../components/letters';
 import PlayingArea from '../components/playing-area';
 import {connect} from 'react-redux';
-import {startGameAction, finishedPlayingSoundAction, letterClickedAction, playWordAction} from '../actions/spelling';
+import {startGameAction, startNextGameAction, finishedPlayingSoundAction, letterClickedAction, playWordAction} from '../actions/spelling';
 import PlaySound from '../components/play-sound';
-
+import GameOver from '../components/game-over';
 
 class Spelling extends Component {
 
@@ -42,6 +42,11 @@ class Spelling extends Component {
         <div style={titleBarStyle}>Spelling Game</div>
         <div style={{display: 'flex', justifyContent: 'center'}}>
           <div style={myStyle} className="spelling">
+            <GameOver status={this.props.game.status}
+                      numberCorrect={this.props.game.numberCorrect}
+                      totalWords={this.props.game.totalWords}
+                      onStartSameGame={()=>dispatch(startGameAction())}
+                      onStartNextGame={()=>dispatch(startNextGameAction())}/>
             <PlayingArea game={game}
                          onStartGame={()=>dispatch(startGameAction())}
                          onPlayWord={(key) => dispatch(playWordAction(key))}/>

@@ -16,11 +16,16 @@
 
 'use strict';
 
-import {GAME_START, FINISHED_PLAYING_SOUND, LETTER_CLICKED, PLAY_WORD} from '../constants/action-types';
+import {GAME_START, GAME_NEXT_START, FINISHED_PLAYING_SOUND, LETTER_CLICKED, PLAY_WORD} from '../constants/action-types';
 
 export function startGameAction() {
   return {
     type: GAME_START
+  };
+}
+export function startNextGameAction() {
+  return {
+    type: GAME_NEXT_START
   };
 }
 export function finishedPlayingSoundAction() {

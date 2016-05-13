@@ -15,8 +15,21 @@
  */
 'use strict';
 
-export const GAME_START = 'GAME_START';
-export const GAME_NEXT_START = 'GAME_NEXT_START';
-export const FINISHED_PLAYING_SOUND = 'FINISHED_PLAYING_SOUND';
-export const LETTER_CLICKED = 'LETTER_CLICKED';
-export const PLAY_WORD = 'PLAY_WORD';
+import {clone} from 'ramda';
+
+export const wordSet = function(wordSetNumber) {
+  const availableWordSets = [
+    ['bin', 'cat', 'fan', 'hut', 'jog', 'leg', 'nod', 'pen', 'run', 'wig'],
+    ['bin', 'cat', 'fan', 'hut', 'jog', 'leg', 'nod', 'pen', 'run', 'wig']];
+
+  const shuffleArray = function(suppliedArray) {
+    let array = clone(suppliedArray);
+    return array.sort(() => Math.random() - 0.5);
+  };
+
+  const word = function(wordSetNumber) {
+    return shuffleArray(availableWordSets[wordSetNumber]);
+  };
+
+  return word(wordSetNumber);
+};

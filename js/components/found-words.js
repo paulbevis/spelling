@@ -37,5 +37,5 @@ export default class FoundWords extends Component {
 
 FoundWords.propTypes = {
   status: PropTypes.string.isRequired,
-  onPlayWord:PropTypes.func.isRequired
+  onPlayWord: PropTypes.func.isRequired
 };
