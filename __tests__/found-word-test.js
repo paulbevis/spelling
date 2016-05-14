@@ -11,7 +11,7 @@ navigator.__defineGetter__('userAgent', function() {
   return 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2454.85 Safari/537.36'
 });
 
-describe('FoundWord tests', () => {
+describe('FoundWord component', () => {
   const word = {'match': true, name: 'hut'};
   const id = '0';
 
@@ -48,7 +48,7 @@ describe('FoundWord tests', () => {
     expect(mockFn).not.toBeCalled();
   });
 
-  it('if word not matched correctly, then it should be able to be clicked again', () => {
+  it('is not matched correctly, then it should be able to be clicked again', () => {
     let word = {'match': false, name: 'xxx'};
     // Render a found word component in the document
     const foundWord = TestUtils.renderIntoDocument(
@@ -57,9 +57,9 @@ describe('FoundWord tests', () => {
 
     const foundWordNode = ReactDOM.findDOMNode(foundWord);
     let icon = foundWordNode.children[0].children[1];
-    expect(icon.style.cursor).toEqual('pointer');
+    expect(icon.style.cursor).toEqual('default');
     TestUtils.Simulate.click(icon);
-    expect(mockFn).toBeCalled();
+    expect(mockFn).not.toBeCalled();
   });
 
   it('if word not matched correctly, then it should display the red frown icon', () => {
