@@ -15,27 +15,22 @@
  */
 'use strict';
 
-import React, {Component, PropTypes} from 'react';
+import React, {PropTypes} from 'react';
 import FoundWord from './found-word';
 
-export default class FoundWords extends Component {
+const myStyle = {display: 'flex', flexDirection: 'column', flexWrap: 'nowrap', alignContent: 'space-around'};
 
-  render() {
-    const myStyle = {display: 'flex', flexDirection: 'column', flexWrap: 'nowrap', alignContent: 'space-around'};
-
-    return (
-      <div className="found-words" style={myStyle}>
-        {
-          this.props.foundWords.map((word, index)=> {
-            return <FoundWord key={'word'+index} word={word} id={index} status={this.props.status} onPlayWord={this.props.onPlayWord}/>;
-          })
-        }
-      </div>
-    );
+const FoundWords = (props)=> <div className="found-words" style={myStyle}>
+  {
+    props.foundWords.map((word, index)=> {
+      return <FoundWord key={'word'+index} word={word} id={index} status={props.status} onPlayWord={props.onPlayWord}/>;
+    })
   }
-}
+</div>;
 
 FoundWords.propTypes = {
   status: PropTypes.string.isRequired,
   onPlayWord: PropTypes.func.isRequired
 };
+
+export default FoundWords;
