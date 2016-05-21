@@ -22,7 +22,7 @@ describe('Letter component', () => {
 
     // Render a letter component in the document
     const letter = TestUtils.renderIntoDocument(
-      <Letter status='Waiting For Input' letter="a" onLetterClicked={myFunc}/>
+      <div><Letter status='Waiting For Input' letter="a" onLetterClicked={myFunc}/></div>
     );
 
     const letterNode = ReactDOM.findDOMNode(letter);
@@ -41,7 +41,7 @@ describe('Letter component', () => {
 
     // Render a checkbox with label in the document
     const letter = TestUtils.renderIntoDocument(
-      <Letter status='Waiting For Input' letter="a" onLetterClicked={myFunc}/>
+      <div><Letter status='Waiting For Input' letter="a" onLetterClicked={myFunc}/></div>
     );
 
     const letterNode = ReactDOM.findDOMNode(letter);
@@ -57,7 +57,7 @@ describe('Letter component', () => {
 
     // Render a checkbox with label in the document
     const letter = TestUtils.renderIntoDocument(
-      <Letter status='Will make button disabled!' letter="a" onLetterClicked={mockFn}/>
+      <div><Letter status='Will make button disabled!' letter="a" onLetterClicked={mockFn}/></div>
     );
 
     const letterNode = ReactDOM.findDOMNode(letter);
