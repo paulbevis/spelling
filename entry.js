@@ -13,15 +13,16 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
-import React from 'react'
-import { render } from 'react-dom'
-import { Provider } from 'react-redux'
-import Spelling from './js/containers/spelling'
+import React from 'react';
+import {render} from 'react-dom';
+import {Provider} from 'react-redux';
+import Spelling from './js/containers/spelling';
 
 
-import { createStore } from 'redux'
-import spellingAppReducers from './js/reducers/spelling'
-import injectTapEventPlugin from 'react-tap-event-plugin'
+import {createStore} from 'redux';
+import spellingAppReducers from './js/reducers/spelling';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+
 injectTapEventPlugin();
 
 const store = createStore(spellingAppReducers);
@@ -31,50 +32,50 @@ render(
     <Spelling />
   </Provider>,
   document.getElementById('framework')
-)
+);
 
 if (typeof Object.assign != 'function') {
-    (function () {
-        Object.assign = function (target) {
-            'use strict';
-            if (target === undefined || target === null) {
-                throw new TypeError('Cannot convert undefined or null to object');
-            }
+  (function() {
+    Object.assign = function(target) {
+      'use strict';
+      if (target === undefined || target === null) {
+        throw new TypeError('Cannot convert undefined or null to object');
+      }
 
-            var output = Object(target);
-            for (var index = 1; index < arguments.length; index++) {
-                var source = arguments[index];
-                if (source !== undefined && source !== null) {
-                    for (var nextKey in source) {
-                        if (source.hasOwnProperty(nextKey)) {
-                            output[nextKey] = source[nextKey];
-                        }
-                    }
-                }
+      var output = Object(target);
+      for (var index = 1; index < arguments.length; index++) {
+        var source = arguments[index];
+        if (source !== undefined && source !== null) {
+          for (var nextKey in source) {
+            if (source.hasOwnProperty(nextKey)) {
+              output[nextKey] = source[nextKey];
             }
-            return output;
-        };
-    })();
+          }
+        }
+      }
+      return output;
+    };
+  })();
 }
 if (!Array.prototype.find) {
-    Array.prototype.find = function(predicate) {
-        if (this === null) {
-            throw new TypeError('Array.prototype.find called on null or undefined');
-        }
-        if (typeof predicate !== 'function') {
-            throw new TypeError('predicate must be a function');
-        }
-        var list = Object(this);
-        var length = list.length >>> 0;
-        var thisArg = arguments[1];
-        var value;
+  Array.prototype.find = function(predicate) {
+    if (this === null) {
+      throw new TypeError('Array.prototype.find called on null or undefined');
+    }
+    if (typeof predicate !== 'function') {
+      throw new TypeError('predicate must be a function');
+    }
+    var list = Object(this);
+    var length = list.length >>> 0;
+    var thisArg = arguments[1];
+    var value;
 
-        for (var i = 0; i < length; i++) {
-            value = list[i];
-            if (predicate.call(thisArg, value, i, list)) {
-                return value;
-            }
-        }
-        return undefined;
-    };
+    for (var i = 0; i < length; i++) {
+      value = list[i];
+      if (predicate.call(thisArg, value, i, list)) {
+        return value;
+      }
+    }
+    return undefined;
+  };
 }

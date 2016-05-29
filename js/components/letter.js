@@ -13,24 +13,24 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
-import React, {Component, PropTypes} from 'react'
+'use strict';
 
-export default class Letter extends Component {
+import React, {PropTypes} from 'react';
+import RaisedButton from 'material-ui/lib/raised-button';
 
-  render() {
-    const myStyle = {
-      padding: '4px 20px',
-      margin: '5px',
-      fontSize: '24px',
-      lineHeight: '26px',
-      background: '#0cc3ff',
-      borderRadius: '3px',
-      cursor:'pointer',
-      color:'#333'
-    };
-    return (
+let myStyle = {minWidth: '47px', margin: '5px 2px 5px 5px'};
+const disabledColour = '#3A938C';
+const Letter = (props) => <RaisedButton label={props.letter}
+                                        disabled={!(props.status === 'Waiting For Input')}
+                                        disabledBackgroundColor={disabledColour}
+                                        backgroundColor={disabledColour}
+                                        style={myStyle}
+                                        onClick={() => props.onLetterClicked(props.letter)}
+                                        labelStyle={{textTransform: 'lowercase',fontSize: '18px'}}/>;
 
-      <div style={myStyle}>{this.props.name}</div>
-    )
-  }
-}
+Letter.propTypes = {
+  letter: PropTypes.string.isRequired,
+  status: PropTypes.string.isRequired,
+  onLetterClicked: PropTypes.func.isRequired
+};
+export default Letter;

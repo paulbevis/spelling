@@ -13,31 +13,39 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
-import React, {Component, PropTypes} from 'react'
-import Letter from './letter'
+'use strict';
+
+import React, {Component, PropTypes} from 'react';
+import Letter from '../components/letter';
 
 export default class Letters extends Component {
 
   lettersInRange(start) {
-    return this.props.letters.slice(start, start + 13).map((letter, index)=> <Letter key={index} {...letter}/>);
+    return this.props.letters.slice(start, start + 13).map((letter, index)=>
+      <Letter key={index} letter={letter} status={this.props.status} onLetterClicked={this.props.onLetterClicked}/>);
   }
 
-  // 2 rows of 12 letter components
   render() {
     const myStyle = {display: 'flex', flexDirection: 'row', flexWrap: 'wrap', alignContent: 'space-around'};
 
     return (
-      <div style={{minHeight:'100px',display:'flex', alignItems:'flex-end'}}>
+      <div style={{minHeight:'100px',display:this.props.status === 'Game Finished'?'none':'flex', alignItems:'flex-end'}}>
         <div style={{marginBottom:'10px'}}>
 
           <div style={myStyle} className="top-letter-row">
             {this.lettersInRange(0)}
           </div>
+
           <div style={myStyle} className="bottom-letter-row">
             {this.lettersInRange(13)}
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
+
+Letters.propTypes = {
+  status: PropTypes.string.isRequired,
+  onLetterClicked: PropTypes.func.isRequired
+};

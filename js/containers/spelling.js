@@ -13,30 +13,64 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
-import React, {Component, PropTypes} from 'react'
-import Letters from '../components/letters'
-import PlayingArea from '../components/playing-area'
-import {connect} from 'react-redux'
-import {startGameAction, finishedPlayingSoundAction} from '../actions/spelling'
-import PlaySound from '../components/play-sound'
+'use strict';
 
+import React, {Component, PropTypes} from 'react';
+import Letters from './letters';
+import PlayingArea from '../components/playing-area';
+import {connect} from 'react-redux';
+import {startGameAction, startNextGameAction, finishedPlayingSoundAction, letterClickedAction, playWordAction} from '../actions/spelling';
+import PlaySound from '../components/play-sound';
+import GameOver from '../components/game-over';
 
 class Spelling extends Component {
 
   render() {
     const {dispatch, letters, game} = this.props;
     const myStyle = {display: 'flex', flexDirection: 'column', height: '100%'};
+    const titleBarStyle = {
+      background: '#333',
+      height: '50px',
+      fontSize: '30px',
+      color: 'white',
+      lineHeight: '44px',
+      padding: '5px 5px 5px 15px'
+    };
 
     return (
-      <div style={myStyle} className="spelling">
-        <PlayingArea game={game} onStartGame={()=>dispatch(startGameAction())}/>
-        <Letters key="letters" letters={letters}/>
-        <PlaySound sound={game.sound} status={game.status} onFinishedPlaying={(value) => dispatch(finishedPlayingSoundAction(value))}/>
+      <div>
+        <div style={titleBarStyle}>Spelling Game</div>
+        <div style={{display: 'flex', justifyContent: 'center'}}>
+          <div style={myStyle} className="spelling">
+            <GameOver status={this.props.game.status}
+                      numberCorrect={this.props.game.numberCorrect}
+                      totalWords={this.props.game.totalWords}
+                      onStartSameGame={()=>dispatch(startGameAction())}
+                      onStartNextGame={()=>dispatch(startNextGameAction())}/>
+            <PlayingArea game={game}
+                         onStartGame={()=>dispatch(startGameAction())}
+                         onPlayWord={(key) => dispatch(playWordAction(key))}/>
+            <Letters key="letters"
+                     letters={letters}
+                     status={game.status}
+                     onLetterClicked={(value) => dispatch(letterClickedAction(value))}/>
+            <PlaySound sound={game.sound}
+                       status={game.status}
+                       onFinishedPlaying={() => dispatch(finishedPlayingSoundAction())}/>
+          </div>
+        </div>
       </div>
-    )
+    );
   }
 
 }
+
+Spelling.propTypes = {
+  game: PropTypes.shape({
+    status: PropTypes.string.isRequired,
+    sound: PropTypes.string.isRequired
+  }).isRequired
+};
 
 function select(state) {
   return {
@@ -47,4 +81,4 @@ function select(state) {
 }
 
 // Wrap the component to inject dispatch and state into it
-export default connect(select)(Spelling)
+export default connect(select)(Spelling);

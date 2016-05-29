@@ -13,33 +13,24 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
-import React, {Component, PropTypes} from 'react'
-import FoundWord from './found-word'
+'use strict';
 
-export default class FoundWords extends Component {
+import React, {PropTypes} from 'react';
+import FoundWord from './found-word';
 
-  render() {
-    const myStyle = {display: 'flex', flexDirection: 'column', flexWrap: 'nowrap', alignContent: 'space-around'};
+const myStyle = {display: 'flex', flexDirection: 'column', flexWrap: 'nowrap', alignContent: 'space-around'};
 
-    const startButtonStyle = {
-      display: 'inline-block',
-      padding: '4px 20px',
-      margin: '5px',
-      fontSize: '24px',
-      lineHeight: '26px',
-      background: '#0cc3ff',
-      borderRadius: '3px',
-      cursor: 'pointer',
-      color: '#333'
-    };
-    return (
-      <div className="found-words" style={myStyle}>
-        {
-          this.props.foundWords.map((word, index)=> {
-            return <FoundWord key={'word'+index} word={word}/>
-          })
-        }
-      </div>
-    )
+const FoundWords = (props)=> <div className="found-words" style={myStyle}>
+  {
+    props.foundWords.map((word, index)=> {
+      return <FoundWord key={'word'+index} word={word} id={index} status={props.status} onPlayWord={props.onPlayWord}/>;
+    })
   }
-}
+</div>;
+
+FoundWords.propTypes = {
+  status: PropTypes.string.isRequired,
+  onPlayWord: PropTypes.func.isRequired
+};
+
+export default FoundWords;

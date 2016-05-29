@@ -13,37 +13,32 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
-import React, {Component, PropTypes} from 'react'
-import FoundWords from './found-words'
-import SubmittedWord from './submited-word'
+'use strict';
+
+import React, {Component, PropTypes} from 'react';
+import FoundWords from './found-words';
+import SubmittedLetters from './submitted-letters';
 import RaisedButton from 'material-ui/lib/raised-button';
 
-export default class PlayArea extends Component {
+export default class PlayingArea extends Component {
 
   render() {
-    const myStyle = {display: 'flex', flexDirection: 'row', flexWrap: 'wrap', alignContent: 'space-around'};
-
-    const startButtonStyle = {
-      display: 'inline-block',
-      padding: '4px 20px',
-      margin: '5px',
-      fontSize: '24px',
-      lineHeight: '26px',
-      background: '#0cc3ff',
-      borderRadius: '3px',
-      cursor: 'pointer',
-      color: '#333'
-    };
     return (
-      <div style={{display:'flex',flexDirection:'column', height:'100%'}}>
+      <div style={{display:this.props.game.status === 'Game Finished'?'none':'flex',flexDirection:'column', height:'100%'}}>
         <div className='button-controls' style={{marginTop:'10px'}}>
-          <RaisedButton label="Start" secondary={true} onClick={this.props.onStartGame}/>
+          <RaisedButton label="Start" primary={true} onClick={this.props.onStartGame}/>
         </div>
         <div style={{display:'flex', flexGrow:'1'}}>
-          <SubmittedWord foundLetters={this.props.game.foundLetters}/>
-          <FoundWords foundWords={this.props.game.foundWords}/>
+
+          <SubmittedLetters foundLetters={this.props.game.foundLetters} status={this.props.game.status}/>
+          <FoundWords foundWords={this.props.game.foundWords} status={this.props.game.status} onPlayWord={this.props.onPlayWord}/>
         </div>
       </div>
-    )
+    );
   }
 }
+
+PlayingArea.propTypes = {
+  game: PropTypes.object.isRequired,
+  onPlayWord: PropTypes.func.isRequired
+};

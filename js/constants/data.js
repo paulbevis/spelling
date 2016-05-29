@@ -13,13 +13,8 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
+'use strict';
 
-export const GAME_LETTERS = "abcdefghijklmnopqrstuvwxyz";
-export const START_LETTERS = "--------------------------";
+export const GAME_LETTERS = 'abcdefghijklmnopqrstuvwxyz';
+export const START_LETTERS = '--------------------------';
 export const START_FOUND_LETTERS = ['-', '-', '-'];
-export const GAMES = {
-  '0': {
-    words: ['bad', 'bag', 'box', 'cat', 'mat'],
-    audio: ['audio/words/bad.mp3', 'audio/words/bag.mp3', 'audio/words/box.mp3', 'audio/words/cat.mp3', 'audio/words/mat.mp3']
-  }
-};

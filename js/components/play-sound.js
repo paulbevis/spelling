@@ -13,35 +13,38 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
-import React, {Component, PropTypes} from 'react'
+'use strict';
+
+import React, {Component, PropTypes} from 'react';
 
 export default class PlaySound extends Component {
 
   render() {
     return (
       <div>
-        <audio src={this.props.sound.audio} preload="auto" ref="sound"/>
+        <audio src={this.props.sound} preload="auto" ref="sound"/>
       </div>
-    )
+    );
   }
 
   componentDidUpdate() {
-    if (this.props.status === 'Playing') {
+    if (this.props.sound) {
       this.refs.sound.play();
     }
   }
 
   componentDidMount() {
-    this.refs.sound.addEventListener("ended", (e)=> {
-      this.props.onFinishedPlaying(this.props.sound.task)
+    this.refs.sound.addEventListener('ended', ()=> {
+      this.props.onFinishedPlaying();
     });
-    this.refs.sound.play();
-
   }
 
   componentWillUnmount() {
-    this.refs.sound.removeEventListener("ended", (e)=> {
+    this.refs.sound.removeEventListener('ended', ()=> {
     }, false);
   }
 }
 
+PlaySound.propTypes = {
+  sound: PropTypes.string.isRequired
+};

@@ -13,14 +13,24 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
-import React, {Component, PropTypes} from 'react'
+'use strict';
 
-export default class SubmittedLetter extends Component {
+import React, {PropTypes} from 'react';
 
-  render() {
-    return (
-      <div style={{flexBasis:'auto',padding:'22px 35px', borderRadius:'10px', border:'1px dashed #333', margin: '0 5px'}}>{this.props.letter}</div>
-    )
-  }
-}
+const letterStyle = {
+  color: 'white',
+  flexBasis: 'auto', 
+  padding: '22px 35px',
+  borderRadius: '3px',
+  margin: '0 5px',
+  background: '#7DA6A3'
+};
+
+const SubmittedLetter = (props)=> (<div style={letterStyle}>{props.letter}</div>);
+
+SubmittedLetter.propTypes = {
+  letter: PropTypes.string.isRequired
+};
+
+export default SubmittedLetter;
 

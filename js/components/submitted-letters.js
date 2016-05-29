@@ -13,22 +13,32 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
-import React, {Component, PropTypes} from 'react'
-import SubmittedLetter from './submited-letter'
+'use strict';
 
-export default class SubmittedWord extends Component {
+import React, {Component, PropTypes} from 'react';
+import SubmittedLetter from './submitted-letter';
+
+export default class SubmittedLetters extends Component {
 
   render() {
+    let animating = this.props.status === 'Word Matched' ? 'animated bounce' : this.props.status === 'Word Not Matched' ? 'animated hinge' : '';
     return (
       <div style={{display:'flex',flexGrow:'5',flexDirection:'column', justifyContent:'center'}}>
         <div className="word-display" style={{display:'flex',  flexDirection:'row', justifyContent:'center', fontSize:'50px'}}>
-          {
-            this.props.foundLetters.map((letter, index) =>
-              <SubmittedLetter key={'letter'+index} letter={letter}/>)
-          }
+          <div className={animating} style={{display:'flex',  flexDirection:'row', justifyContent:'center'}}>
+            {
+              this.props.foundLetters.map((letter, index) =>
+                <SubmittedLetter key={'letter'+index} letter={letter} status={this.props.status}/>)
+            }
+          </div>
         </div>
       </div>
-    )
+    );
   }
+
 }
+SubmittedLetters.propTypes = {
+  status: PropTypes.string.isRequired,
+  foundLetters: PropTypes.array.isRequired
+};
 
