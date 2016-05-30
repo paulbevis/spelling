@@ -133,5 +133,36 @@ describe('FoundWord component', () => {
 
   });
 
+  describe("where the word allows interaction", function() {
+    const localWord = {nextAvailable: true};
+    it('if the word microphone is pulsing, and the word has already been played, it can accept mouse clicks and play audio again', () => {
+      // Render a found word component in the document
+      const foundWord = TestUtils.renderIntoDocument(
+        <FoundWord word={localWord} status={WAITING_FOR_INPUT} id={id} onPlayWord={mockFn}/>
+      );
+
+      const foundWordNode = ReactDOM.findDOMNode(foundWord);
+      let icon = foundWordNode.children[0].children[1];
+      expect(icon.style.cursor).toEqual('pointer');
+      TestUtils.Simulate.click(icon);
+      expect(mockFn).toBeCalled();
+
+    });
+
+    it('if the word microphone is pulsing, and it has not been clicked yet, it can accept mouse clicks and play audio again', () => {
+      // Render a found word component in the document
+      const foundWord = TestUtils.renderIntoDocument(
+        <FoundWord word={localWord} status={WAITING_TO_PLAY_AUDIO} id={id} onPlayWord={mockFn}/>
+      );
+
+      const foundWordNode = ReactDOM.findDOMNode(foundWord);
+      let icon = foundWordNode.children[0].children[1];
+      expect(icon.style.cursor).toEqual('pointer');
+      TestUtils.Simulate.click(icon);
+      expect(mockFn).toBeCalled();
+
+    });
+  });
+
 
 });

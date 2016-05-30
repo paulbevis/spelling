@@ -53,7 +53,7 @@ export default class FoundWord extends Component {
   processClick() {
     if (this.props.word.nextAvailable &&
       this.props.word.match !== true &&
-      this.props.status === 'Waiting to play a word audio') {
+      (this.props.status === WAITING_TO_PLAY_AUDIO || this.props.status === WAITING_FOR_INPUT)) {
       this.props.onPlayWord(this.props.id);
     }
   }
