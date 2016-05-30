@@ -162,6 +162,30 @@ describe('FoundWord component', () => {
       expect(mockFn).toBeCalled();
 
     });
+    
+    it('if the word is next available, then it should be pulsing, with primary colour', () => {
+      // Render a found word component in the document
+      const foundWord = TestUtils.renderIntoDocument(
+        <FoundWord word={localWord} status={WAITING_TO_PLAY_AUDIO} id={id} onPlayWord={mockFn}/>
+      );
+
+      const foundWordNode = ReactDOM.findDOMNode(foundWord);
+      expect(foundWordNode.classList.toString()).toEqual('pulse animated infinite');
+      expect(foundWordNode.style.backgroundColor).toEqual('rgb(255, 64, 129)');
+
+    });    
+    
+    it('if the word is not next available, then it should not be pulsing', () => {
+      // Render a found word component in the document
+      const foundWord = TestUtils.renderIntoDocument(
+        <FoundWord word={{nextAvailable:false}} status={WAITING_TO_PLAY_AUDIO} id={id} onPlayWord={mockFn}/>
+      );
+
+      const foundWordNode = ReactDOM.findDOMNode(foundWord);
+      expect(foundWordNode.classList.toString()).toEqual('');
+      expect(foundWordNode.style.backgroundColor).toEqual('rgb(125, 166, 163)');
+
+    });
   });
 
 
