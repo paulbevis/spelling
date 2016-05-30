@@ -41,4 +41,19 @@ describe('Letters tests', () => {
     expect(lettersInBottomRow).toEqual(13);// first row of letters
   });
 
+  it('when game is over then do not display any letters', () => {
+    let buttonName = 'a';
+
+    const myFunc = jest.fn();
+    const lettersArray = GAME_LETTERS.split('');
+
+    // Render a letter component in the document
+    const letters = TestUtils.renderIntoDocument(
+      <Letters key='letters' letters={lettersArray} status='Game Finished' onLetterClicked={myFunc}/>
+    );
+
+    const lettersNode = ReactDOM.findDOMNode(letters);
+    expect(lettersNode.style.display).toEqual('none');
+  });
+
 });
