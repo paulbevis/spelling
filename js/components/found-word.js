@@ -16,7 +16,7 @@
 'use strict';
 
 import React, {Component, PropTypes} from 'react';
-import {WAITING_TO_PLAY_AUDIO, WAITING_FOR_INPUT} from '../constants/data'
+import {WAITING_TO_PLAY_AUDIO, WAITING_FOR_INPUT} from '../constants/data';
 
 export default class FoundWord extends Component {
   render() {

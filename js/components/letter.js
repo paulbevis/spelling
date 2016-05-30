@@ -17,7 +17,7 @@
 
 import React, {PropTypes} from 'react';
 import RaisedButton from 'material-ui/lib/raised-button';
-import {WAITING_FOR_INPUT} from '../constants/data'
+import {WAITING_FOR_INPUT} from '../constants/data';
 
 let myStyle = {minWidth: '47px', margin: '5px 2px 5px 5px'};
 const disabledColour = '#3A938C';
