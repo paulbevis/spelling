@@ -8,7 +8,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react-addons-test-utils';
 import Letters from '../js/containers/letters';
-import {GAME_LETTERS} from '../js/constants/data'
+import {GAME_LETTERS, WAITING_FOR_INPUT} from '../js/constants/data'
 
 navigator.__defineGetter__('userAgent', function() {
   return 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2454.85 Safari/537.36'
@@ -23,7 +23,7 @@ describe('Letters tests', () => {
 
     // Render a letter component in the document
     const letters = TestUtils.renderIntoDocument(
-      <Letters key='letters' letters={lettersArray} status='Waiting For Input' onLetterClicked={myFunc}/>
+      <Letters key='letters' letters={lettersArray} status={WAITING_FOR_INPUT} onLetterClicked={myFunc}/>
     );
 
     const lettersNode = ReactDOM.findDOMNode(letters);

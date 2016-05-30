@@ -19,7 +19,7 @@
 import expect from 'expect'
 import {letters, game} from '../../js/reducers/spelling'
 import {CELL_CLICK, GAME_START, GAME_SELECT, LAST_LETTER_FOUND, FINISHED_PLAYING_SOUND, PLAY_WORD, LETTER_CLICKED} from '../../js/constants/action-types'
-import {START_FOUND_LETTERS, START_LETTERS, GAME_LETTERS, WAITING_TO_PLAY_AUDIO} from '../../js/constants/data'
+import {START_FOUND_LETTERS, START_LETTERS, GAME_LETTERS, WAITING_TO_PLAY_AUDIO, WAITING_FOR_INPUT} from '../../js/constants/data'
 import {wordSet} from '../../js/domain/words'
 import deepFreeze from 'deep-freeze'
 import {difference} from 'ramda'
@@ -157,7 +157,7 @@ describe('Spelling game', () => {
         currentWordPos: 3,
         currentWord: 'hut',
         sound: '',
-        status: 'Waiting For Input',
+        status: WAITING_FOR_INPUT,
         gameNumber: 0
       };
 
@@ -174,7 +174,7 @@ describe('Spelling game', () => {
         currentWordPos: 3,
         currentWord: 'hut',
         sound: '',
-        status: 'Waiting For Input',
+        status: WAITING_FOR_INPUT,
         gameNumber: 0
       };
       deepFreeze(initialState);
@@ -186,7 +186,7 @@ describe('Spelling game', () => {
         currentWordPos: 3,
         currentWord: 'hut',
         sound: '',
-        status: 'Waiting For Input',
+        status: WAITING_FOR_INPUT,
         gameNumber: 0
       };
 
@@ -202,7 +202,7 @@ describe('Spelling game', () => {
         currentWordPos: 3,
         currentWord: 'hut',
         sound: '',
-        status: 'Waiting For Input',
+        status: WAITING_FOR_INPUT,
         gameNumber: 0
       };
       deepFreeze(initialState);
@@ -214,7 +214,7 @@ describe('Spelling game', () => {
         currentWordPos: 3,
         currentWord: 'hut',
         sound: '',
-        status: 'Waiting For Input',
+        status: WAITING_FOR_INPUT,
         gameNumber: 0
       };
 
@@ -231,7 +231,7 @@ describe('Spelling game', () => {
         currentWordPos: 3,
         currentWord: 'hut',
         sound: '',
-        status: 'Waiting For Input',
+        status: WAITING_FOR_INPUT,
         gameNumber: 0
       };
       deepFreeze(initialState);
@@ -292,7 +292,7 @@ describe('Spelling game', () => {
         currentWordPos: 3,
         currentWord: 'hut',
         sound: '',
-        status: 'Waiting For Input',
+        status: WAITING_FOR_INPUT,
         gameNumber: 0
       };
       deepFreeze(initialState);
@@ -353,7 +353,7 @@ describe('Spelling game', () => {
         currentWordPos: 3,
         currentWord: 'hut',
         sound: '',
-        status: 'Waiting For Input',
+        status: WAITING_FOR_INPUT,
         gameNumber: 0
       };
       deepFreeze(initialState);
