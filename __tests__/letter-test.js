@@ -7,6 +7,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react-addons-test-utils';
 import Letter from '../js/components/letter';
+import {WAITING_FOR_INPUT} from '../js/constants/data'
 
 navigator.__defineGetter__('userAgent', function() {
   return 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2454.85 Safari/537.36'
@@ -22,7 +23,7 @@ describe('Letter component', () => {
 
     // Render a letter component in the document
     const letter = TestUtils.renderIntoDocument(
-      <div><Letter status='Waiting For Input' letter="a" onLetterClicked={myFunc}/></div>
+      <div><Letter status={WAITING_FOR_INPUT} letter="a" onLetterClicked={myFunc}/></div>
     );
 
     const letterNode = ReactDOM.findDOMNode(letter);
@@ -41,7 +42,7 @@ describe('Letter component', () => {
 
     // Render a checkbox with label in the document
     const letter = TestUtils.renderIntoDocument(
-      <div><Letter status='Waiting For Input' letter="a" onLetterClicked={myFunc}/></div>
+      <div><Letter status={WAITING_FOR_INPUT} letter="a" onLetterClicked={myFunc}/></div>
     );
 
     const letterNode = ReactDOM.findDOMNode(letter);
