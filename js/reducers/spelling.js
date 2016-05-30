@@ -16,7 +16,7 @@
 'use strict';
 
 import {combineReducers} from 'redux';
-import {GAME_LETTERS, START_LETTERS, START_FOUND_LETTERS} from '../constants/data';
+import {GAME_LETTERS, START_LETTERS, START_FOUND_LETTERS, WAITING_TO_PLAY_AUDIO, WAITING_FOR_INPUT} from '../constants/data';
 import {GAME_START, GAME_NEXT_START, FINISHED_PLAYING_SOUND, LETTER_CLICKED, PLAY_WORD} from '../constants/action-types';
 import {wordSet} from '../domain/words';
 import {prop, findIndex, length, filter} from 'ramda';
@@ -88,7 +88,7 @@ function wordSubmitted(game) {
     }
     game.totalWords = game.foundWords.length;
   } else {
-    game.status = 'Waiting to play a word audio';
+    game.status = WAITING_TO_PLAY_AUDIO;
     game.foundWords = setNextAvailableWord(game.foundWords);
   }
 }
@@ -104,10 +104,10 @@ function finishedPlayingSound(state) {
   game.gameNumber = state.gameNumber;
   switch (state.status) {
     case 'Playing':
-      game.status = 'Waiting For Input';
+      game.status = WAITING_FOR_INPUT;
       break;
-    case'Waiting For Input':
-      game.status = 'Waiting For Input';
+    case WAITING_FOR_INPUT:
+      game.status = WAITING_FOR_INPUT;
       break;
     case 'Word Matched':
       wordSubmitted(game);
@@ -116,7 +116,7 @@ function finishedPlayingSound(state) {
       wordSubmitted(game);
       break;
     case 'Intro':
-      game.status = 'Waiting to play a word audio';
+      game.status = WAITING_TO_PLAY_AUDIO;
       game.foundWords = setNextAvailableWord(game.foundWords);
       break;
     case 'Game Finished':
