@@ -16,7 +16,7 @@
 'use strict';
 
 import React, {Component, PropTypes} from 'react';
-import Letter from '../components/letter';
+import Letter from './letter';
 
 export default class Letters extends Component {
 

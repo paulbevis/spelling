@@ -1,13 +1,13 @@
 'use strict';
 
-jest.unmock('../js/containers/letters');
+jest.unmock('../js/components/letters');
 jest.unmock('../js/components/letter');
 jest.unmock('material-ui/lib/raised-button');
 
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react-addons-test-utils';
-import Letters from '../js/containers/letters';
+import Letters from '../js/components/letters';
 import {GAME_LETTERS, WAITING_FOR_INPUT} from '../js/constants/data'
 
 navigator.__defineGetter__('userAgent', function() {
