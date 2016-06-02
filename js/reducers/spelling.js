@@ -19,18 +19,18 @@ import {combineReducers} from 'redux';
 import {GAME_LETTERS, START_LETTERS, START_FOUND_LETTERS, WAITING_TO_PLAY_AUDIO, WAITING_FOR_INPUT} from '../constants/data';
 import {GAME_START, GAME_NEXT_START, FINISHED_PLAYING_SOUND, LETTER_CLICKED, PLAY_WORD} from '../constants/action-types';
 import {wordSet} from '../domain/words';
-import {prop, findIndex, length, filter} from 'ramda';
+import {prop, findIndex, length, filter, map} from 'ramda';
 
 function buildLetters(letters) {
   return letters.split('');
 }
 
-function buildFoundWords(gameNumber) {
-  var words = [];
-  for (var i = 0; i < wordSet(gameNumber).length; i++) {
-    words.push({name: '---'});
-  }
-  return words;
+function buildFoundWords(availableWords) {
+  return map((word) => ({name: word.replace(/\w/g, '-')}), availableWords);
+}
+
+function buildFoundLetters(word) {
+  return word.name.replace(/\w/g, '-').split('');
 }
 
 export function letters(state = {}, action) {
@@ -49,7 +49,7 @@ export function letters(state = {}, action) {
 function defaultData() {
   return {
     foundLetters: START_FOUND_LETTERS,
-    foundWords: buildFoundWords(0),
+    foundWords: buildFoundWords(wordSet(0)),
     sound: '',
     status: 'disabled',
     gameNumber: 0
@@ -59,8 +59,8 @@ function defaultData() {
 function startGame(state) {
   let game = {};
   game.availableWords = wordSet(state.gameNumber);
-  game.foundLetters = START_FOUND_LETTERS;
-  game.foundWords = buildFoundWords(state.gameNumber);
+  game.foundWords = buildFoundWords(game.availableWords);
+  game.foundLetters = buildFoundLetters(game.foundWords[0]);
   game.sound = 'audio/intro.m4a';
   game.status = 'Intro';
   game.gameNumber = state.gameNumber;
@@ -90,6 +90,7 @@ function wordSubmitted(game) {
   } else {
     game.status = WAITING_TO_PLAY_AUDIO;
     game.foundWords = setNextAvailableWord(game.foundWords);
+    game.foundLetters = buildFoundLetters(filter((foundWord) => foundWord.nextAvailable, game.foundWords)[0])
   }
 }
 
@@ -97,7 +98,7 @@ function finishedPlayingSound(state) {
   let game = {};
   game.availableWords = state.availableWords;
   game.foundWords = state.foundWords;
-  game.foundLetters = START_FOUND_LETTERS;
+  game.foundLetters = state.foundLetters;
   game.currentWordPos = state.currentWordPos;
   game.currentWord = state.currentWord;
   game.sound = '';
@@ -110,7 +111,9 @@ function finishedPlayingSound(state) {
       game.status = WAITING_FOR_INPUT;
       break;
     case 'Word Matched':
+      console.log('before: ',game.foundLetters)
       wordSubmitted(game);
+      console.log('after: ',game.foundLetters)
       break;
     case 'Word Not Matched':
       wordSubmitted(game);
@@ -118,6 +121,7 @@ function finishedPlayingSound(state) {
     case 'Intro':
       game.status = WAITING_TO_PLAY_AUDIO;
       game.foundWords = setNextAvailableWord(game.foundWords);
+      game.foundLetters = filter((foundWord) => foundWord.nextAvailable, game.foundWords)[0].name.split('');
       break;
     case 'Game Finished':
       game.status = state.status;
@@ -183,7 +187,7 @@ function playWord(state, availableWordPos) {
   let game = {};
   game.availableWords = state.availableWords;
   game.foundWords = state.foundWords;
-  game.foundLetters = START_FOUND_LETTERS;
+  game.foundLetters = state.foundLetters;
   game.currentWord = game.availableWords[availableWordPos];
   game.sound = 'audio/words/' + game.currentWord + '.m4a';
   game.status = 'Playing';

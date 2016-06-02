@@ -17,6 +17,6 @@
 
 export const GAME_LETTERS = 'abcdefghijklmnopqrstuvwxyz';
 export const START_LETTERS = '--------------------------';
-export const START_FOUND_LETTERS = ['-', '-', '-'];
+export const START_FOUND_LETTERS = [];
 export const WAITING_TO_PLAY_AUDIO = 'Waiting to play a word audio';
 export const WAITING_FOR_INPUT = 'Waiting for Input';
