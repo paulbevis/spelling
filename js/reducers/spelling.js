@@ -90,7 +90,7 @@ function wordSubmitted(game) {
   } else {
     game.status = WAITING_TO_PLAY_AUDIO;
     game.foundWords = setNextAvailableWord(game.foundWords);
-    game.foundLetters = buildFoundLetters(filter((foundWord) => foundWord.nextAvailable, game.foundWords)[0])
+    game.foundLetters = buildFoundLetters(filter((foundWord) => foundWord.nextAvailable, game.foundWords)[0]);
   }
 }
 
@@ -111,9 +111,7 @@ function finishedPlayingSound(state) {
       game.status = WAITING_FOR_INPUT;
       break;
     case 'Word Matched':
-      console.log('before: ',game.foundLetters)
       wordSubmitted(game);
-      console.log('after: ',game.foundLetters)
       break;
     case 'Word Not Matched':
       wordSubmitted(game);
