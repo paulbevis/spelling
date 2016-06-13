@@ -16,32 +16,32 @@
 
 'use strict';
 
-import {GAME_START, GAME_NEXT_START, FINISHED_PLAYING_SOUND, LETTER_CLICKED, PLAY_WORD} from '../constants/action-types';
+import * as types from '../constants/action-types';
 
-export function startGameAction() {
+export function startGame() {
   return {
-    type: GAME_START
+    type: types.GAME_START
   };
 }
-export function startNextGameAction() {
+export function startNextGame() {
   return {
-    type: GAME_NEXT_START
+    type: types.GAME_NEXT_START
   };
 }
-export function finishedPlayingSoundAction() {
+export function finishedPlayingSound() {
   return {
-    type: FINISHED_PLAYING_SOUND
+    type: types.FINISHED_PLAYING_SOUND
   };
 }
-export function letterClickedAction(letter) {
+export function letterClicked(letter) {
   return {
-    type: LETTER_CLICKED,
+    type: types.LETTER_CLICKED,
     letter
   };
 }
-export function playWordAction(key) {
+export function playWord(key) {
   return {
-    type: PLAY_WORD,
+    type: types.PLAY_WORD,
     key
   };
 }

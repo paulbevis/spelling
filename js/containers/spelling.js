@@ -19,7 +19,7 @@ import React, {Component, PropTypes} from 'react';
 import Letters from '../components/letters';
 import PlayingArea from '../components/playing-area';
 import {connect} from 'react-redux';
-import {startGameAction, startNextGameAction, finishedPlayingSoundAction, letterClickedAction, playWordAction} from '../actions/spelling';
+import * as actions from '../actions/spelling';
 import PlaySound from '../components/play-sound';
 import GameOver from '../components/game-over';
 
@@ -45,18 +45,18 @@ class Spelling extends Component {
             <GameOver status={this.props.game.status}
                       numberCorrect={this.props.game.numberCorrect}
                       totalWords={this.props.game.totalWords}
-                      onStartSameGame={()=>dispatch(startGameAction())}
-                      onStartNextGame={()=>dispatch(startNextGameAction())}/>
+                      onStartSameGame={()=>dispatch(actions.startGame())}
+                      onStartNextGame={()=>dispatch(actions.startNextGame())}/>
             <PlayingArea game={game}
-                         onStartGame={()=>dispatch(startGameAction())}
-                         onPlayWord={(key) => dispatch(playWordAction(key))}/>
+                         onStartGame={()=>dispatch(actions.startGame())}
+                         onPlayWord={(key) => dispatch(actions.playWord(key))}/>
             <Letters key="letters"
                      letters={letters}
                      status={game.status}
-                     onLetterClicked={(value) => dispatch(letterClickedAction(value))}/>
+                     onLetterClicked={(value) => dispatch(actions.letterClicked(value))}/>
             <PlaySound sound={game.sound}
                        status={game.status}
-                       onFinishedPlaying={() => dispatch(finishedPlayingSoundAction())}/>
+                       onFinishedPlaying={() => dispatch(actions.finishedPlayingSound())}/>
           </div>
         </div>
       </div>
