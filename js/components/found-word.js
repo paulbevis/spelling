@@ -16,6 +16,7 @@
 'use strict';
 
 import React, {Component, PropTypes} from 'react';
+import * as constants from '../constants/data';
 
 export default class FoundWord extends Component {
   render() {
@@ -52,7 +53,7 @@ export default class FoundWord extends Component {
   processClick() {
     if (this.props.word.nextAvailable &&
       this.props.word.match !== true &&
-      this.props.status === 'Waiting to play a word audio') {
+      (this.props.status === constants.WAITING_TO_PLAY_AUDIO || this.props.status === constants.WAITING_FOR_INPUT)) {
       this.props.onPlayWord(this.props.id);
     }
   }

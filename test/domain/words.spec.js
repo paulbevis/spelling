@@ -29,12 +29,12 @@ describe('when requesting a set of words', () => {
 
   it('should contain the list of known words', () => {
     expect(difference(wordSet(0), ['bin', 'cat', 'fan', 'hut', 'jog', 'leg', 'nod', 'pen', 'run', 'wig'])).toEqual([]);
-    expect(difference(wordSet(1), ['bin', 'cat', 'fan', 'hut', 'jog', 'leg', 'nod', 'pen', 'run', 'wig'])).toEqual([]);
+    expect(difference(wordSet(1), ['flat', 'shed', 'like', 'help', 'rain', 'wind', 'snow', 'tree', 'seat', 'door'])).toEqual([]);
   });
 
   it('should contain the list of known words, in a shuffled state', () => {
     expect(wordSet(0)).toNotEqual(['bin', 'cat', 'fan', 'hut', 'jog', 'leg', 'nod', 'pen', 'run', 'wig']);
-    expect(wordSet(1)).toNotEqual(['bin', 'cat', 'fan', 'hut', 'jog', 'leg', 'nod', 'pen', 'run', 'wig']);
+    expect(wordSet(1)).toNotEqual(['flat', 'shed', 'like', 'help', 'rain', 'wind', 'snow', 'tree', 'seat', 'door']);
   });
 
 });

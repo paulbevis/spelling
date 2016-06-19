@@ -17,11 +17,12 @@
 
 import React, {PropTypes} from 'react';
 import RaisedButton from 'material-ui/lib/raised-button';
+import {WAITING_FOR_INPUT} from '../constants/data';
 
 let myStyle = {minWidth: '47px', margin: '5px 2px 5px 5px'};
 const disabledColour = '#3A938C';
 const Letter = (props) => <RaisedButton label={props.letter}
-                                        disabled={!(props.status === 'Waiting For Input')}
+                                        disabled={!(props.status === WAITING_FOR_INPUT)}
                                         disabledBackgroundColor={disabledColour}
                                         backgroundColor={disabledColour}
                                         style={myStyle}

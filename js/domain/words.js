@@ -20,7 +20,8 @@ import {clone} from 'ramda';
 export const wordSet = function(wordSetNumber) {
   const availableWordSets = [
     ['bin', 'cat', 'fan', 'hut', 'jog', 'leg', 'nod', 'pen', 'run', 'wig'],
-    ['bin', 'cat', 'fan', 'hut', 'jog', 'leg', 'nod', 'pen', 'run', 'wig']];
+    ['flat', 'shed', 'like', 'help', 'rain', 'wind', 'snow', 'tree', 'seat', 'door']
+  ];
 
   const shuffleArray = function(suppliedArray) {
     let array = clone(suppliedArray);
