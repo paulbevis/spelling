@@ -76,12 +76,24 @@ Spelling.propTypes = {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onFinishedPlaying: () => dispatch(actions.finishedPlayingSound()),
-    onLetterClicked: (value)=> dispatch(actions.letterClicked(value)),
-    onPlayWord: (key) => dispatch(actions.playWord(key)),
-    onStartGame: () => dispatch(actions.startGame()),
-    onStartSameGame: () => dispatch(actions.startGame()),
-    onStartNextGame: () => dispatch(actions.startNextGame())
+    onFinishedPlaying() {
+      dispatch(actions.finishedPlayingSound());
+    },
+    onLetterClicked(value) {
+      dispatch(actions.letterClicked(value));
+    },
+    onPlayWord(key){
+      dispatch(actions.playWord(key));
+    },
+    onStartGame(){
+      dispatch(actions.startGame());
+    },
+    onStartSameGame(){
+      dispatch(actions.startGame());
+    },
+    onStartNextGame(){
+      dispatch(actions.startNextGame());
+    }
   };
 };
 
