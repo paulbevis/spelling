@@ -85,10 +85,10 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({letters, game}) => {
   return {
-    letters: state.letters,
-    game: state.game
+    letters,
+    game
   };
 };
 
