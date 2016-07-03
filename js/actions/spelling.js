@@ -18,30 +18,24 @@
 
 import * as types from '../constants/action-types';
 
-export function startGame() {
-  return {
-    type: types.GAME_START
-  };
-}
-export function startNextGame() {
-  return {
-    type: types.GAME_NEXT_START
-  };
-}
-export function finishedPlayingSound() {
-  return {
-    type: types.FINISHED_PLAYING_SOUND
-  };
-}
-export function letterClicked(letter) {
-  return {
-    type: types.LETTER_CLICKED,
-    letter
-  };
-}
-export function playWord(key) {
-  return {
-    type: types.PLAY_WORD,
-    key
-  };
-}
+export const startGame = () => ({
+  type: types.GAME_START
+});
+
+export const startNextGame = () => ({
+  type: types.GAME_NEXT_START
+});
+
+export const finishedPlayingSound = () => ({
+  type: types.FINISHED_PLAYING_SOUND
+});
+
+export const letterClicked = (letter) => ({
+  type: types.LETTER_CLICKED,
+  letter
+});
+
+export const playWord = (key) => ({
+  type: types.PLAY_WORD,
+  key
+});

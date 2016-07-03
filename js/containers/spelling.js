@@ -26,7 +26,10 @@ import GameOver from '../components/game-over';
 class Spelling extends Component {
 
   render() {
-    const {dispatch, letters, game} = this.props;
+    const {
+      letters, game, onFinishedPlaying, onLetterClicked, onPlayWord,
+      onStartGame, onStartNextGame, onStartSameGame
+    } = this.props;
     const myStyle = {display: 'flex', flexDirection: 'column', height: '100%'};
     const titleBarStyle = {
       background: '#333',
@@ -45,24 +48,23 @@ class Spelling extends Component {
             <GameOver status={this.props.game.status}
                       numberCorrect={this.props.game.numberCorrect}
                       totalWords={this.props.game.totalWords}
-                      onStartSameGame={()=>dispatch(actions.startGame())}
-                      onStartNextGame={()=>dispatch(actions.startNextGame())}/>
+                      onStartSameGame={()=>onStartSameGame()}
+                      onStartNextGame={()=>onStartNextGame()}/>
             <PlayingArea game={game}
-                         onStartGame={()=>dispatch(actions.startGame())}
-                         onPlayWord={(key) => dispatch(actions.playWord(key))}/>
+                         onStartGame={()=>onStartGame()}
+                         onPlayWord={(key) => onPlayWord(key)}/>
             <Letters key="letters"
                      letters={letters}
                      status={game.status}
-                     onLetterClicked={(value) => dispatch(actions.letterClicked(value))}/>
+                     onLetterClicked={(value)=> onLetterClicked(value)}/>
             <PlaySound sound={game.sound}
                        status={game.status}
-                       onFinishedPlaying={() => dispatch(actions.finishedPlayingSound())}/>
+                       onFinishedPlaying={() => onFinishedPlaying()}/>
           </div>
         </div>
       </div>
     );
   }
-
 }
 
 Spelling.propTypes = {
@@ -72,13 +74,35 @@ Spelling.propTypes = {
   }).isRequired
 };
 
-function select(state) {
+const mapDispatchToProps = (dispatch) => {
   return {
-    letters: state.letters,
-    game: state.game
-
+    onFinishedPlaying() {
+      dispatch(actions.finishedPlayingSound());
+    },
+    onLetterClicked(value) {
+      dispatch(actions.letterClicked(value));
+    },
+    onPlayWord(key){
+      dispatch(actions.playWord(key));
+    },
+    onStartGame(){
+      dispatch(actions.startGame());
+    },
+    onStartSameGame(){
+      dispatch(actions.startGame());
+    },
+    onStartNextGame(){
+      dispatch(actions.startNextGame());
+    }
   };
-}
+};
+
+const mapStateToProps = ({letters, game}) => {
+  return {
+    letters,
+    game
+  };
+};
 
 // Wrap the component to inject dispatch and state into it
-export default connect(select)(Spelling);
+export default connect(mapStateToProps, mapDispatchToProps)(Spelling);
