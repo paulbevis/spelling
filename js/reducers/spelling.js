@@ -17,7 +17,7 @@
 
 import {combineReducers} from 'redux';
 import {GAME_LETTERS, START_LETTERS, START_FOUND_LETTERS, WAITING_TO_PLAY_AUDIO, WAITING_FOR_INPUT} from '../constants/data';
-import {GAME_START, GAME_NEXT_START, FINISHED_PLAYING_SOUND, LETTER_CLICKED, PLAY_WORD} from '../constants/action-types';
+import * as types from '../constants/action-types';
 import {wordSet} from '../domain/words';
 import {prop, findIndex, length, filter, map} from 'ramda';
 
@@ -35,10 +35,10 @@ function buildFoundLetters(word) {
 
 export function letters(state = {}, action) {
   switch (action.type) {
-    case GAME_START:
-    case GAME_NEXT_START:
-    case FINISHED_PLAYING_SOUND:
-    case LETTER_CLICKED:
+    case types.GAME_START:
+    case types.GAME_NEXT_START:
+    case types.FINISHED_PLAYING_SOUND:
+    case types.LETTER_CLICKED:
       return buildLetters(GAME_LETTERS);
 
     default:
@@ -196,21 +196,25 @@ function playWord(state, availableWordPos) {
 
 export function game(state = defaultData(), action) {
   switch (action.type) {
-    case GAME_START:
+    case types.GAME_START:
       return startGame(state);
 
-    case GAME_NEXT_START:
+    case types.GAME_NEXT_START:
       state.gameNumber = state.gameNumber + 1;
       return startGame(state);
 
-    case FINISHED_PLAYING_SOUND:
+    case types.FINISHED_PLAYING_SOUND:
       return finishedPlayingSound(state);
 
-    case LETTER_CLICKED:
+    case types.LETTER_CLICKED:
       return letterClicked(state, action.letter);
 
-    case PLAY_WORD:
+    case types.PLAY_WORD:
       return playWord(state, action.key);
+
+    case types.ELEMENT_LOCATION:
+      console.log('element: ',action);
+      return state;
 
     default:
       return state;

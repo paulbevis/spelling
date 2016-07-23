@@ -15,22 +15,29 @@
  */
 'use strict';
 
-import React, {PropTypes} from 'react';
+import React, {PropTypes, Component} from 'react';
 
 const letterStyle = {
   color: 'white',
-  flexBasis: 'auto', 
+  flexBasis: 'auto',
   padding: '22px 35px',
   borderRadius: '3px',
   margin: '0 5px',
   background: '#7DA6A3'
 };
 
-const SubmittedLetter = (props)=> (<div style={letterStyle}>{props.letter}</div>);
+export default class SubmittedLetter extends Component {
+
+  render() {
+    return <div ref={(c) => this._component = c} style={letterStyle}>{this.props.letter}</div>;
+  }
+
+  componentDidMount() {
+    let {left, top} = this._component.getClientRects()[0];
+    this.props.onLetterElementCreated(this.props.index, left, top);
+  }
+}
 
 SubmittedLetter.propTypes = {
   letter: PropTypes.string.isRequired
 };
-
-export default SubmittedLetter;
-

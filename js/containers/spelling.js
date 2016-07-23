@@ -29,7 +29,7 @@ class Spelling extends Component {
   render() {
     const {
       letters, game, onFinishedPlaying, onLetterClicked, onPlayWord,
-      onStartGame, onStartNextGame, onStartSameGame
+      onStartGame, onStartNextGame, onStartSameGame, onLetterElementCreated
     } = this.props;
     const myStyle = {display: 'flex', flexDirection: 'column', height: '100%'};
     const titleBarStyle = {
@@ -42,28 +42,32 @@ class Spelling extends Component {
     };
 
     return (
-      <div>
-        <div style={titleBarStyle}>Spelling Game</div>
-        <div style={{display: 'flex', justifyContent: 'center'}}>
-          <div style={myStyle} className="spelling">
-            <GameOver status={this.props.game.status}
-                      numberCorrect={this.props.game.numberCorrect}
-                      totalWords={this.props.game.totalWords}
-                      onStartSameGame={()=>onStartSameGame()}
-                      onStartNextGame={()=>onStartNextGame()}/>
-            <PlayingArea game={game}
-                         onStartGame={()=>onStartGame()}
-                         onPlayWord={(key) => onPlayWord(key)}/>
-            <Letters key="letters"
-                     letters={letters}
-                     status={game.status}
-                     onLetterClicked={(value)=> onLetterClicked(value)}/>
-            <PlaySound sound={game.sound}
+      <MuiThemeProvider>
+        <div>
+          <div style={titleBarStyle}>Spelling Game</div>
+          <div style={{display: 'flex', justifyContent: 'center'}}>
+            <div style={myStyle} className="spelling">
+              <GameOver status={this.props.game.status}
+                        numberCorrect={this.props.game.numberCorrect}
+                        totalWords={this.props.game.totalWords}
+                        onStartSameGame={()=>onStartSameGame()}
+                        onStartNextGame={()=>onStartNextGame()}/>
+              <PlayingArea game={game}
+                           onStartGame={()=>onStartGame()}
+                           onPlayWord={(key) => onPlayWord(key)}
+                           onLetterElementCreated={(letter, xPos, yPos) => onLetterElementCreated(letter, xPos, yPos)}/>
+              <Letters key="letters"
+                       letters={letters}
                        status={game.status}
-                       onFinishedPlaying={() => onFinishedPlaying()}/>
+                       onLetterClicked={(value)=> onLetterClicked(value)}/>
+              <PlaySound sound={game.sound}
+                         status={game.status}
+                         onFinishedPlaying={() => onFinishedPlaying()}/>
+            </div>
           </div>
         </div>
-      </div>
+      </MuiThemeProvider>
+
     );
   }
 }
@@ -75,27 +79,14 @@ Spelling.propTypes = {
   }).isRequired
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onFinishedPlaying() {
-      dispatch(actions.finishedPlayingSound());
-    },
-    onLetterClicked(value) {
-      dispatch(actions.letterClicked(value));
-    },
-    onPlayWord(key){
-      dispatch(actions.playWord(key));
-    },
-    onStartGame(){
-      dispatch(actions.startGame());
-    },
-    onStartSameGame(){
-      dispatch(actions.startGame());
-    },
-    onStartNextGame(){
-      dispatch(actions.startNextGame());
-    }
-  };
+const mapDispatchToProps = {
+  onFinishedPlaying: actions.finishedPlayingSound,
+  onLetterClicked: actions.letterClicked,
+  onPlayWord: actions.playWord,
+  onStartGame: actions.startGame,
+  onStartSameGame: actions.startGame,
+  onStartNextGame: actions.startNextGame,
+  onLetterElementCreated: actions.letterElementCreated
 };
 
 const mapStateToProps = ({letters, game}) => {

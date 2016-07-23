@@ -30,7 +30,10 @@ export default class PlayingArea extends Component {
         </div>
         <div style={{display:'flex', flexGrow:'1'}}>
 
-          <SubmittedLetters foundLetters={this.props.game.foundLetters} status={this.props.game.status}/>
+          <SubmittedLetters foundLetters={this.props.game.foundLetters}
+                            status={this.props.game.status}
+                            onLetterElementCreated={this.props.onLetterElementCreated}
+          />
           <FoundWords foundWords={this.props.game.foundWords} status={this.props.game.status} onPlayWord={this.props.onPlayWord}/>
         </div>
       </div>

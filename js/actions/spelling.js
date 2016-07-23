@@ -39,3 +39,10 @@ export const playWord = (key) => ({
   type: types.PLAY_WORD,
   key
 });
+
+export const letterElementCreated = (elementIndex, xPos, yPos) => ({
+  type: types.ELEMENT_LOCATION,
+  elementIndex,
+  xPos,
+  yPos
+});

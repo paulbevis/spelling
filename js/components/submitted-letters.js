@@ -23,12 +23,17 @@ export default class SubmittedLetters extends Component {
   render() {
     let animating = this.props.status === 'Word Matched' ? 'animated bounce' : this.props.status === 'Word Not Matched' ? 'animated hinge' : '';
     return (
-      <div style={{display:'flex',flexGrow:'5',flexDirection:'column', justifyContent:'center'}}>
-        <div className="word-display" style={{display:'flex',  flexDirection:'row', justifyContent:'center', fontSize:'50px'}}>
-          <div className={animating} style={{display:'flex',  flexDirection:'row', justifyContent:'center'}}>
+      <div style={{display: 'flex', flexGrow: '5', flexDirection: 'column', justifyContent: 'center'}}>
+        <div className="word-display" style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', fontSize: '50px'}}>
+          <div className={animating} style={{display: 'flex', flexDirection: 'row', justifyContent: 'center'}}>
             {
               this.props.foundLetters.map((letter, index) =>
-                <SubmittedLetter key={'letter'+index} letter={letter} status={this.props.status}/>)
+                <SubmittedLetter key={'letter' + index}
+                                 letter={letter}
+                                 status={this.props.status}
+                                 index={index}
+                                 onLetterElementCreated={this.props.onLetterElementCreated}
+                />)
             }
           </div>
         </div>
