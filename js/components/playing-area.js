@@ -18,7 +18,7 @@
 import React, {Component, PropTypes} from 'react';
 import FoundWords from './found-words';
 import SubmittedLetters from './submitted-letters';
-import RaisedButton from 'material-ui/lib/raised-button';
+import RaisedButton from 'material-ui/RaisedButton';
 
 export default class PlayingArea extends Component {
 
