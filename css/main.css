@@ -1,5 +1,6 @@
 body {
-    background: #6DC2BB;
+    /*background: #6DC2BB;*/
+    background: lightslategrey;
     font-family: monospace;
     cursor: default;
 }
