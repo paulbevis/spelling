@@ -16,7 +16,7 @@
 'use strict';
 
 import React, {Component, PropTypes} from 'react';
-import RaisedButton from 'material-ui/RaisedButton';
+import RaisedButton from 'material-ui/lib/raised-button';
 
 export default class GameOver extends Component {
 

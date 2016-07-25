@@ -22,7 +22,6 @@ import {connect} from 'react-redux';
 import * as actions from '../actions/spelling';
 import PlaySound from '../components/play-sound';
 import GameOver from '../components/game-over';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 class Spelling extends Component {
 
@@ -42,7 +41,6 @@ class Spelling extends Component {
     };
 
     return (
-      <MuiThemeProvider>
         <div>
           <div style={titleBarStyle}>Spelling Game</div>
           <div style={{display: 'flex', justifyContent: 'center'}}>
@@ -66,7 +64,6 @@ class Spelling extends Component {
             </div>
           </div>
         </div>
-      </MuiThemeProvider>
 
     );
   }

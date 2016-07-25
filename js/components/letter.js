@@ -16,10 +16,9 @@
 'use strict';
 
 import React, {PropTypes, Component} from 'react';
-import RaisedButton from 'material-ui/RaisedButton';
+import RaisedButton from 'material-ui/lib/raised-button';
 import {WAITING_FOR_INPUT} from '../constants/data';
 import {Motion, spring} from 'react-motion';
-
 // const disabledColour = '#3A938C';
 class Letter extends Component {
 
@@ -28,6 +27,7 @@ class Letter extends Component {
     this.state = {open: false, buttonPressed: false};
     this.onRest = this.onRest.bind(this);
   }
+
 
   onRest() {
     setTimeout(() => {
@@ -49,7 +49,7 @@ class Letter extends Component {
         z: spring(this.state.open ? 10 : 0)
       }} onRest={this.onRest}>
         {({x, y, z}) =>
-          <RaisedButton label={this.props.letter}  primary={true}
+          <RaisedButton label={this.props.letter}  secondary={true}
                         disabled={!(this.props.status === WAITING_FOR_INPUT)}
 
                         style={{
