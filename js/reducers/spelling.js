@@ -213,7 +213,6 @@ export function game(state = defaultData(), action) {
       return playWord(state, action.key);
 
     case types.ELEMENT_LOCATION:
-      console.log('element: ',action);
       return state;
 
     default:
