@@ -21,8 +21,12 @@ import Letter from './letter';
 export default class Letters extends Component {
 
   lettersInRange(start) {
-    return this.props.letters.slice(start, start + 13).map((letter, index)=>
-      <Letter key={index} letter={letter} status={this.props.status} onLetterClicked={this.props.onLetterClicked}/>);
+    return this.props.letters.src.slice(start, start + 13).map((letter, index)=>
+      <Letter key={index}
+              letter={letter}
+              status={this.props.status}
+              onLetterClicked={this.props.onLetterClicked}
+              setDestinationLocation={this.props.setDestinationLocation}/>);
   }
 
   render() {

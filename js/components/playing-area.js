@@ -26,14 +26,13 @@ export default class PlayingArea extends Component {
     return (
       <div style={{display:this.props.game.status === 'Game Finished'?'none':'flex',flexDirection:'column', height:'100%'}}>
         <div className='button-controls' style={{marginTop:'10px'}}>
-          <RaisedButton label="Start" primary={true} onClick={this.props.onStartGame}/>
+          <RaisedButton label="Start"  secondary={true} onClick={this.props.onStartGame}/>
         </div>
         <div style={{display:'flex', flexGrow:'1'}}>
 
           <SubmittedLetters foundLetters={this.props.game.foundLetters}
                             status={this.props.game.status}
-                            onLetterElementCreated={this.props.onLetterElementCreated}
-          />
+                            onLetterElementCreated={this.props.onLetterElementCreated}/>
           <FoundWords foundWords={this.props.game.foundWords} status={this.props.game.status} onPlayWord={this.props.onPlayWord}/>
         </div>
       </div>

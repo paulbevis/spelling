@@ -30,9 +30,15 @@ export const finishedPlayingSound = () => ({
   type: types.FINISHED_PLAYING_SOUND
 });
 
-export const letterClicked = (letter) => ({
-  type: types.LETTER_CLICKED,
+export const setDestinationLocation = (letter) => ({
+  type: types.SUBMITTED_LOC_MAPPED_TO_LETTER,
   letter
+});
+
+export const letterClicked = (letter, elementIndex) => ({
+  type: types.LETTER_CLICKED,
+  letter,
+  elementIndex
 });
 
 export const playWord = (key) => ({
@@ -40,9 +46,8 @@ export const playWord = (key) => ({
   key
 });
 
-export const letterElementCreated = (elementIndex, xPos, yPos) => ({
-  type: types.ELEMENT_LOCATION,
+export const letterElementCreated = (elementIndex, rect) => ({
+  type: types.SUBMITTED_LETTER_LOCATION,
   elementIndex,
-  xPos,
-  yPos
+  rect
 });

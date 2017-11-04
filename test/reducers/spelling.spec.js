@@ -17,31 +17,49 @@
 'use strict';
 
 import expect from 'expect'
-import {letters, game} from '../../js/reducers/spelling'
-import {CELL_CLICK, GAME_START, GAME_SELECT, LAST_LETTER_FOUND, FINISHED_PLAYING_SOUND, PLAY_WORD, LETTER_CLICKED} from '../../js/constants/action-types'
+import {game, letterLocations} from '../../js/reducers/spelling'
+import letters from '../../js/reducers/letters'
 import {START_FOUND_LETTERS, START_LETTERS, GAME_LETTERS, WAITING_TO_PLAY_AUDIO, WAITING_FOR_INPUT} from '../../js/constants/data'
+import * as types from '../../js/constants/action-types';
 import {wordSet} from '../../js/domain/words'
 import deepFreeze from 'deep-freeze'
 import {difference} from 'ramda'
 
 describe('Spelling game', () => {
-  const letterButtonHyphens = START_LETTERS.split('');
+  const letterButtonHyphens = {
+    destinations: [],
+    src: [
+      {value: '-'}, {value: '-'}, {value: '-'},
+      {value: '-'}, {value: '-'}, {value: '-'},
+      {value: '-'}, {value: '-'}, {value: '-'},
+      {value: '-'}, {value: '-'}, {value: '-'},
+      {value: '-'}, {value: '-'}, {value: '-'},
+      {value: '-'}, {value: '-'}, {value: '-'},
+      {value: '-'}, {value: '-'}, {value: '-'},
+      {value: '-'}, {value: '-'}, {value: '-'},
+      {value: '-'}, {value: '-'}]
+  };
 
-  const letterButtonLetters = GAME_LETTERS.split('');
+  const letterButtonLetters = {
+    destinations: [],
+    src: [
+      {value: 'a'}, {value: 'b'}, {value: 'c'},
+      {value: 'd'}, {value: 'e'}, {value: 'f'},
+      {value: 'g'}, {value: 'h'}, {value: 'i'},
+      {value: 'j'}, {value: 'k'}, {value: 'l'},
+      {value: 'm'}, {value: 'n'}, {value: 'o'},
+      {value: 'p'}, {value: 'q'}, {value: 'r'},
+      {value: 's'}, {value: 't'}, {value: 'u'},
+      {value: 'v'}, {value: 'w'}, {value: 'x'},
+      {value: 'y'}, {value: 'z'}]
+  };
 
 
   const foundWords = [{name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}, {name: '---'}];
 
   describe('when creating letters state', () => {
-
-    it('when is first shown, should build list of letter objects to use, before starting', () => {
-        const result = letters(null, {});
-        expect(result).toEqual(letterButtonHyphens);
-      }
-    );
-
     it('when the start button is clicked, the letter buttons are populated with letters', () => {
-      const result = letters(null, {type: GAME_START});
+      const result = letters(null, {type: types.GAME_START});
       expect(result).toEqual(letterButtonLetters);
     });
   });
@@ -70,7 +88,7 @@ describe('Spelling game', () => {
         status: 'Intro',
         gameNumber: 0
       };
-      const state = game(initialState, {type: GAME_START});
+      const state = game(initialState, {type: types.GAME_START});
       expect(difference(state.foundLetters, expectState.foundLetters)).toEqual([]);
       expect(state.foundLetters).toEqual(expectState.foundLetters);
       expect(state.foundWords).toEqual(expectState.foundWords);
@@ -103,7 +121,7 @@ describe('Spelling game', () => {
       };
       expectedState.foundWords[0].nextAvailable = true;
 
-      const state = game(initialState, {type: FINISHED_PLAYING_SOUND});
+      const state = game(initialState, {type: types.FINISHED_PLAYING_SOUND});
 
       expect(state).toEqual(expectedState);
     });
@@ -131,7 +149,7 @@ describe('Spelling game', () => {
         gameNumber: 0
       };
 
-      const state = game(initialState, {type: PLAY_WORD, key: 3});
+      const state = game(initialState, {type: types.PLAY_WORD, key: 3});
 
       expect(state).toEqual(expectedState);
     });
@@ -160,7 +178,7 @@ describe('Spelling game', () => {
         gameNumber: 0
       };
 
-      const state = game(initialState, {type: FINISHED_PLAYING_SOUND});
+      const state = game(initialState, {type: types.FINISHED_PLAYING_SOUND});
 
       expect(state).toEqual(expectedState);
     });
@@ -189,7 +207,7 @@ describe('Spelling game', () => {
         gameNumber: 0
       };
 
-      const state = game(initialState, {type: LETTER_CLICKED, letter: 'h'});
+      const state = game(initialState, {type: types.LETTER_CLICKED, letter: 'h'});
       expect(state).toEqual(expectedState);
     });
 
@@ -217,7 +235,7 @@ describe('Spelling game', () => {
         gameNumber: 0
       };
 
-      const state = game(initialState, {type: LETTER_CLICKED, letter: 'u'});
+      const state = game(initialState, {type: types.LETTER_CLICKED, letter: 'u'});
       expect(state).toEqual(expectedState);
     });
 
@@ -247,7 +265,7 @@ describe('Spelling game', () => {
       };
       expectedState.foundWords[3] = {'name': 'hut', 'match': true};
 
-      const state = game(initialState, {type: LETTER_CLICKED, letter: 't'});
+      const state = game(initialState, {type: types.LETTER_CLICKED, letter: 't'});
       expect(state).toEqual(expectedState);
     });
 
@@ -277,7 +295,7 @@ describe('Spelling game', () => {
         gameNumber: 0
       };
 
-      const state = game(initialState, {type: FINISHED_PLAYING_SOUND});
+      const state = game(initialState, {type: types.FINISHED_PLAYING_SOUND});
 
       expect(state).toEqual(expectedState);
     });
@@ -308,7 +326,7 @@ describe('Spelling game', () => {
       };
       expectedState.foundWords[3] = {'name': 'hup', 'match': false};
 
-      const state = game(initialState, {type: LETTER_CLICKED, letter: 'p'});
+      const state = game(initialState, {type: types.LETTER_CLICKED, letter: 'p'});
       expect(state).toEqual(expectedState);
     });
 
@@ -338,7 +356,7 @@ describe('Spelling game', () => {
         gameNumber: 0
       };
 
-      const state = game(initialState, {type: FINISHED_PLAYING_SOUND});
+      const state = game(initialState, {type: types.FINISHED_PLAYING_SOUND});
 
       expect(state).toEqual(expectedState);
     });
@@ -369,7 +387,7 @@ describe('Spelling game', () => {
       };
       expectedState.foundWords[3] = {'name': 'hup', 'match': false};
 
-      const state = game(initialState, {type: LETTER_CLICKED, letter: 'p'});
+      const state = game(initialState, {type: types.LETTER_CLICKED, letter: 'p'});
       expect(state).toEqual(expectedState);
     });
 
@@ -409,7 +427,7 @@ describe('Spelling game', () => {
         gameNumber: 0
       };
 
-      const state = game(initialState, {type: FINISHED_PLAYING_SOUND});
+      const state = game(initialState, {type: types.FINISHED_PLAYING_SOUND});
 
       expect(state).toEqual(expectedState);
     });
@@ -447,7 +465,7 @@ describe('Spelling game', () => {
         gameNumber: 0
       };
 
-      const state = game(initialState, {type: FINISHED_PLAYING_SOUND});
+      const state = game(initialState, {type: types.FINISHED_PLAYING_SOUND});
 
       expect(state).toEqual(expectedState);
     });
@@ -479,7 +497,7 @@ describe('Spelling game', () => {
         gameNumber: 0,
         totalWords: 3
       };
-      const state = game(initialState, {type: FINISHED_PLAYING_SOUND});
+      const state = game(initialState, {type: types.FINISHED_PLAYING_SOUND});
 
       expect(state).toEqual(expectedState);
     });
@@ -511,7 +529,7 @@ describe('Spelling game', () => {
         gameNumber: 0,
         totalWords: 3
       };
-      const state = game(initialState, {type: FINISHED_PLAYING_SOUND});
+      const state = game(initialState, {type: types.FINISHED_PLAYING_SOUND});
 
       expect(state).toEqual(expectedState);
     });
@@ -542,7 +560,7 @@ describe('Spelling game', () => {
         gameNumber: 0,
         totalWords: 3
       };
-      const state = game(initialState, {type: FINISHED_PLAYING_SOUND});
+      const state = game(initialState, {type: types.FINISHED_PLAYING_SOUND});
 
       expect(state).toEqual(expectedState);
     });
@@ -575,9 +593,75 @@ describe('Spelling game', () => {
         gameNumber: 0,
         totalWords: 3
       };
-      const state = game(initialState, {type: FINISHED_PLAYING_SOUND});
+      const state = game(initialState, {type: types.FINISHED_PLAYING_SOUND});
 
       expect(state).toEqual(expectedState);
     });
+
+    it('updating element submitted letter element details', () => {
+      const initialState = {
+        currentDestination: 0,
+        destinations: [
+          {rect: {left: 0, top: 0}},
+          {rect: {left: 0, top: 0}},
+          {rect: {left: 0, top: 0}}
+        ]
+      };
+      deepFreeze(initialState);
+
+      const expectedState = {
+        currentDestination: 0,
+        destinations: [
+          {rect: {left: 100, top: 100}},
+          {rect: {left: 0, top: 0}},
+          {rect: {left: 0, top: 0}}
+        ]
+      };
+      const action = {
+        type: types.SUBMITTED_LETTER_LOCATION,
+        elementIndex: 0,
+        rect: {
+          left: 100, top: 100
+        }
+      };
+      const state = letterLocations(initialState, action);
+
+      expect(state).toEqual(expectedState);
+    });
+
+
+    it('updating element submitted letter element details twice to ensure that the entry is not duplicated', () => {
+      const initialState = {
+        currentDestination: 0,
+        destinations: [
+          {rect: {left: 0, top: 0}},
+          {rect: {left: 0, top: 0}},
+          {rect: {left: 0, top: 0}}
+        ]
+      };
+      deepFreeze(initialState);
+
+      const expectedState = {
+        currentDestination: 0,
+        destinations: [
+          {rect: {left: 100, top: 100}},
+          {rect: {left: 0, top: 0}},
+          {rect: {left: 0, top: 0}}
+        ]
+      };
+      const action = {
+        type: types.SUBMITTED_LETTER_LOCATION,
+        elementIndex: 0,
+        rect: {
+          left: 100, top: 100
+        }
+      };
+      const state = letterLocations(initialState, action);
+      expect(state).toEqual(expectedState);
+
+      const newState = letterLocations(state, action);
+      expect(newState).toEqual(expectedState);
+    });
   });
-});
+})
+;

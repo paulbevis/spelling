@@ -16,9 +16,9 @@
 'use strict';
 
 import React, {Component, PropTypes} from 'react';
+import {connect} from 'react-redux';
 import Letters from '../components/letters';
 import PlayingArea from '../components/playing-area';
-import {connect} from 'react-redux';
 import * as actions from '../actions/spelling';
 import PlaySound from '../components/play-sound';
 import GameOver from '../components/game-over';
@@ -27,8 +27,9 @@ class Spelling extends Component {
 
   render() {
     const {
-      letters, game, onFinishedPlaying, onLetterClicked, onPlayWord,
-      onStartGame, onStartNextGame, onStartSameGame, onLetterElementCreated
+      letters, game, onFinishedPlaying, onLetterClicked,
+      onPlayWord, onStartGame, onStartNextGame, onStartSameGame,
+      onLetterElementCreated, setDestinationLocation
     } = this.props;
     const myStyle = {display: 'flex', flexDirection: 'column', height: '100%'};
     const titleBarStyle = {
@@ -41,29 +42,30 @@ class Spelling extends Component {
     };
 
     return (
-        <div>
-          <div style={titleBarStyle}>Spelling Game</div>
-          <div style={{display: 'flex', justifyContent: 'center'}}>
-            <div style={myStyle} className="spelling">
-              <GameOver status={this.props.game.status}
-                        numberCorrect={this.props.game.numberCorrect}
-                        totalWords={this.props.game.totalWords}
-                        onStartSameGame={()=>onStartSameGame()}
-                        onStartNextGame={()=>onStartNextGame()}/>
-              <PlayingArea game={game}
-                           onStartGame={()=>onStartGame()}
-                           onPlayWord={(key) => onPlayWord(key)}
-                           onLetterElementCreated={(letter, xPos, yPos) => onLetterElementCreated(letter, xPos, yPos)}/>
-              <Letters key="letters"
-                       letters={letters}
+      <div>
+        <div style={titleBarStyle}>Spelling Game</div>
+        <div style={{display: 'flex', justifyContent: 'center'}}>
+          <div style={myStyle} className="spelling">
+            <GameOver status={this.props.game.status}
+                      numberCorrect={this.props.game.numberCorrect}
+                      totalWords={this.props.game.totalWords}
+                      onStartSameGame={()=>onStartSameGame()}
+                      onStartNextGame={()=>onStartNextGame()}/>
+            <PlayingArea game={game}
+                         onStartGame={()=>onStartGame()}
+                         onPlayWord={(key) => onPlayWord(key)}
+                         onLetterElementCreated={(letter, rect) => onLetterElementCreated(letter, rect)}/>
+            <Letters key="letters"
+                     letters={letters}
+                     status={game.status}
+                     onLetterClicked={(value, elementIndex)=> onLetterClicked(value, elementIndex)}
+                     setDestinationLocation={(letter)=> setDestinationLocation(letter)}/>
+            <PlaySound sound={game.sound}
                        status={game.status}
-                       onLetterClicked={(value)=> onLetterClicked(value)}/>
-              <PlaySound sound={game.sound}
-                         status={game.status}
-                         onFinishedPlaying={() => onFinishedPlaying()}/>
-            </div>
+                       onFinishedPlaying={() => onFinishedPlaying()}/>
           </div>
         </div>
+      </div>
 
     );
   }
@@ -79,6 +81,7 @@ Spelling.propTypes = {
 const mapDispatchToProps = {
   onFinishedPlaying: actions.finishedPlayingSound,
   onLetterClicked: actions.letterClicked,
+  setDestinationLocation: actions.setDestinationLocation,
   onPlayWord: actions.playWord,
   onStartGame: actions.startGame,
   onStartSameGame: actions.startGame,

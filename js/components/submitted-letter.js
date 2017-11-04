@@ -32,9 +32,21 @@ export default class SubmittedLetter extends Component {
     return <div ref={(c) => this._component = c} style={letterStyle}>{this.props.letter}</div>;
   }
 
+  shouldComponentUpdate(nextProps) {
+    return nextProps.letter !== this.props.letter;
+  }
+
+  componentDidUpdate() {
+    this.updateLocation();
+  }
+
   componentDidMount() {
+    this.updateLocation();
+  }
+
+  updateLocation() {
     let {left, top} = this._component.getClientRects()[0];
-    this.props.onLetterElementCreated(this.props.index, left, top);
+    this.props.onLetterElementCreated(this.props.index, {left, top});
   }
 }
 

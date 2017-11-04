@@ -32,8 +32,7 @@ export default class SubmittedLetters extends Component {
                                  letter={letter}
                                  status={this.props.status}
                                  index={index}
-                                 onLetterElementCreated={this.props.onLetterElementCreated}
-                />)
+                                 onLetterElementCreated={this.props.onLetterElementCreated}/>)
             }
           </div>
         </div>

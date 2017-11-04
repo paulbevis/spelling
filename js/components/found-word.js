@@ -33,7 +33,7 @@ export default class FoundWord extends Component {
       margin: '2px',
       fontSize: '22px',
       lineHeight: '34px',
-      background: this.props.word.nextAvailable ? '#ff4081' : '#7DA6A3',
+      background: this.props.word.nextAvailable ? '#00bcd4' : '#7DA6A3',
       borderRadius: '2px'
     };
     const pulsingClasses = this.props.word.nextAvailable ? 'pulse animated infinite' : '';

@@ -16,14 +16,11 @@
 'use strict';
 
 import {combineReducers} from 'redux';
-import {GAME_LETTERS, START_LETTERS, START_FOUND_LETTERS, WAITING_TO_PLAY_AUDIO, WAITING_FOR_INPUT} from '../constants/data';
+import {START_FOUND_LETTERS, WAITING_TO_PLAY_AUDIO, WAITING_FOR_INPUT} from '../constants/data';
 import * as types from '../constants/action-types';
 import {wordSet} from '../domain/words';
 import {prop, findIndex, length, filter, map} from 'ramda';
-
-function buildLetters(letters) {
-  return letters.split('');
-}
+import letters from './letters';
 
 function buildFoundWords(availableWords) {
   return map((word) => ({name: word.replace(/\w/g, '-')}), availableWords);
@@ -31,19 +28,6 @@ function buildFoundWords(availableWords) {
 
 function buildFoundLetters(word) {
   return word.name.replace(/\w/g, '-').split('');
-}
-
-export function letters(state = {}, action) {
-  switch (action.type) {
-    case types.GAME_START:
-    case types.GAME_NEXT_START:
-    case types.FINISHED_PLAYING_SOUND:
-    case types.LETTER_CLICKED:
-      return buildLetters(GAME_LETTERS);
-
-    default:
-      return buildLetters(START_LETTERS);
-  }
 }
 
 function defaultData() {
@@ -212,9 +196,6 @@ export function game(state = defaultData(), action) {
     case types.PLAY_WORD:
       return playWord(state, action.key);
 
-    case types.ELEMENT_LOCATION:
-      return state;
-
     default:
       return state;
   }
@@ -222,7 +203,6 @@ export function game(state = defaultData(), action) {
 
 const spellingAppReducers = combineReducers({
   letters,
-  game
-});
+  game});
 
 export default spellingAppReducers;
